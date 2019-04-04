@@ -26,7 +26,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     protected val context: Context = itemView.context
 
     /**
-     * Bind message to the item.
+     * Bind a message to current item.
      */
     abstract fun onBind(message: IMessage)
 
