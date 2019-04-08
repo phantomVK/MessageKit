@@ -61,12 +61,14 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set user avatar. Override this if needed.
      */
     open fun loadAvatar() {
+        messageResLoader?.loadAvatar(context, 0, avatar)
     }
 
     /**
      * Set user display name. Override this if needed.
      */
     open fun setDisplayName(message: IMessage) {
+        username?.text = message.getSender()
     }
 
     /**

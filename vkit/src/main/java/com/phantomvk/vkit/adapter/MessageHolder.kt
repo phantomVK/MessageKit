@@ -1,0 +1,135 @@
+package com.phantomvk.vkit.adapter
+
+import android.util.SparseArray
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.R
+import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
+import com.phantomvk.vkit.adapter.holder.TextViewHolder
+import com.phantomvk.vkit.listener.IMessageResLoader
+import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.model.Message
+
+class MessageHolders(private val mInflater: LayoutInflater) {
+    /**
+     * Get view holder.
+     */
+    fun getHolder(parent: ViewGroup, viewType: Int, resLoader: IMessageResLoader? = null): AbstractViewHolder {
+        val isSender = viewType > 0
+        val absViewType = Math.abs(viewType)
+        val config = sContentTypes.get(absViewType)
+
+        return if (config != null) {
+            getHolder(parent, config.layoutId, config.holder, absViewType, isSender, resLoader)
+        } else {
+            getHolder(parent, R.layout.vkit_layout_message_text, ::TextViewHolder, absViewType, isSender, resLoader)
+        }
+    }
+
+    /**
+     * Get view holder.
+     */
+    private fun getHolder(
+        parent: ViewGroup, @LayoutRes layout: Int,
+        holder: (View) -> AbstractViewHolder,
+        viewType: Int,
+        isSender: Boolean,
+        resLoader: IMessageResLoader? = null
+    ): AbstractViewHolder {
+        return when (viewType) {
+            HOLDER_NOTICE -> holder.invoke(mInflater.inflate(layout, parent, false))
+
+            // Text, Image, Video, Audio and etc.
+            else -> {
+                // Inflate the frame then find the container.
+                val frame =
+                    if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
+                val frameView = mInflater.inflate(frame, parent, false)
+                val container = frameView.findViewById<LinearLayout>(R.id.container)
+
+                // Inflate the body and add to the container.
+                val bodyView = mInflater.inflate(layout, container, false)
+                bodyView.id = R.id.msg_body
+                container.addView(bodyView, if (isSender) container.childCount else 0)
+                // Init ViewHolder.
+                holder.invoke(frameView).init(isSender, resLoader = resLoader)
+            }
+        }
+    }
+
+    /**
+     * Bind view.
+     */
+    fun onBind(holder: RecyclerView.ViewHolder, message: IMessage) {
+        (holder as AbstractViewHolder).onBind(message)
+    }
+
+    /**
+     * Get view type by Message's msgType.
+     */
+    fun getViewType(message: IMessage, isSender: Boolean): Int {
+        val viewType = sViewType[message.getMsgType()] ?: HOLDER_TEXT
+        return if (isSender) viewType else -viewType
+    }
+
+    companion object {
+        private const val HOLDER_TEXT = 1
+        private const val HOLDER_URL = 2
+        private const val HOLDER_LOCATION = 3
+        private const val HOLDER_NOTICE = 4
+        private const val HOLDER_FILE = 5
+        private const val HOLDER_AUDIO = 6
+        private const val HOLDER_IMAGE = 7
+        private const val HOLDER_VIDEO = 8
+
+        /**
+         * Get view type id by message's type string.
+         */
+        private val sViewType = HashMap<String, Int>().apply {
+            put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
+            put(Message.MESSAGE_TYPE_URL, HOLDER_URL)
+            put(Message.MESSAGE_TYPE_LOCATION, HOLDER_LOCATION)
+            put(Message.MESSAGE_TYPE_NOTICE, HOLDER_NOTICE)
+            put(Message.MESSAGE_TYPE_FILE, HOLDER_FILE)
+            put(Message.MESSAGE_TYPE_IMAGE, HOLDER_IMAGE)
+            put(Message.MESSAGE_TYPE_VIDEO, HOLDER_VIDEO)
+        }
+
+        /**
+         * Content types array.
+         */
+        private val sContentTypes = SparseArray<HolderConfig>().apply {
+            put(MessageHolders.HOLDER_TEXT, HolderConfig(R.layout.vkit_layout_message_text, ::TextViewHolder))
+//            put(MessageHolders.HOLDER_URL, HolderConfig(R.layout.vkit_layout_message_url, ::UrlViewHolder))
+//            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
+//            put(MessageHolders.HOLDER_NOTICE, HolderConfig(R.layout.vkit_layout_message_notice, ::NoticeViewHolder, uniqueViewId = true))
+//            put(MessageHolders.HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
+//            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
+//            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
+        }
+
+        /**
+         * Set mac recycled views count.
+         */
+        fun setMaxRecycledViews(view: RecyclerView?) {
+            if (view == null) return
+            val size = sContentTypes.size()
+            for (i in 0 until size) {
+                val viewId = sContentTypes.keyAt(i)
+                val config = sContentTypes.get(viewId)
+                val max = config.maxRecycledViews
+
+                if (config.uniqueViewId) {
+                    view.recycledViewPool.setMaxRecycledViews(viewId, max)
+                } else {
+                    view.recycledViewPool.setMaxRecycledViews(viewId, max)
+                    view.recycledViewPool.setMaxRecycledViews(-viewId, max)
+                }
+            }
+        }
+    }
+}
