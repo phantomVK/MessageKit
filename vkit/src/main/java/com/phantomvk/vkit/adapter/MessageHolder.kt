@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
+import com.phantomvk.vkit.adapter.holder.MediaViewHolder
 import com.phantomvk.vkit.adapter.holder.TextViewHolder
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
@@ -95,6 +96,7 @@ class MessageHolders(private val mInflater: LayoutInflater) {
             put(Message.MESSAGE_TYPE_LOCATION, HOLDER_LOCATION)
             put(Message.MESSAGE_TYPE_NOTICE, HOLDER_NOTICE)
             put(Message.MESSAGE_TYPE_FILE, HOLDER_FILE)
+            put(Message.MESSAGE_TYPE_AUDIO, HOLDER_AUDIO)
             put(Message.MESSAGE_TYPE_IMAGE, HOLDER_IMAGE)
             put(Message.MESSAGE_TYPE_VIDEO, HOLDER_VIDEO)
         }
@@ -108,8 +110,9 @@ class MessageHolders(private val mInflater: LayoutInflater) {
 //            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
 //            put(MessageHolders.HOLDER_NOTICE, HolderConfig(R.layout.vkit_layout_message_notice, ::NoticeViewHolder, uniqueViewId = true))
 //            put(MessageHolders.HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
-//            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
-//            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
+//            put(MessageHolders.HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
+            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
+            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
         }
 
         /**
