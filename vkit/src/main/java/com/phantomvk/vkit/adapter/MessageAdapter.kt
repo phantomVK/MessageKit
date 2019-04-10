@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
-class MessageAdapter(context: Context, inflater: LayoutInflater, val resLoader: IMessageResLoader? = null) :
+class MessageAdapter(context: Context, inflater: LayoutInflater, private val resLoader: IMessageResLoader? = null) :
     AbstractMessageAdapter<RecyclerView.ViewHolder>() {
     /**
      * Message holders to inflate view by message's type.
@@ -20,6 +20,16 @@ class MessageAdapter(context: Context, inflater: LayoutInflater, val resLoader: 
      * All received messages.
      */
     private val mMessages = ArrayList<IMessage>()
+
+    /**
+     * Min size for displaying thumbnail.
+     */
+    val minSize = 48 * context.resources.displayMetrics.density
+
+    /**
+     * Max size for displaying thumbnail.
+     */
+    val maxSize = 134 * context.resources.displayMetrics.density
 
     /**
      * Max width pixel for displaying ImageMessage.
@@ -33,8 +43,7 @@ class MessageAdapter(context: Context, inflater: LayoutInflater, val resLoader: 
 
     init {
         val point = Point(0, 0)
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        wm.defaultDisplay?.getSize(point) ?: -1
+        (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
 
         if (point.x < point.y) { // landscape
             maxImageWidth = Math.round(point.x * 0.6F)
