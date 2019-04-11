@@ -34,13 +34,11 @@ class MessageHolders(private val mInflater: LayoutInflater) {
     /**
      * Get view holder.
      */
-    private fun getHolder(
-        parent: ViewGroup, @LayoutRes layout: Int,
-        holder: (View) -> AbstractViewHolder,
-        viewType: Int,
-        isSender: Boolean,
-        resLoader: IMessageResLoader? = null
-    ): AbstractViewHolder {
+    private fun getHolder(parent: ViewGroup, @LayoutRes layout: Int,
+                          holder: (View) -> AbstractViewHolder,
+                          viewType: Int,
+                          isSender: Boolean,
+                          resLoader: IMessageResLoader? = null): AbstractViewHolder {
         return when (viewType) {
             HOLDER_NOTICE -> holder.invoke(mInflater.inflate(layout, parent, false))
 

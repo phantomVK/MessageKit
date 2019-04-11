@@ -8,12 +8,10 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
      * Calculate the size of thumbnail ImageView.
      */
-    private fun calculateSize(
-        point: Point,
-        width: Int, height: Int,
-        maxWidth: Int, maxHeight: Int,
-        minSize: Float, maxSize: Float
-    ) {
+    private fun calculateSize(point: Point,
+                              width: Int, height: Int,
+                              maxWidth: Int, maxHeight: Int,
+                              minSize: Float, maxSize: Float) {
         var scale = if (width / height > maxWidth / maxHeight) {
             maxWidth.toFloat() / width
         } else {

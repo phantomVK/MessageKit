@@ -1,20 +1,14 @@
 package com.phantomvk.messagekit
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.annotation.DrawableRes
-import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.phantomvk.vkit.adapter.MessageAdapter
-import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.TextMessage
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), IMessageResLoader {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mAdapter: MessageAdapter
 
@@ -27,9 +21,10 @@ class MainActivity : AppCompatActivity(), IMessageResLoader {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mAdapter = MessageAdapter(this, layoutInflater, this)
+        mAdapter = MessageAdapter(this, layoutInflater, MessageResLoader)
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
+        messageView.setRecycledViewPool(RecyclerViewPool)
 
         init()
     }
@@ -56,17 +51,6 @@ class MainActivity : AppCompatActivity(), IMessageResLoader {
         mAdapter.add(shortText2, false)
     }
 
-    override fun loadAvatar(context: Context, image: String, view: ImageView) {
-        Glide.with(context)
-            .asDrawable()
-            .load(image)
-            .into(view)
-    }
-
-    override fun loadAvatar(context: Context, @RawRes @DrawableRes resId: Int, view: ImageView) {
-        Glide.with(context)
-            .asDrawable()
-            .load(R.drawable.ic_launcher_background)
-            .into(view)
+    private fun addImage(){
     }
 }

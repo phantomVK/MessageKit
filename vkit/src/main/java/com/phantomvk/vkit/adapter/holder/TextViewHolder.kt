@@ -1,5 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import com.phantomvk.vkit.R

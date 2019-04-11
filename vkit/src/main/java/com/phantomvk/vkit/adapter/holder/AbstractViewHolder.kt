@@ -39,11 +39,9 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Init params.
      */
-    open fun init(
-        sender: Boolean,
-        listener: IMessageItemListener? = null,
-        resLoader: IMessageResLoader? = null
-    ): AbstractViewHolder {
+    open fun init(sender: Boolean,
+                  listener: IMessageItemListener? = null,
+                  resLoader: IMessageResLoader? = null): AbstractViewHolder {
         isSender = sender
         messageItemListener = listener
         messageResLoader = resLoader
