@@ -1,5 +1,6 @@
 package com.phantomvk.vkit.adapter
 
+import android.content.Context
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -63,8 +64,8 @@ class MessageHolders(private val mInflater: LayoutInflater) {
     /**
      * Bind view.
      */
-    fun onBind(holder: RecyclerView.ViewHolder, message: IMessage) {
-        (holder as AbstractViewHolder).onBind(message)
+    fun onBind(context: Context,holder: RecyclerView.ViewHolder, message: IMessage) {
+        (holder as AbstractViewHolder).onBind(context,message)
     }
 
     /**

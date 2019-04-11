@@ -1,5 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
+import android.content.Context
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -51,8 +52,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Template Pattern to bind ViewHolder.
      */
-    override fun onBind(message: IMessage) {
-        loadAvatar()
+    override fun onBind(context: Context, message: IMessage) {
+        loadAvatar(context)
         setDisplayName(message)
         setBackground()
     }
@@ -60,7 +61,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Set user avatar. Override this if needed.
      */
-    open fun loadAvatar() {
+    open fun loadAvatar(context: Context) {
         messageResLoader?.loadAvatar(context, 0, avatar)
     }
 

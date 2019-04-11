@@ -1,20 +1,22 @@
 package com.phantomvk.vkit.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Point
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
-class MessageAdapter(context: Context, inflater: LayoutInflater, private val resLoader: IMessageResLoader? = null) :
-    AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+class MessageAdapter(private val activity: Activity,
+                     private val resLoader: IMessageResLoader? = null)
+    : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+
     /**
      * Message holders to inflate view by message's type.
      */
-    private val mHolders = MessageHolders(inflater)
+    private val mHolders = MessageHolders(activity.layoutInflater)
 
     /**
      * All received messages.
@@ -24,12 +26,12 @@ class MessageAdapter(context: Context, inflater: LayoutInflater, private val res
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * context.resources.displayMetrics.density
+    val minSize = 48 * activity.resources.displayMetrics.density
 
     /**
      * Max size for displaying thumbnail.
      */
-    val maxSize = 134 * context.resources.displayMetrics.density
+    val maxSize = 134 * activity.resources.displayMetrics.density
 
     /**
      * Max width pixel for displaying ImageMessage.
@@ -43,7 +45,7 @@ class MessageAdapter(context: Context, inflater: LayoutInflater, private val res
 
     init {
         val point = Point(0, 0)
-        (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+        (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
 
         if (point.x < point.y) { // landscape
             maxImageWidth = Math.round(point.x * 0.6F)
@@ -63,7 +65,7 @@ class MessageAdapter(context: Context, inflater: LayoutInflater, private val res
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        mHolders.onBind(holder, mMessages[position])
+        mHolders.onBind(activity, holder, mMessages[position])
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -1,15 +1,18 @@
-package com.phantomvk.messagekit
+package com.phantomvk.messagekit.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.messagekit.R
+import com.phantomvk.messagekit.tools.MessageResLoader
+import com.phantomvk.messagekit.tools.RecyclerViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
+import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.TextMessage
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_list.*
 
-class MainActivity : AppCompatActivity() {
-
+class MessagesActivity : AppCompatActivity() {
     private lateinit var mAdapter: MessageAdapter
 
     /**
@@ -19,12 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_list)
 
-        mAdapter = MessageAdapter(this, layoutInflater, MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageResLoader)
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setRecycledViewPool(RecyclerViewPool)
+        MessageHolders.setMaxRecycledViews(messageView)
 
         init()
     }
@@ -37,20 +41,36 @@ class MainActivity : AppCompatActivity() {
         val longText = TextMessage("1234567890ABCDEFG_测试你好")
         longText.setSender("Mike")
         mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
 
         val shortTextMe = TextMessage("ABCD")
         shortTextMe.setSender("Mike")
+        mAdapter.add(shortTextMe, false)
+        mAdapter.add(shortTextMe, false)
+        mAdapter.add(shortTextMe, false)
+        mAdapter.add(shortTextMe, false)
         mAdapter.add(shortTextMe, false)
 
         val longText2 = TextMessage("1234567890ABCDEFG_测试你好")
         longText2.setSender("John")
         mAdapter.add(longText2, false)
+        mAdapter.add(longText2, false)
+        mAdapter.add(longText2, false)
+        mAdapter.add(longText2, false)
+        mAdapter.add(longText2, false)
 
         val shortText2 = TextMessage("ABCD")
         shortText2.setSender("John")
         mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
     }
 
-    private fun addImage(){
+    private fun addImage() {
     }
 }

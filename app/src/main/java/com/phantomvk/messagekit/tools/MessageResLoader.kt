@@ -1,10 +1,11 @@
-package com.phantomvk.messagekit
+package com.phantomvk.messagekit.tools
 
 import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import com.bumptech.glide.Glide
+import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.listener.IMessageResLoader
 
 object MessageResLoader : IMessageResLoader {

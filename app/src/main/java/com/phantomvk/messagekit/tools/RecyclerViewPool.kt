@@ -1,4 +1,4 @@
-package com.phantomvk.messagekit
+package com.phantomvk.messagekit.tools
 
 import androidx.recyclerview.widget.RecyclerView
 

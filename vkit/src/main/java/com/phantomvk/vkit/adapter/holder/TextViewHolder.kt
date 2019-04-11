@@ -1,6 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
-import android.view.MotionEvent
+import android.content.Context
 import android.view.View
 import android.widget.TextView
 import com.phantomvk.vkit.R
@@ -12,8 +12,8 @@ class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val text: TextView = itemView.findViewById(R.id.text)
 
-    override fun onBind(message: IMessage) {
-        super.onBind(message)
+    override fun onBind(context: Context, message: IMessage) {
+        super.onBind(context, message)
         text.text = message.getBody()
     }
 }

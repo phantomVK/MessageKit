@@ -5,10 +5,12 @@
        android:layout_height="match_parent"
        tools:context=".view.MainActivity">
 
-    <Button
-        android:id="@+id/start"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageView"
         android:layout_width="match_parent"
-        android:text="Text"
-        android:textAllCaps="false"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/vkit_layout_message_text"/>
 </merge>
