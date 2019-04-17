@@ -9,9 +9,7 @@ import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.R
-import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
-import com.phantomvk.vkit.adapter.holder.MediaViewHolder
-import com.phantomvk.vkit.adapter.holder.TextViewHolder
+import com.phantomvk.vkit.adapter.holder.*
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.model.Message
@@ -28,7 +26,7 @@ class MessageHolders(private val mInflater: LayoutInflater) {
         return if (config != null) {
             getHolder(parent, config.layoutId, config.holder, absViewType, isSender, resLoader)
         } else {
-            getHolder(parent, R.layout.vkit_layout_message_text, ::TextViewHolder, absViewType, isSender, resLoader)
+            getHolder(parent, R.layout.vkit_layout_msg_text, ::TextViewHolder, absViewType, isSender, resLoader)
         }
     }
 
@@ -64,8 +62,8 @@ class MessageHolders(private val mInflater: LayoutInflater) {
     /**
      * Bind view.
      */
-    fun onBind(context: Context,holder: RecyclerView.ViewHolder, message: IMessage) {
-        (holder as AbstractViewHolder).onBind(context,message)
+    fun onBind(context: Context, holder: RecyclerView.ViewHolder, message: IMessage) {
+        (holder as AbstractViewHolder).onBind(context, message)
     }
 
     /**
@@ -104,14 +102,14 @@ class MessageHolders(private val mInflater: LayoutInflater) {
          * Content types array.
          */
         private val sContentTypes = SparseArray<HolderConfig>().apply {
-            put(MessageHolders.HOLDER_TEXT, HolderConfig(R.layout.vkit_layout_message_text, ::TextViewHolder))
-//            put(MessageHolders.HOLDER_URL, HolderConfig(R.layout.vkit_layout_message_url, ::UrlViewHolder))
+            put(MessageHolders.HOLDER_TEXT, HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder))
+            put(MessageHolders.HOLDER_URL, HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder))
 //            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
-//            put(MessageHolders.HOLDER_NOTICE, HolderConfig(R.layout.vkit_layout_message_notice, ::NoticeViewHolder, uniqueViewId = true))
+            put(MessageHolders.HOLDER_NOTICE, HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true))
 //            put(MessageHolders.HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
 //            put(MessageHolders.HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
-            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
-            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_message_media, ::MediaViewHolder))
+            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder))
+            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder))
         }
 
         /**
@@ -125,7 +123,7 @@ class MessageHolders(private val mInflater: LayoutInflater) {
                 val config = sContentTypes.get(viewId)
                 val max = config.maxRecycledViews
 
-                if (config.uniqueViewId) {
+                if (config.unique) {
                     view.recycledViewPool.setMaxRecycledViews(viewId, max)
                 } else {
                     view.recycledViewPool.setMaxRecycledViews(viewId, max)

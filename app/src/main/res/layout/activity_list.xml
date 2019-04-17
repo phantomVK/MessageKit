@@ -12,5 +12,5 @@
         android:background="@android:color/white"
         android:overScrollMode="never"
         android:scrollbars="vertical"
-        tools:listitem="@layout/vkit_layout_message_text"/>
+        tools:listitem="@layout/vkit_layout_msg_text"/>
 </merge>
