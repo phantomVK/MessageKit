@@ -27,13 +27,14 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
      * Website description, optional.
      */
-    private val mDescription: TextView? = itemView.findViewById(R.id.description)
+    private val mDescription: TextView = itemView.findViewById(R.id.description)
 
     override fun onBind(context: Context, message: IMessage) {
         super.onBind(context, message)
         val urlMessage = message as UrlMessage
         mTitle.text = urlMessage.title
         mSource.text = urlMessage.source ?: urlMessage.domain ?: ""
-        mDescription?.text = urlMessage.description
+        mDescription.text = urlMessage.description
+        messageResLoader?.loadImage(context, "", mImage)
     }
 }

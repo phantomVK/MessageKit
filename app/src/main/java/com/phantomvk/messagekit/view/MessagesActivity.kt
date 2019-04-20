@@ -10,6 +10,7 @@ import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.TextMessage
+import com.phantomvk.vkit.model.UrlMessage
 import kotlinx.android.synthetic.main.activity_list.*
 
 class MessagesActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class MessagesActivity : AppCompatActivity() {
 
     private fun init() {
         addText()
+        addUrl()
     }
 
     private fun addText() {
@@ -72,5 +74,30 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun addImage() {
+    }
+
+    private fun addUrl() {
+        val url = UrlMessage("Google", "https://www.google.com")
+        url.setSender("Mike")
+        url.description = "This is a website.This is a website.This is a website.This is a website.This is a website." +
+                "This is a website.This is a website.This is a website.This is a website.This is a website."
+        url.domain = "www.google.com"
+        mAdapter.add(url)
+        mAdapter.add(url)
+        mAdapter.add(url)
+        mAdapter.add(url)
+        mAdapter.add(url)
+        mAdapter.add(url)
+
+        val url2 = UrlMessage("Google", "https://www.google.com")
+        url2.setSender("John")
+        url2.description = "This is a website."
+        url2.domain = "www.google.com"
+        mAdapter.add(url2)
+        mAdapter.add(url2)
+        mAdapter.add(url2)
+        mAdapter.add(url2)
+        mAdapter.add(url2)
+        mAdapter.add(url2)
     }
 }
