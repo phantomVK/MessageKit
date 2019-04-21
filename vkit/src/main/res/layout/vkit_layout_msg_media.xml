@@ -6,14 +6,14 @@
              tools:targetApi="lollipop">
 
     <ImageView
-        android:id="@+id/msg_image"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#eaeaea"
         tools:ignore="ContentDescription"/>
 
     <ImageView
-        android:id="@+id/ic_play"
+        android:id="@+id/play"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_gravity="center"

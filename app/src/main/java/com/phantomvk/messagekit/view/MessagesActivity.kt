@@ -79,8 +79,11 @@ class MessagesActivity : AppCompatActivity() {
     private fun addUrl() {
         val url = UrlMessage("Google", "https://www.google.com")
         url.setSender("Mike")
-        url.description = "This is a website.This is a website.This is a website.This is a website.This is a website." +
-                "This is a website.This is a website.This is a website.This is a website.This is a website."
+        url.description = "This is a website.This is a website." +
+                "This is a website.This is a website." +
+                "This is a website.This is a website." +
+                "This is a website.This is a website." +
+                "This is a website.This is a website."
         url.domain = "www.google.com"
         mAdapter.add(url)
         mAdapter.add(url)
