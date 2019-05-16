@@ -19,12 +19,12 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Message item click listener.
      */
-    protected var messageItemListener: IMessageItemListener? = null
+    protected lateinit var messageItemListener: IMessageItemListener
 
     /**
      * Message resource loader.
      */
-    protected var messageResLoader: IMessageResLoader? = null
+    protected lateinit var messageResLoader: IMessageResLoader
 
     /**
      * Bind a message to current item.
@@ -35,8 +35,8 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
      * Init params.
      */
     open fun init(sender: Boolean,
-                  listener: IMessageItemListener? = null,
-                  resLoader: IMessageResLoader? = null): AbstractViewHolder {
+                  listener: IMessageItemListener,
+                  resLoader: IMessageResLoader): AbstractViewHolder {
         isSender = sender
         messageItemListener = listener
         messageResLoader = resLoader

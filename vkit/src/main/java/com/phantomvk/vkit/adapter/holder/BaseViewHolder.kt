@@ -62,7 +62,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set user avatar. Override this if needed.
      */
     open fun loadAvatar(context: Context) {
-        messageResLoader?.loadAvatar(context, 0, avatar)
+        messageResLoader.loadAvatar(context, 0, avatar)
     }
 
     /**

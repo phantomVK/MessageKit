@@ -6,17 +6,19 @@ import android.graphics.Point
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
 class MessageAdapter(private val activity: Activity,
-                     private val resLoader: IMessageResLoader? = null)
+                     private val  mItemListener: IMessageItemListener,
+                     private val resLoader: IMessageResLoader)
     : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
 
     /**
      * Message holders to inflate view by message's type.
      */
-    private val mHolders = MessageHolders(activity.layoutInflater)
+    private val mHolders = MessageHolders(activity.layoutInflater, mItemListener, resLoader)
 
     /**
      * All received messages.

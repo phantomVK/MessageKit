@@ -10,23 +10,26 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.adapter.holder.*
+import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.model.Message
 
-class MessageHolders(private val mInflater: LayoutInflater) {
+class MessageHolders(private val mInflater: LayoutInflater,
+                     private val mItemListener: IMessageItemListener,
+                     private val mResLoader: IMessageResLoader) {
     /**
      * Get view holder.
      */
-    fun getHolder(parent: ViewGroup, viewType: Int, resLoader: IMessageResLoader? = null): AbstractViewHolder {
+    fun getHolder(parent: ViewGroup, viewType: Int, resLoader: IMessageResLoader): AbstractViewHolder {
         val isSender = viewType > 0
         val absViewType = Math.abs(viewType)
         val config = sContentTypes.get(absViewType)
 
         return if (config != null) {
-            getHolder(parent, config.layoutId, config.holder, absViewType, isSender, resLoader)
+            getHolder(parent, config.layoutId, config.holder, absViewType, isSender)
         } else {
-            getHolder(parent, R.layout.vkit_layout_msg_text, ::TextViewHolder, absViewType, isSender, resLoader)
+            getHolder(parent, R.layout.vkit_layout_msg_text, ::TextViewHolder, absViewType, isSender)
         }
     }
 
@@ -36,8 +39,7 @@ class MessageHolders(private val mInflater: LayoutInflater) {
     private fun getHolder(parent: ViewGroup, @LayoutRes layout: Int,
                           holder: (View) -> AbstractViewHolder,
                           viewType: Int,
-                          isSender: Boolean,
-                          resLoader: IMessageResLoader? = null): AbstractViewHolder {
+                          isSender: Boolean): AbstractViewHolder {
         return when (viewType) {
             HOLDER_NOTICE -> holder.invoke(mInflater.inflate(layout, parent, false))
 
@@ -54,7 +56,7 @@ class MessageHolders(private val mInflater: LayoutInflater) {
                 bodyView.id = R.id.msg_body
                 container.addView(bodyView, if (isSender) container.childCount else 0)
                 // Init ViewHolder.
-                holder.invoke(frameView).init(isSender, resLoader = resLoader)
+                holder.invoke(frameView).init(isSender, mItemListener,  mResLoader)
             }
         }
     }

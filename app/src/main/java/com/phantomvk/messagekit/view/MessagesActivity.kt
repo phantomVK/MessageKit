@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
+import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
@@ -25,7 +26,7 @@ class MessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        mAdapter = MessageAdapter(this, MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageItemListener, MessageResLoader)
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setRecycledViewPool(MessageViewPool)
