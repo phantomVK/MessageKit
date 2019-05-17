@@ -7,7 +7,6 @@ class FileUtil {
         /**
          * @param size The size value in bytes.
          */
-        @JvmStatic
         fun formatFileSize(size: Long): String {
             if (size == 0L) return "0B"
 
