@@ -18,7 +18,8 @@ object MessageItemListener : IMessageItemListener {
     override fun onContentClick(itemView: View) {
     }
 
-    override fun onContentLongClick(itemView: View, point: PointF, adapterPosition: Int): Boolean {
+    override fun onContentLongClick(activity: Activity, itemView: View, point: PointF, adapterPosition: Int): Boolean {
+        createPopupMenu(activity, point)
         return true
     }
 
