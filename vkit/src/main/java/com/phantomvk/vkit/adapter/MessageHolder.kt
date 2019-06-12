@@ -47,7 +47,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
             else -> {
                 // Inflate the frame then find the container.
                 val frame =
-                    if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
+                        if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
                 val frameView = mInflater.inflate(frame, parent, false)
                 val container = frameView.findViewById<LinearLayout>(R.id.container)
 
@@ -56,7 +56,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                 bodyView.id = R.id.msg_body
                 container.addView(bodyView, if (isSender) container.childCount else 0)
                 // Init ViewHolder.
-                holder.invoke(frameView).init(isSender, mItemListener,  mResLoader)
+                holder.invoke(frameView).init(isSender, mItemListener, mResLoader)
             }
         }
     }
@@ -72,19 +72,20 @@ class MessageHolders(private val mInflater: LayoutInflater,
      * Get view type by Message's msgType.
      */
     fun getViewType(message: IMessage, isSender: Boolean): Int {
-        val viewType = sViewType[message.getMsgType()] ?: HOLDER_TEXT
+        val viewType = sViewType[message.getMsgType()] ?: HOLDER_DEFAULT
         return if (isSender) viewType else -viewType
     }
 
     companion object {
-        private const val HOLDER_TEXT = 1
-        private const val HOLDER_URL = 2
-        private const val HOLDER_LOCATION = 3
-        private const val HOLDER_NOTICE = 4
-        private const val HOLDER_FILE = 5
-        private const val HOLDER_AUDIO = 6
-        private const val HOLDER_IMAGE = 7
-        private const val HOLDER_VIDEO = 8
+        private const val HOLDER_DEFAULT = 1
+        private const val HOLDER_TEXT = 2
+        private const val HOLDER_URL = 3
+        private const val HOLDER_LOCATION = 4
+        private const val HOLDER_NOTICE = 5
+        private const val HOLDER_FILE = 6
+        private const val HOLDER_AUDIO = 7
+        private const val HOLDER_IMAGE = 8
+        private const val HOLDER_VIDEO = 9
 
         /**
          * Get view type id by message's type string.
@@ -104,6 +105,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
          * Content types array.
          */
         private val sContentTypes = SparseArray<HolderConfig>().apply {
+            put(MessageHolders.HOLDER_DEFAULT, HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder))
             put(MessageHolders.HOLDER_TEXT, HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder))
             put(MessageHolders.HOLDER_URL, HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder))
 //            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))

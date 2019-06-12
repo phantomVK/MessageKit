@@ -11,7 +11,7 @@ import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
 class MessageAdapter(private val activity: Activity,
-                     private val  mItemListener: IMessageItemListener,
+                     private val mItemListener: IMessageItemListener,
                      private val resLoader: IMessageResLoader)
     : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
 
@@ -49,10 +49,12 @@ class MessageAdapter(private val activity: Activity,
         val point = Point(0, 0)
         (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
 
-        if (point.x < point.y) { // landscape
+        if (point.x < point.y) {
+            // landscape
             maxImageWidth = Math.round(point.x * 0.6F)
             maxImageHeight = Math.round(point.y * 0.4F)
-        } else { // portrait.
+        } else {
+            // portrait.
             maxImageWidth = Math.round(point.x * 0.4F)
             maxImageHeight = Math.round(point.y * 0.6F)
         }

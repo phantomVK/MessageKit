@@ -15,7 +15,7 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     abstract fun add(message: IMessage)
 
     /**
-     * Add a new message to the adapter,no refreshing.
+     * Add a new message to the adapter, no refreshing.
      */
     abstract fun add(message: IMessage, refresh: Boolean)
 
