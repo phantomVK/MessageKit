@@ -18,6 +18,7 @@ import com.phantomvk.vkit.model.Message
 class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
+
     /**
      * Get view holder.
      */
@@ -47,7 +48,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
             else -> {
                 // Inflate the frame then find the container.
                 val frame =
-                        if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
+                    if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
                 val frameView = mInflater.inflate(frame, parent, false)
                 val container = frameView.findViewById<LinearLayout>(R.id.container)
 
