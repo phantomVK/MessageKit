@@ -1,8 +1,8 @@
-package com.phantomvk.vkit.shape
+package com.phantomvk.vkit.bubble
 
 import androidx.annotation.IntDef
-import com.phantomvk.vkit.shape.Direction.Companion.END
-import com.phantomvk.vkit.shape.Direction.Companion.START
+import com.phantomvk.vkit.bubble.Direction.Companion.END
+import com.phantomvk.vkit.bubble.Direction.Companion.START
 
 @IntDef(START, END)
 @Retention(AnnotationRetention.RUNTIME)

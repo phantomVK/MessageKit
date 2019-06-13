@@ -8,26 +8,15 @@
     android:paddingBottom="6dp"
     tools:ignore="SmallSp,ContentDescription,UseCompoundDrawables">
 
-    <TextView
+    <include
         android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/vkit_bg_message_header_date"
-        android:textColor="@android:color/white"
-        android:textSize="11sp"
-        android:visibility="gone"
-        tools:ignore="SmallSp"
-        tools:text="11:23"
-        tools:visibility="visible"/>
+        layout="@layout/vkit_view_msg_frame_date"/>
 
     <CheckBox
         android:id="@+id/checkbox"
         style="@style/vkit_checkbox_style"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/date"
         android:layout_margin="9dp"
         android:visibility="gone"

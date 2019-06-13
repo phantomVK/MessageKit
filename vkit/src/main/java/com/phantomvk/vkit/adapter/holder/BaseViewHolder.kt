@@ -17,7 +17,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message date.
      */
-    protected var date: TextView? = itemView.findViewById(R.id.date)
+    protected var date: TextView = itemView.findViewById(R.id.date)
 
     /**
      * Message user avatar.
@@ -27,12 +27,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message selection checkbox.
      */
-    protected var checkBox: CheckBox? = itemView.findViewById(R.id.checkbox)
-
-    /**
-     * Message user username.
-     */
-    protected var username: TextView? = itemView.findViewById(R.id.username)
+    protected var checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
     /**
      * Message content view.
@@ -45,9 +40,17 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     protected var progressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
 
     /**
+     * Message user username.
+     */
+    protected var username: TextView? = itemView.findViewById(R.id.username)
+
+    /**
      * Message resend button.
      */
     protected var resendView: ImageView? = itemView.findViewById(R.id.resend)
+
+    override fun onInit() {
+    }
 
     /**
      * Template Pattern to bind ViewHolder.
@@ -55,7 +58,6 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     override fun onBind(context: Context, message: IMessage) {
         loadAvatar(context)
         setDisplayName(message)
-        setBackground()
     }
 
     /**
@@ -70,11 +72,5 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     open fun setDisplayName(message: IMessage) {
         username?.text = message.getSender()
-    }
-
-    /**
-     * Set message view background.
-     */
-    open fun setBackground() {
     }
 }

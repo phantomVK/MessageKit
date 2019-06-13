@@ -10,6 +10,7 @@ import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
+import com.phantomvk.vkit.model.NoticeMessage
 import com.phantomvk.vkit.model.TextMessage
 import com.phantomvk.vkit.model.UrlMessage
 import kotlinx.android.synthetic.main.activity_list.*
@@ -38,6 +39,7 @@ class MessagesActivity : AppCompatActivity() {
     private fun init() {
         addText()
         addUrl()
+        addNotification()
     }
 
     private fun addText() {
@@ -86,22 +88,30 @@ class MessagesActivity : AppCompatActivity() {
                 "This is a website.This is a website." +
                 "This is a website.This is a website."
         url.domain = "www.google.com"
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
 
         val url2 = UrlMessage("Google", "https://www.google.com")
         url2.setSender("John")
         url2.description = "This is a website."
         url2.domain = "www.google.com"
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+    }
+
+    private fun addNotification() {
+        val notification = NoticeMessage("dfsdgnfhm")
+        mAdapter.add(notification, false)
+        mAdapter.add(notification, false)
+        mAdapter.add(notification, false)
+        mAdapter.add(notification)
     }
 }

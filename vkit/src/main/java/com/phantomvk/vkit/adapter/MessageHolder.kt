@@ -22,7 +22,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
     /**
      * Get view holder.
      */
-    fun getHolder(parent: ViewGroup, viewType: Int, resLoader: IMessageResLoader): AbstractViewHolder {
+    fun getHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder {
         val isSender = viewType > 0
         val absViewType = Math.abs(viewType)
         val config = sContentTypes.get(absViewType)
@@ -41,31 +41,34 @@ class MessageHolders(private val mInflater: LayoutInflater,
                           holder: (View) -> AbstractViewHolder,
                           viewType: Int,
                           isSender: Boolean): AbstractViewHolder {
-        return when (viewType) {
-            HOLDER_NOTICE -> holder.invoke(mInflater.inflate(layout, parent, false))
-
+        return if (viewType == HOLDER_NOTICE) {
+            holder.invoke(mInflater.inflate(layout, parent, false))
+        } else {
             // Text, Image, Video, Audio and etc.
-            else -> {
-                // Inflate the frame then find the container.
-                val frame =
-                    if (isSender) R.layout.vkit_item_msg_frame_outgoing else R.layout.vkit_item_msg_frame_incoming
-                val frameView = mInflater.inflate(frame, parent, false)
-                val container = frameView.findViewById<LinearLayout>(R.id.container)
-
-                // Inflate the body and add to the container.
-                val bodyView = mInflater.inflate(layout, container, false)
-                bodyView.id = R.id.msg_body
-                container.addView(bodyView, if (isSender) container.childCount else 0)
-                // Init ViewHolder.
-                holder.invoke(frameView).init(isSender, mItemListener, mResLoader)
+            // Inflate the frame then find the container.
+            val frame = if (isSender) {
+                R.layout.vkit_item_msg_frame_outgoing
+            } else {
+                R.layout.vkit_item_msg_frame_incoming
             }
+
+            val frameView = mInflater.inflate(frame, parent, false)
+            val container = frameView.findViewById<LinearLayout>(R.id.container)
+
+            // Inflate the body and add to the container.
+            val bodyView = mInflater.inflate(layout, container, false)
+            bodyView.id = R.id.msg_body
+            container.addView(bodyView, if (isSender) container.childCount else 0)
+
+            // Init ViewHolder.
+            holder.invoke(frameView).init(isSender, mItemListener, mResLoader)
         }
     }
 
     /**
      * Bind view.
      */
-    fun onBind(context: Context, holder: RecyclerView.ViewHolder, message: IMessage) {
+    fun onBind(context: Context, holder: AbstractViewHolder, message: IMessage) {
         (holder as AbstractViewHolder).onBind(context, message)
     }
 
@@ -104,17 +107,26 @@ class MessageHolders(private val mInflater: LayoutInflater,
 
         /**
          * Content types array.
+         *
+         * Use SparseArray<HolderConfig> instead of HashMap<int, HolderConfig> for less memory consuming.
          */
-        private val sContentTypes = SparseArray<HolderConfig>().apply {
-            put(MessageHolders.HOLDER_DEFAULT, HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder))
-            put(MessageHolders.HOLDER_TEXT, HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder))
-            put(MessageHolders.HOLDER_URL, HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder))
+        private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
+            val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder)
+            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder)
+            val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder)
+            val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true)
+
+            return@lazy SparseArray<HolderConfig>().apply {
+                put(MessageHolders.HOLDER_DEFAULT, textConfig)
+                put(MessageHolders.HOLDER_TEXT, textConfig)
+                put(MessageHolders.HOLDER_URL, urlConfig)
 //            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
-            put(MessageHolders.HOLDER_NOTICE, HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true))
+                put(MessageHolders.HOLDER_NOTICE, noticeConfig)
 //            put(MessageHolders.HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
 //            put(MessageHolders.HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
-            put(MessageHolders.HOLDER_IMAGE, HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder))
-            put(MessageHolders.HOLDER_VIDEO, HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder))
+                put(MessageHolders.HOLDER_IMAGE, mediaConfig)
+                put(MessageHolders.HOLDER_VIDEO, mediaConfig)
+            }
         }
 
         /**

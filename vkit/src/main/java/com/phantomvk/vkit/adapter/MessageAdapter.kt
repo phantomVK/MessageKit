@@ -6,14 +6,14 @@ import android.graphics.Point
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
 class MessageAdapter(private val activity: Activity,
-                     private val mItemListener: IMessageItemListener,
-                     private val resLoader: IMessageResLoader)
-    : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+                     mItemListener: IMessageItemListener,
+                     resLoader: IMessageResLoader) : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
 
     /**
      * Message holders to inflate view by message's type.
@@ -61,7 +61,7 @@ class MessageAdapter(private val activity: Activity,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return mHolders.getHolder(parent, viewType, resLoader)
+        return mHolders.getHolder(parent, viewType)
     }
 
     override fun getItemCount(): Int {
@@ -69,7 +69,7 @@ class MessageAdapter(private val activity: Activity,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        mHolders.onBind(activity, holder, mMessages[position])
+        mHolders.onBind(activity, holder as AbstractViewHolder, mMessages[position])
     }
 
     override fun getItemViewType(position: Int): Int {

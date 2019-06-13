@@ -13,6 +13,9 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     private val mText: TextView = itemView.notice
 
+    override fun onInit() {
+    }
+
     override fun onBind(context: Context, message: IMessage) {
         mText.text = message.getBody()
     }

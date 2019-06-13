@@ -1,4 +1,4 @@
-package com.phantomvk.vkit.shape
+package com.phantomvk.vkit.bubble
 
 import android.graphics.Canvas
 import android.graphics.Paint
