@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             tools:targetApi="lollipop">
+<com.phantomvk.vkit.bubble.layout.BubbleFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:targetApi="lollipop">
 
     <ImageView
         android:id="@+id/image"
@@ -21,4 +22,4 @@
         android:visibility="gone"
         tools:ignore="ContentDescription"
         tools:visibility="visible"/>
-</FrameLayout>
+</com.phantomvk.vkit.bubble.layout.BubbleFrameLayout>

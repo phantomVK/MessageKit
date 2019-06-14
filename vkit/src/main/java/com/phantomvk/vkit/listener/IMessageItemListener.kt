@@ -1,6 +1,5 @@
 package com.phantomvk.vkit.listener
 
-import android.app.Activity
 import android.graphics.PointF
 import android.view.View
 
@@ -26,7 +25,7 @@ interface IMessageItemListener {
     /**
      * Long click on the message content.
      */
-    fun onContentLongClick(activity: Activity, itemView: View, point: PointF, adapterPosition: Int): Boolean
+    fun onContentLongClick(itemView: View, point: PointF, adapterPosition: Int): Boolean
 
     /**
      * Double click on the message content.

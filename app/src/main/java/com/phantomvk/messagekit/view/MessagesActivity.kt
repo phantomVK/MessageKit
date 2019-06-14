@@ -27,7 +27,7 @@ class MessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        mAdapter = MessageAdapter(this, MessageItemListener, MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageItemListener(this), MessageResLoader)
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setRecycledViewPool(MessageViewPool)
@@ -37,9 +37,9 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        addText()
+//        addText()
         addUrl()
-        addNotification()
+//        addNotification()
     }
 
     private fun addText() {

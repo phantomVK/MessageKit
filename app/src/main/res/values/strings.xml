@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MessageKit</string>
+
+    <!-- Popup menu -->
+    <string name="resend">Resend</string>
+    <string name="copy">Copy</string>
+    <string name="share">Share</string>
+    <string name="forward">Forward</string>
+    <string name="redact">Redact</string>
+    <string name="selection">Selection</string>
+    <string name="quote">Quote</string>
 </resources>

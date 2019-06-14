@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.phantomvk.vkit.bubble.layout.BubbleRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -77,4 +77,4 @@
         android:textSize="10sp"
         android:layout_below="@+id/line"
         tools:text="https://www.google.com"/>
-</RelativeLayout>
+</com.phantomvk.vkit.bubble.layout.BubbleRelativeLayout>

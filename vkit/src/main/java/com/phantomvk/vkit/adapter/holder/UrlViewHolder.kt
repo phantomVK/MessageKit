@@ -1,6 +1,8 @@
 package com.phantomvk.vkit.adapter.holder
 
 import android.content.Context
+import android.graphics.PointF
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +30,32 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
      * Website description, optional.
      */
     private val mDescription: TextView = itemView.findViewById(R.id.description)
+
+    /**
+     * For long click popup menu.
+     */
+    private val mPoint = PointF()
+
+    override fun onInit() {
+        contentView.setOnClickListener {
+            messageItemListener.onContentClick(itemView)
+        }
+
+        contentView.setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                mPoint.set(event.x, event.y)
+            }
+            return@setOnTouchListener false
+        }
+
+        contentView.setOnLongClickListener {
+            val location = IntArray(2)
+            contentView.getLocationInWindow(location)
+            mPoint.offset(location[0].toFloat(), location[1].toFloat() - contentView.measuredHeight)
+            messageItemListener.onContentLongClick(itemView, mPoint, adapterPosition)
+            return@setOnLongClickListener false
+        }
+    }
 
     override fun onBind(context: Context, message: IMessage) {
         super.onBind(context, message)
