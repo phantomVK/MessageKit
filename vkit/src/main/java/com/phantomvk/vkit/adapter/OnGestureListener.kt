@@ -17,9 +17,7 @@ class OnGestureListener(private val viewHolder: BaseViewHolder,
 
     override fun onLongPress(e: MotionEvent?) {
         viewHolder.getContentView().getLocationInWindow(location)
-        viewHolder.getPoint().offset(
-            location[0].toFloat(),
-            location[1].toFloat() - viewHolder.getContentView().measuredHeight)
+        viewHolder.getPoint().offset(location[0].toFloat(), location[1].toFloat())
 
         listener.onContentLongClick(
             viewHolder.itemView,

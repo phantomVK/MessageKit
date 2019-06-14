@@ -33,4 +33,14 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
      * Clear all messages from the adapter.
      */
     abstract fun clear()
+
+    /**
+     * Start or finish the selecting mode.
+     */
+    abstract fun setSelecting(isSelecting: Boolean)
+
+    /**
+     * Get the selecting status.
+     */
+    abstract fun getSelecting(): Boolean
 }

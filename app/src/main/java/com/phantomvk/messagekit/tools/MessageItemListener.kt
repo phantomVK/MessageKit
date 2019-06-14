@@ -63,7 +63,7 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
     }
 
     override fun onContentDoubleClick(itemView: View) {
-        itemView.context.toast("onDoubleTapEvent")
+        activity.toast("onDoubleTapEvent")
     }
 
     override fun onContentAction(itemView: View, adapterPosition: Int) {

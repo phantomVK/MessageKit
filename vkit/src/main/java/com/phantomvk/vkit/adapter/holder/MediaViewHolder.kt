@@ -13,19 +13,19 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
      * ImageView to display a thumbnail.
      */
-    private val imageView: ImageView = itemView.image
+    private val mImageView: ImageView = itemView.image
 
     /**
      * An icon to indicate that this is a VideoMessage.
      */
-    private val iconPlay: ImageView = itemView.play
+    private val mIconPlay: ImageView = itemView.play
 
     override fun onBind(context: Context, message: IMessage) {
         val msgType = message.getMsgType()
         if (msgType == Message.MESSAGE_TYPE_IMAGE) {
-            iconPlay.visibility = View.GONE
+            mIconPlay.visibility = View.GONE
         } else {
-            iconPlay.visibility = View.VISIBLE
+            mIconPlay.visibility = View.VISIBLE
         }
     }
 

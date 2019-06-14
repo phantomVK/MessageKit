@@ -1,16 +1,16 @@
-package com.phantomvk.vkit.bubble.layout
+package com.phantomvk.vkit.widget
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.FrameLayout
+import android.widget.RelativeLayout
 
-class BubbleFrameLayout
+class BubbleRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
     /**
      * Foreground mask.

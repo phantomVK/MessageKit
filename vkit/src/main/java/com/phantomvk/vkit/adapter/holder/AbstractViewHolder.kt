@@ -33,6 +33,16 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     protected lateinit var mAdapter: AbstractMessageAdapter<RecyclerView.ViewHolder>
 
     /**
+     * Init resources or setup configurations only once.
+     */
+    abstract fun onInit()
+
+    /**
+     * Bind a message to current item.
+     */
+    abstract fun onBind(context: Context, message: IMessage)
+
+    /**
      * Init params.
      */
     open fun init(isHost: Boolean,
@@ -47,14 +57,4 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         onInit()
         return this
     }
-
-    /**
-     * Init resources or setup configurations only once.
-     */
-    abstract fun onInit()
-
-    /**
-     * Bind a message to current item.
-     */
-    abstract fun onBind(context: Context, message: IMessage)
 }

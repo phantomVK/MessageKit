@@ -9,7 +9,7 @@
     android:layout_marginBottom="12dp"
     android:background="@drawable/vkit_bg_message_header_date"
     android:textColor="@android:color/white"
-    android:textSize="11sp"
+    android:textSize="12sp"
     android:visibility="gone"
     tools:ignore="SmallSp"
     tools:text="11:23"

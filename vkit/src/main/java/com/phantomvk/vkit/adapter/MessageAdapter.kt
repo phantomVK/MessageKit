@@ -11,14 +11,15 @@ import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
-class MessageAdapter(private val activity: Activity,
-                     mItemListener: IMessageItemListener,
-                     resLoader: IMessageResLoader) : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+open class MessageAdapter(private val mActivity: Activity,
+                          private val mItemListener: IMessageItemListener,
+                          resLoader: IMessageResLoader)
+    : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
 
     /**
      * Message holders to inflate view by message's type.
      */
-    private val mHolders = MessageHolders(activity.layoutInflater, mItemListener, resLoader)
+    private val mHolders = MessageHolders(mActivity.layoutInflater, mItemListener, resLoader)
 
     /**
      * All received messages.
@@ -28,12 +29,12 @@ class MessageAdapter(private val activity: Activity,
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * activity.resources.displayMetrics.density
+    val minSize = 48 * mActivity.resources.displayMetrics.density
 
     /**
      * Max size for displaying thumbnail.
      */
-    val maxSize = 134 * activity.resources.displayMetrics.density
+    val maxSize = 134 * mActivity.resources.displayMetrics.density
 
     /**
      * Max width pixel for displaying ImageMessage.
@@ -45,9 +46,14 @@ class MessageAdapter(private val activity: Activity,
      */
     var maxImageHeight: Int = 0
 
+    /**
+     * Start messages selecting.
+     */
+    private var selecting: Boolean = false
+
     init {
         val point = Point(0, 0)
-        (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+        (mActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
 
         if (point.x < point.y) {
             // landscape
@@ -69,7 +75,7 @@ class MessageAdapter(private val activity: Activity,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        mHolders.onBind(activity, holder as AbstractViewHolder, mMessages[position])
+        mHolders.onBind(mActivity, holder as AbstractViewHolder, mMessages[position])
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -104,5 +110,23 @@ class MessageAdapter(private val activity: Activity,
         val count = mMessages.size
         mMessages.clear()
         notifyItemRangeRemoved(0, count)
+    }
+
+    override fun setSelecting(isSelecting: Boolean) {
+        if (selecting != isSelecting) {
+            selecting = isSelecting
+
+            if (!isSelecting) {
+                // TODO: Clear all selected messages in the pending queue.
+            }
+
+            notifyDataSetChanged()
+
+            mItemListener.onSelectionChanged(selecting)
+        }
+    }
+
+    override fun getSelecting(): Boolean {
+        return selecting
     }
 }

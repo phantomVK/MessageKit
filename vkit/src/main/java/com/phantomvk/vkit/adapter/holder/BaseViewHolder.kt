@@ -9,9 +9,11 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.adapter.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
 
 /**
  * The base ViewHolder includes some basic views for all kinds of messages.
@@ -59,6 +61,11 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     protected val mPoint = PointF()
 
     /**
+     * The selecting mode in this view holder.
+     */
+    protected var holderSelecting = false
+
+    /**
      * GestureDetector for SingleTap
      */
     private lateinit var mGestureDetector: GestureDetector
@@ -85,8 +92,27 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Template Pattern to bind ViewHolder.
      */
     override fun onBind(context: Context, message: IMessage) {
+        mDateView.isVisible = true
+        mDateView.text = "06:34 02/12/2019"
         loadAvatar(context)
         setDisplayName(message)
+        selectingMode()
+    }
+
+    private fun selectingMode() {
+        val adapterSelecting = mAdapter.getSelecting()
+
+        if (holderSelecting != adapterSelecting) {
+            holderSelecting = adapterSelecting
+            mCheckBox.isVisible = adapterSelecting
+            (itemView as InterceptTouchRelativeLayout).intercepted = adapterSelecting
+
+            if (adapterSelecting) {
+                itemView.setOnClickListener { mCheckBox.isChecked = !mCheckBox.isChecked }
+            } else {
+                itemView.setOnClickListener(null)
+            }
+        }
     }
 
     /**

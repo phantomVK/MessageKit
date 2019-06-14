@@ -13,7 +13,7 @@ import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.NoticeMessage
 import com.phantomvk.vkit.model.TextMessage
 import com.phantomvk.vkit.model.UrlMessage
-import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MessagesActivity : AppCompatActivity() {
     private lateinit var mAdapter: MessageAdapter
@@ -25,7 +25,7 @@ class MessagesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        setContentView(R.layout.activity_main)
 
         mAdapter = MessageAdapter(this, MessageItemListener(this), MessageResLoader)
         messageView.layoutManager = mLayoutManager
@@ -34,12 +34,15 @@ class MessagesActivity : AppCompatActivity() {
         MessageHolders.setMaxRecycledViews(messageView)
 
         init()
+
+//        messageView.postDelayed({ mAdapter.setSelecting(true) }, 3000)
+//        messageView.postDelayed({ mAdapter.setSelecting(false) }, 10000)
     }
 
     private fun init() {
-//        addText()
+        addText()
         addUrl()
-//        addNotification()
+        addNotification()
     }
 
     private fun addText() {
@@ -76,9 +79,6 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.add(shortText2, false)
     }
 
-    private fun addImage() {
-    }
-
     private fun addUrl() {
         val url = UrlMessage("Google", "https://www.google.com")
         url.setSender("Mike")
@@ -88,6 +88,19 @@ class MessagesActivity : AppCompatActivity() {
                 "This is a website.This is a website." +
                 "This is a website.This is a website."
         url.domain = "www.google.com"
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
+        mAdapter.add(url, false)
         mAdapter.add(url, false)
         mAdapter.add(url, false)
         mAdapter.add(url, false)
@@ -105,6 +118,18 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.add(url2, false)
         mAdapter.add(url2, false)
         mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
     }
 
     private fun addNotification() {
@@ -113,5 +138,10 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.add(notification, false)
         mAdapter.add(notification, false)
         mAdapter.add(notification)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mAdapter.onPause()
     }
 }
