@@ -12,3 +12,5 @@ fun Context.screenWidth() = resources.displayMetrics.widthPixels
 fun Context.screenHeight() = resources.displayMetrics.heightPixels
 
 fun Context.toast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+fun Context.longToast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()

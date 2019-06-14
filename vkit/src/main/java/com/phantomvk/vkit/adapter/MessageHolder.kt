@@ -22,31 +22,37 @@ class MessageHolders(private val mInflater: LayoutInflater,
     /**
      * Get view holder.
      */
-    fun getHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder {
-        val isSender = viewType > 0
+    fun getHolder(parent: ViewGroup,
+                  viewType: Int,
+                  adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>): AbstractViewHolder {
+
+        val isHost = viewType > 0
         val absViewType = Math.abs(viewType)
         val config = sContentTypes.get(absViewType)
 
         return if (config != null) {
-            getHolder(parent, config.layoutId, config.holder, absViewType, isSender)
+            getHolder(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
         } else {
-            getHolder(parent, R.layout.vkit_layout_msg_text, ::TextViewHolder, absViewType, isSender)
+            getHolder(parent, R.layout.vkit_layout_msg_text, adapter, ::TextViewHolder, absViewType, isHost)
         }
     }
 
     /**
      * Get view holder.
      */
-    private fun getHolder(parent: ViewGroup, @LayoutRes layout: Int,
+    private fun getHolder(parent: ViewGroup,
+                          @LayoutRes layout: Int,
+                          adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
                           holder: (View) -> AbstractViewHolder,
                           viewType: Int,
-                          isSender: Boolean): AbstractViewHolder {
+                          isHost: Boolean): AbstractViewHolder {
+
         return if (viewType == HOLDER_NOTICE) {
             holder.invoke(mInflater.inflate(layout, parent, false))
         } else {
             // Text, Image, Video, Audio and etc.
             // Inflate the frame then find the container.
-            val frame = if (isSender) {
+            val frame = if (isHost) {
                 R.layout.vkit_item_msg_frame_outgoing
             } else {
                 R.layout.vkit_item_msg_frame_incoming
@@ -58,10 +64,10 @@ class MessageHolders(private val mInflater: LayoutInflater,
             // Inflate the body and add to the container.
             val bodyView = mInflater.inflate(layout, container, false)
             bodyView.id = R.id.msg_body
-            container.addView(bodyView, if (isSender) container.childCount else 0)
+            container.addView(bodyView, if (isHost) container.childCount else 0)
 
             // Init ViewHolder.
-            holder.invoke(frameView).init(isSender, mItemListener, mResLoader)
+            holder.invoke(frameView).init(isHost, adapter, mItemListener, mResLoader)
         }
     }
 
@@ -69,7 +75,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
      * Bind view.
      */
     fun onBind(context: Context, holder: AbstractViewHolder, message: IMessage) {
-        (holder as AbstractViewHolder).onBind(context, message)
+        holder.onBind(context, message)
     }
 
     /**

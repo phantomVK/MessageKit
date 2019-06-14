@@ -37,22 +37,22 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
     private val mPoint = PointF()
 
     override fun onInit() {
-        contentView.setOnClickListener {
-            messageItemListener.onContentClick(itemView)
+        mContentView.setOnClickListener {
+            mMessageItemListener.onContentClick(itemView)
         }
 
-        contentView.setOnTouchListener { _, event ->
+        mContentView.setOnTouchListener { _, event ->
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 mPoint.set(event.x, event.y)
             }
             return@setOnTouchListener false
         }
 
-        contentView.setOnLongClickListener {
+        mContentView.setOnLongClickListener {
             val location = IntArray(2)
-            contentView.getLocationInWindow(location)
-            mPoint.offset(location[0].toFloat(), location[1].toFloat() - contentView.measuredHeight)
-            messageItemListener.onContentLongClick(itemView, mPoint, adapterPosition)
+            mContentView.getLocationInWindow(location)
+            mPoint.offset(location[0].toFloat(), location[1].toFloat() - mContentView.measuredHeight)
+            mMessageItemListener.onContentLongClick(itemView, mPoint, mAdapter, adapterPosition)
             return@setOnLongClickListener false
         }
     }
@@ -63,6 +63,6 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
         mTitle.text = urlMessage.title
         mSource.text = urlMessage.source ?: urlMessage.domain ?: ""
         mDescription.text = urlMessage.description
-        messageResLoader.loadImage(context, urlMessage.image ?: "", mImage)
+        mMessageResLoader.loadImage(context, urlMessage.image ?: "", mImage)
     }
 }

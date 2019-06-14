@@ -14,8 +14,8 @@ open class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
     protected val mText: TextView = itemView.findViewById(R.id.text)
 
     override fun onInit() {
-        mText.background = getStateListDrawable(itemView.context, isSender)
-        itemView.setOnClickListener { messageItemListener.onContentClick(itemView) }
+        mText.background = getStateListDrawable(itemView.context, mIsHost)
+        itemView.setOnClickListener { mMessageItemListener.onContentClick(itemView) }
     }
 
     override fun onBind(context: Context, message: IMessage) {

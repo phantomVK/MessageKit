@@ -61,7 +61,7 @@ class MessageAdapter(private val activity: Activity,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return mHolders.getHolder(parent, viewType)
+        return mHolders.getHolder(parent, viewType, this)
     }
 
     override fun getItemCount(): Int {
@@ -91,8 +91,9 @@ class MessageAdapter(private val activity: Activity,
         if (refresh) notifyItemInserted(0)
     }
 
-    override fun remove(message: IMessage) {
-        mMessages.remove(message)
+    override fun remove(adapterPos: Int) {
+        mMessages.removeAt(adapterPos)
+        notifyItemRemoved(adapterPos)
     }
 
     private fun isSender(userId: String, message: IMessage): Boolean {

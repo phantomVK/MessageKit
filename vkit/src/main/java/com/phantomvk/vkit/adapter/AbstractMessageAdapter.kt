@@ -25,9 +25,9 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     abstract fun addToFront(message: IMessage, refresh: Boolean)
 
     /**
-     * Remove a message from the adapter.
+     * Remove a message from the adapter by adapter position.
      */
-    abstract fun remove(message: IMessage)
+    abstract fun remove(adapterPos: Int)
 
     /**
      * Clear all messages from the adapter.

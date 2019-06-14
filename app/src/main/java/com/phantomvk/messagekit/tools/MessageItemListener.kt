@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
+import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
 
 class MessageItemListener(private val activity: Activity) : IMessageItemListener {
@@ -23,21 +25,11 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         Toast.makeText(activity, "click", Toast.LENGTH_LONG).show()
     }
 
-    override fun onContentLongClick(itemView: View, point: PointF, adapterPosition: Int): Boolean {
-        createPopupMenu(point)
-        return true
-    }
+    override fun onContentLongClick(itemView: View,
+                                    point: PointF,
+                                    adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
+                                    adapterPosition: Int): Boolean {
 
-    override fun onContentDoubleClick(itemView: View) {
-    }
-
-    override fun onContentAction(itemView: View, adapterPosition: Int) {
-    }
-
-    override fun onSelectionChanged(isSelecting: Boolean) {
-    }
-
-    private fun createPopupMenu(point: PointF) {
         val anchor = View(activity)
         anchor.layoutParams = ViewGroup.LayoutParams(0, 0)
         anchor.x = point.x
@@ -55,10 +47,25 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         }
 
         popupMenu.setOnMenuItemClickListener { item ->
-            Toast.makeText(activity, item.itemId, Toast.LENGTH_LONG).show()
+            when (item.itemId) {
+                R.id.redact -> {
+                    adapter.remove(adapterPosition)
+                }
+            }
             return@setOnMenuItemClickListener true
         }
 
         popupMenu.show()
+
+        return true
+    }
+
+    override fun onContentDoubleClick(itemView: View) {
+    }
+
+    override fun onContentAction(itemView: View, adapterPosition: Int) {
+    }
+
+    override fun onSelectionChanged(isSelecting: Boolean) {
     }
 }

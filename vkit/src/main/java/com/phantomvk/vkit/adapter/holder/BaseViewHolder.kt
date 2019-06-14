@@ -17,37 +17,37 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message date.
      */
-    protected var date: TextView = itemView.findViewById(R.id.date)
+    protected var mDateView: TextView = itemView.findViewById(R.id.date)
 
     /**
      * Message user avatar.
      */
-    protected var avatar: ImageView = itemView.findViewById(R.id.avatar)
+    protected var mAvatarView: ImageView = itemView.findViewById(R.id.avatar)
 
     /**
      * Message selection checkbox.
      */
-    protected var checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
+    protected var mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
     /**
      * Message content view.
      */
-    protected var contentView: View = itemView.findViewById(R.id.msg_body)
+    protected var mContentView: View = itemView.findViewById(R.id.msg_body)
 
     /**
      * Message audio playing progressbar.
      */
-    protected var progressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
+    protected var mProgressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
 
     /**
      * Message user username.
      */
-    protected var username: TextView? = itemView.findViewById(R.id.username)
+    protected var mUsername: TextView? = itemView.findViewById(R.id.username)
 
     /**
      * Message resend button.
      */
-    protected var resendView: ImageView? = itemView.findViewById(R.id.resend)
+    protected var mResendView: ImageView? = itemView.findViewById(R.id.resend)
 
     override fun onInit() {
     }
@@ -64,13 +64,13 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set user avatar. Override this if needed.
      */
     open fun loadAvatar(context: Context) {
-        messageResLoader.loadAvatar(context, 0, avatar)
+        mMessageResLoader.loadAvatar(context, 0, mAvatarView)
     }
 
     /**
      * Set user display name. Override this if needed.
      */
     open fun setDisplayName(message: IMessage) {
-        username?.text = message.getSender()
+        mUsername?.text = message.getSender()
     }
 }

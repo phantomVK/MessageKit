@@ -3,6 +3,7 @@ package com.phantomvk.vkit.adapter.holder
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
@@ -14,27 +15,35 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Tels if I am the sender of the current message.
      */
-    protected var isSender: Boolean = false
+    protected var mIsHost: Boolean = false
 
     /**
      * Message item click listener.
      */
-    protected lateinit var messageItemListener: IMessageItemListener
+    protected lateinit var mMessageItemListener: IMessageItemListener
 
     /**
      * Message resource loader.
      */
-    protected lateinit var messageResLoader: IMessageResLoader
+    protected lateinit var mMessageResLoader: IMessageResLoader
+
+    /**
+     * Adapter
+     */
+    protected lateinit var mAdapter: AbstractMessageAdapter<RecyclerView.ViewHolder>
 
     /**
      * Init params.
      */
-    open fun init(sender: Boolean,
+    open fun init(isHost: Boolean,
+                  adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
                   listener: IMessageItemListener,
                   resLoader: IMessageResLoader): AbstractViewHolder {
-        isSender = sender
-        messageItemListener = listener
-        messageResLoader = resLoader
+
+        mIsHost = isHost
+        mAdapter = adapter
+        mMessageItemListener = listener
+        mMessageResLoader = resLoader
         onInit()
         return this
     }
