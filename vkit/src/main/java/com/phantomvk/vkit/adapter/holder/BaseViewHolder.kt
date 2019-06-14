@@ -1,12 +1,16 @@
 package com.phantomvk.vkit.adapter.holder
 
 import android.content.Context
+import android.graphics.PointF
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.phantomvk.vkit.R
+import com.phantomvk.vkit.adapter.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
 
 /**
@@ -49,7 +53,32 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     protected var mResendView: ImageView? = itemView.findViewById(R.id.resend)
 
+    /**
+     * For long click popup menu.
+     */
+    protected val mPoint = PointF()
+
+    /**
+     * GestureDetector for SingleTap
+     */
+    private lateinit var mGestureDetector: GestureDetector
+
     override fun onInit() {
+        mAvatarView.setOnClickListener { mMessageItemListener.onAvatarClick(itemView) }
+        mAvatarView.setOnLongClickListener { mMessageItemListener.onAvatarLongClick(itemView) }
+
+        val l = OnGestureListener(this, mMessageItemListener)
+        mGestureDetector = GestureDetector(itemView.context, l)
+
+        mContentView.setOnLongClickListener { return@setOnLongClickListener false }
+        mContentView.setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                mPoint.set(event.x, event.y)
+            }
+
+            mGestureDetector.onTouchEvent(event)
+            return@setOnTouchListener false
+        }
     }
 
     /**
@@ -73,4 +102,10 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     open fun setDisplayName(message: IMessage) {
         mUsername?.text = message.getSender()
     }
+
+    fun getContentView() = mContentView
+
+    fun getPoint() = mPoint
+
+    fun getAdapter() = mAdapter
 }

@@ -5,24 +5,26 @@ import android.graphics.PointF
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
+import com.phantomvk.vkit.util.toast
 
 class MessageItemListener(private val activity: Activity) : IMessageItemListener {
 
     override fun onAvatarClick(itemView: View) {
+        activity.toast("onAvatarClick")
     }
 
     override fun onAvatarLongClick(itemView: View): Boolean {
+        activity.toast("onAvatarLongClick")
         return true
     }
 
     override fun onContentClick(itemView: View) {
-        Toast.makeText(activity, "click", Toast.LENGTH_LONG).show()
+        activity.toast("onContentClick")
     }
 
     override fun onContentLongClick(itemView: View,
@@ -61,11 +63,14 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
     }
 
     override fun onContentDoubleClick(itemView: View) {
+        itemView.context.toast("onDoubleTapEvent")
     }
 
     override fun onContentAction(itemView: View, adapterPosition: Int) {
+        activity.toast("onContentAction")
     }
 
     override fun onSelectionChanged(isSelecting: Boolean) {
+        activity.toast("onSelectionChanged, isSelecting: $isSelecting")
     }
 }
