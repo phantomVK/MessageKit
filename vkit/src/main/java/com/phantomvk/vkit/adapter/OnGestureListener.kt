@@ -6,8 +6,7 @@ import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 
 class OnGestureListener(private val viewHolder: BaseViewHolder,
-                        private val listener: IMessageItemListener) :
-    GestureDetector.SimpleOnGestureListener() {
+                        private val listener: IMessageItemListener) : GestureDetector.SimpleOnGestureListener() {
 
     private val location = IntArray(2)
 
