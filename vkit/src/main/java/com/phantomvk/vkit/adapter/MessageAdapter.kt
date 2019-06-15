@@ -13,8 +13,7 @@ import com.phantomvk.vkit.model.IMessage
 
 open class MessageAdapter(private val mActivity: Activity,
                           private val mItemListener: IMessageItemListener,
-                          resLoader: IMessageResLoader)
-    : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+                          resLoader: IMessageResLoader) : AbstractMessageAdapter<RecyclerView.ViewHolder>() {
 
     /**
      * Message holders to inflate view by message's type.
@@ -51,6 +50,11 @@ open class MessageAdapter(private val mActivity: Activity,
      */
     private var selecting: Boolean = false
 
+    /**
+     * Selected items.
+     */
+    private val selectedItems = ArrayList<IMessage>()
+
     init {
         val point = Point(0, 0)
         (mActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
@@ -80,7 +84,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun getItemViewType(position: Int): Int {
         val message = mMessages[position]
-        return mHolders.getViewType(message, isSender("Mike", message))
+        return mHolders.getViewType(message, isHost("Mike", message))
     }
 
     override fun add(message: IMessage) {
@@ -90,6 +94,11 @@ open class MessageAdapter(private val mActivity: Activity,
     override fun add(message: IMessage, refresh: Boolean) {
         mMessages.add(message)
         if (refresh) notifyItemInserted(mMessages.size - 1)
+    }
+
+    override fun addAll(messages: List<IMessage>) {
+        mMessages.addAll(messages)
+        notifyItemRangeInserted(mMessages.size, messages.size)
     }
 
     override fun addToFront(message: IMessage, refresh: Boolean) {
@@ -102,7 +111,7 @@ open class MessageAdapter(private val mActivity: Activity,
         notifyItemRemoved(adapterPos)
     }
 
-    private fun isSender(userId: String, message: IMessage): Boolean {
+    private fun isHost(userId: String, message: IMessage): Boolean {
         return userId == message.getSender()
     }
 
@@ -117,7 +126,7 @@ open class MessageAdapter(private val mActivity: Activity,
             selecting = isSelecting
 
             if (!isSelecting) {
-                // TODO: Clear all selected messages in the pending queue.
+                selectedItems.clear()
             }
 
             notifyDataSetChanged()

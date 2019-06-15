@@ -10,14 +10,12 @@ import com.phantomvk.vkit.util.dip
 class BubbleStateListDrawable(context: Context, shape: BubbleShape) : StateListDrawable() {
     init {
         val color = shape.solidColor
-        val darkColor = Color.argb(
-            (Color.alpha(color)),
+        val darkColor = Color.rgb(
             (Color.red(color) * 0.9F).toInt(),
             (Color.green(color) * 0.9F).toInt(),
             (Color.blue(color) * 0.9F).toInt())
         val darkShape = shape.clone()
         darkShape.solidColor = darkColor
-
 
         val darkDrawable = BubbleDrawable(context, darkShape)
         addState(intArrayOf(android.R.attr.state_pressed), darkDrawable)
@@ -26,14 +24,14 @@ class BubbleStateListDrawable(context: Context, shape: BubbleShape) : StateListD
     }
 }
 
-fun getStateListDrawable(context: Context, isSender: Boolean): StateListDrawable {
-    val colorRes = if (isSender) R.color.vkit_color_host_solid else R.color.vkit_color_guest_solid
+fun getStateListDrawable(context: Context, isHost: Boolean): StateListDrawable {
+    val colorRes = if (isHost) R.color.vkit_color_host_solid else R.color.vkit_color_guest_solid
     val color = ContextCompat.getColor(context, colorRes)
 
-    val strokeColorRes = if (isSender) R.color.vkit_color_host_stroke else R.color.vkit_color_guest_stroke
+    val strokeColorRes = if (isHost) R.color.vkit_color_host_stroke else R.color.vkit_color_guest_stroke
     val strokeColor = ContextCompat.getColor(context, strokeColorRes)
 
-    val direction = if (isSender) Direction.END else Direction.START
+    val direction = if (isHost) Direction.END else Direction.START
 
     val shape = BubbleShape(
         direction,

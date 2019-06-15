@@ -20,6 +20,11 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     abstract fun add(message: IMessage, refresh: Boolean)
 
     /**
+     * Add new messages to the adapter and refresh.
+     */
+    abstract fun addAll(messages: List<IMessage>)
+
+    /**
      * Add a new message at the front of adapter.
      */
     abstract fun addToFront(message: IMessage, refresh: Boolean)

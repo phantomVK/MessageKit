@@ -11,7 +11,7 @@ class InterceptTouchRelativeLayout
                           defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
     /**
-     * Intercept all touch event to this layout.
+     * Intercept all touch events to this layout.
      */
     var intercepted = false
 
