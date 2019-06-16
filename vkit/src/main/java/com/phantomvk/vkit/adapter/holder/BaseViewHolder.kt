@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.phantomvk.vkit.R
-import com.phantomvk.vkit.adapter.OnGestureListener
+import com.phantomvk.vkit.listener.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
 

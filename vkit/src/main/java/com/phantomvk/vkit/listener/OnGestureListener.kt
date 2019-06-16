@@ -1,4 +1,4 @@
-package com.phantomvk.vkit.adapter
+package com.phantomvk.vkit.listener
 
 import android.view.GestureDetector
 import android.view.MotionEvent

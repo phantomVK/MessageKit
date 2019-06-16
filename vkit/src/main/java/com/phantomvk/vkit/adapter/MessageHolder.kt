@@ -123,15 +123,15 @@ class MessageHolders(private val mInflater: LayoutInflater,
             val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true)
 
             return@lazy SparseArray<HolderConfig>().apply {
-                put(MessageHolders.HOLDER_DEFAULT, textConfig)
-                put(MessageHolders.HOLDER_TEXT, textConfig)
-                put(MessageHolders.HOLDER_URL, urlConfig)
-//            put(MessageHolders.HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
-                put(MessageHolders.HOLDER_NOTICE, noticeConfig)
-//            put(MessageHolders.HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
-//            put(MessageHolders.HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
-                put(MessageHolders.HOLDER_IMAGE, mediaConfig)
-                put(MessageHolders.HOLDER_VIDEO, mediaConfig)
+                put(HOLDER_DEFAULT, textConfig)
+                put(HOLDER_TEXT, textConfig)
+                put(HOLDER_URL, urlConfig)
+//            put(HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
+                put(HOLDER_NOTICE, noticeConfig)
+//            put(HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
+//            put(HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
+                put(HOLDER_IMAGE, mediaConfig)
+                put(HOLDER_VIDEO, mediaConfig)
             }
         }
 
