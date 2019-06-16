@@ -1,47 +1,54 @@
 package com.phantomvk.vkit.model;
 
-import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
+
+import androidx.annotation.NonNull;
 
 public abstract class Message extends IMessage {
     /**
      * Message type, required.
      */
-    String type;
+    private String type;
 
     /**
      * Message id, required.
      */
-    String messageId;
+    private String messageId;
 
     /**
      * Message body, required.
      */
-    String body;
+    private String body;
 
     /**
      * Message sender, required;
      */
-    String sender;
+    private String sender;
 
     /**
      * Message comes from roomId, required.
      */
-    String roomId;
+    private String roomId;
 
     /**
      * Message timestamp, required.
      */
-    protected long timestamp;
+    private long timestamp;
 
-    /**
-     * Constrictor.
-     *
-     * @param type Message type.
-     */
     public Message(@NonNull String type, @NonNull String body) {
         this.type = type;
         this.body = body;
+    }
+
+    public Message(String type, String messageId,
+                   String body, String sender,
+                   String roomId, long timestamp) {
+        this.type = type;
+        this.messageId = messageId;
+        this.body = body;
+        this.sender = sender;
+        this.roomId = roomId;
+        this.timestamp = timestamp;
     }
 
     @NotNull
@@ -70,7 +77,7 @@ public abstract class Message extends IMessage {
 
     @Override
     public long getTimestamp() {
-        return 0;
+        return timestamp;
     }
 
     @NotNull
@@ -85,10 +92,10 @@ public abstract class Message extends IMessage {
     }
 
     public static final String MESSAGE_TYPE_TEXT = "TEXT";
+    public static final String MESSAGE_TYPE_ALERT = "ALERT";
     public static final String MESSAGE_TYPE_URL = "URL";
     public static final String MESSAGE_TYPE_LOCATION = "LOCATION";
     public static final String MESSAGE_TYPE_NOTICE = "NOTICE";
-    public static final String MESSAGE_TYPE_ALERT = "ALERT";
     public static final String MESSAGE_TYPE_FILE = "FILE";
     public static final String MESSAGE_TYPE_IMAGE = "IMAGE";
     public static final String MESSAGE_TYPE_AUDIO = "AUDIO";

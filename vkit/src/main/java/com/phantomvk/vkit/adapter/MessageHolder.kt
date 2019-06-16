@@ -120,13 +120,14 @@ class MessageHolders(private val mInflater: LayoutInflater,
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder)
             val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder)
+            val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder)
             val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true)
 
             return@lazy SparseArray<HolderConfig>().apply {
                 put(HOLDER_DEFAULT, textConfig)
                 put(HOLDER_TEXT, textConfig)
                 put(HOLDER_URL, urlConfig)
-//            put(HOLDER_LOCATION, HolderConfig(R.layout.vkit_layout_message_location, ::LocationViewHolder))
+                put(HOLDER_LOCATION, locationConfig)
                 put(HOLDER_NOTICE, noticeConfig)
 //            put(HOLDER_FILE, HolderConfig(R.layout.vkit_layout_message_file, ::FileViewHolder))
 //            put(HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
