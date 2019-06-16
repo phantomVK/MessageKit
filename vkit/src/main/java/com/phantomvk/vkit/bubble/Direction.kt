@@ -6,7 +6,9 @@ import com.phantomvk.vkit.bubble.Direction.Companion.START
 
 @IntDef(START, END)
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.LOCAL_VARIABLE, AnnotationTarget.VALUE_PARAMETER)
+@Target(AnnotationTarget.FIELD,
+    AnnotationTarget.LOCAL_VARIABLE,
+    AnnotationTarget.VALUE_PARAMETER)
 annotation class Direction {
     companion object {
         const val START = 0 // Default value.
