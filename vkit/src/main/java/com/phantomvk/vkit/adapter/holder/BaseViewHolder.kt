@@ -26,42 +26,42 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message date.
      */
-    protected var mDateView: TextView = itemView.findViewById(R.id.date)
+    protected val mDateView: TextView = itemView.findViewById(R.id.date)
 
     /**
      * Message user avatar.
      */
-    protected var mAvatarView: ImageView = itemView.findViewById(R.id.avatar)
+    protected val mAvatarView: ImageView = itemView.findViewById(R.id.avatar)
 
     /**
      * Message selection checkbox.
      */
-    protected var mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)
+    protected val mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
     /**
      * Message content view.
      */
-    protected var mContentView: View = itemView.findViewById(R.id.msg_body)
+    val contentView: View = itemView.findViewById(R.id.msg_body)
 
     /**
      * Message audio playing progressbar.
      */
-    protected var mProgressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
+    protected val mProgressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
 
     /**
      * Message user username.
      */
-    protected var mUsername: TextView? = itemView.findViewById(R.id.username)
+    protected val mUsername: TextView? = itemView.findViewById(R.id.username)
 
     /**
      * Message resend button.
      */
-    protected var mResendView: ImageView? = itemView.findViewById(R.id.resend)
+    protected val mResendView: ImageView? = itemView.findViewById(R.id.resend)
 
     /**
      * For long click popup menu.
      */
-    protected val mPoint = PointF()
+    val point = PointF()
 
     /**
      * The selecting mode in this view holder.
@@ -74,23 +74,23 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     private lateinit var mGestureDetector: GestureDetector
 
     override fun onInit() {
-        mAvatarView.setOnClickListener { mMessageItemListener.onAvatarClick(itemView) }
-        mAvatarView.setOnLongClickListener { mMessageItemListener.onAvatarLongClick(itemView) }
+        mAvatarView.setOnClickListener { mItemListener.onAvatarClick(itemView) }
+        mAvatarView.setOnLongClickListener { mItemListener.onAvatarLongClick(itemView) }
 
-        val l = OnGestureListener(this, mMessageItemListener)
+        val l = OnGestureListener(this, mItemListener)
         mGestureDetector = GestureDetector(itemView.context, l)
 
-        mContentView.setOnLongClickListener { return@setOnLongClickListener false }
-        mContentView.setOnTouchListener { _, event ->
+        contentView.setOnLongClickListener { return@setOnLongClickListener false }
+        contentView.setOnTouchListener { _, event ->
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
-                mPoint.set(event.x, event.y)
+                point.set(event.x, event.y)
             }
 
             mGestureDetector.onTouchEvent(event)
             return@setOnTouchListener false
         }
 
-        setBubble()
+        setLayoutBubble()
     }
 
     /**
@@ -105,7 +105,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     private fun selectingMode() {
-        val adapterSelecting = mAdapter.getSelecting()
+        val adapterSelecting = adapter.getSelecting()
 
         if (holderSelecting != adapterSelecting) {
             holderSelecting = adapterSelecting
@@ -124,7 +124,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set user avatar. Override this if needed.
      */
     open fun loadAvatar(context: Context) {
-        mMessageResLoader.loadAvatar(context, 0, mAvatarView)
+        mResLoader.loadAvatar(context, 0, mAvatarView)
     }
 
     /**
@@ -134,18 +134,12 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         mUsername?.text = message.getSender()
     }
 
-    open fun setBubble() {
+    open fun setLayoutBubble() {
         val direction = if (mIsHost) Direction.END else Direction.START
-        (mContentView as BubbleRelativeLayout).setBubbleDirection(direction)
+        (contentView as BubbleRelativeLayout).setBubbleDirection(direction)
 
         val paddingLeft = if (mIsHost) 0 else itemView.context.dip(5)
         val paddingRight = if (mIsHost) itemView.context.dip(5) else 0
-        mContentView.setPadding(paddingLeft, 0, paddingRight, 0)
+        contentView.setPadding(paddingLeft, 0, paddingRight, 0)
     }
-
-    fun getContentView() = mContentView
-
-    fun getPoint() = mPoint
-
-    fun getAdapter() = mAdapter
 }

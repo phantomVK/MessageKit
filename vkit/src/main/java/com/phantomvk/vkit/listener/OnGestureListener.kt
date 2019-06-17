@@ -3,7 +3,6 @@ package com.phantomvk.vkit.listener
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.phantomvk.vkit.adapter.holder.BaseViewHolder
-import com.phantomvk.vkit.listener.IMessageItemListener
 
 class OnGestureListener(private val viewHolder: BaseViewHolder,
                         private val listener: IMessageItemListener) : GestureDetector.SimpleOnGestureListener() {
@@ -15,13 +14,13 @@ class OnGestureListener(private val viewHolder: BaseViewHolder,
     }
 
     override fun onLongPress(e: MotionEvent?) {
-        viewHolder.getContentView().getLocationInWindow(location)
-        viewHolder.getPoint().offset(location[0].toFloat(), location[1].toFloat())
+        viewHolder.contentView.getLocationInWindow(location)
+        viewHolder.point.offset(location[0].toFloat(), location[1].toFloat())
 
         listener.onContentLongClick(
             viewHolder.itemView,
-            viewHolder.getPoint(),
-            viewHolder.getAdapter(),
+            viewHolder.point,
+            viewHolder.adapter,
             viewHolder.adapterPosition)
     }
 

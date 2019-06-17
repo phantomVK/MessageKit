@@ -25,6 +25,7 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
                   var cornerRadius: Float,
                   @ColorInt var solidColor: Int,
                   @ColorInt var strokeColor: Int) : Shape() {
+
     /**
      * The path to fill mCanvas.
      */

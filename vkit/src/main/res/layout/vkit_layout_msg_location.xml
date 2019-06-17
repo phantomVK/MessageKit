@@ -21,7 +21,7 @@
         android:textColor="#222222"
         android:textIsSelectable="false"
         android:textSize="15sp"
-        tools:text="Google" />
+        tools:text="Google"/>
 
     <TextView
         android:id="@+id/address"
@@ -36,7 +36,7 @@
         android:maxLines="1"
         android:textColor="#666666"
         android:textSize="11sp"
-        tools:text="address,address,address,address,address,address" />
+        tools:text="address,address,address,address,address,address"/>
 
     <ImageView
         android:id="@+id/image"
@@ -45,5 +45,5 @@
         android:layout_below="@+id/address"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription"
-        tools:src="@android:color/darker_gray" />
+        tools:src="@android:color/darker_gray"/>
 </com.phantomvk.vkit.widget.BubbleRelativeLayout>

@@ -16,7 +16,7 @@ class BubbleDrawer(context: Context,
 
     val path = Path()
 
-    private val mStrokePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
      * Stroke offset.
@@ -44,13 +44,13 @@ class BubbleDrawer(context: Context,
     private var mRectF = RectF()
 
     init {
-        mStrokePaint.color = color
-        mStrokePaint.strokeWidth = width
-        mStrokePaint.style = Paint.Style.STROKE
+        mPaint.color = color
+        mPaint.strokeWidth = width
+        mPaint.style = Paint.Style.STROKE
     }
 
     fun draw(canvas: Canvas) {
-        canvas.drawPath(path, mStrokePaint)
+        canvas.drawPath(path, mPaint)
     }
 
     fun resize(w: Float, h: Float) {

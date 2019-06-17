@@ -35,6 +35,6 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
         mTitle.text = urlMessage.title
         mSource.text = urlMessage.source ?: urlMessage.domain ?: ""
         mDescription.text = urlMessage.description
-        mMessageResLoader.loadImage(context, urlMessage.image ?: "", mImage)
+        mResLoader.loadImage(context, urlMessage.image ?: "", mImage)
     }
 }

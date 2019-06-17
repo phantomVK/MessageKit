@@ -7,7 +7,6 @@ import com.phantomvk.vkit.model.IMessage
 import kotlinx.android.synthetic.main.vkit_layout_msg_notice.view.*
 
 class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
-
     /**
      * Notice text.
      */

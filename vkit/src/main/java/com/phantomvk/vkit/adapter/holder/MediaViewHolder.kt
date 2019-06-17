@@ -42,7 +42,7 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
             maxHeight.toFloat() / height
         }
 
-        var maxScale = if (width > height) maxSize / width else maxSize / height
+        var maxScale = maxSize / (if (width > height) width else height)
         maxScale = Math.max(1F, maxScale)
 
         scale = Math.min(maxScale, scale)

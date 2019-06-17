@@ -22,6 +22,10 @@ class BubbleFrameLayout
      */
     private var mTouching = false
 
+    init {
+        setWillNotDraw(false)
+    }
+
     /**
      * Intercept touch event.
      */

@@ -35,8 +35,8 @@ class MessagesActivity : AppCompatActivity() {
 
         init()
 
-//        messageView.postDelayed({ mAdapter.setSelecting(true) }, 3000)
-//        messageView.postDelayed({ mAdapter.setSelecting(false) }, 10000)
+//        messageView.postDelayed({ adapter.setSelecting(true) }, 3000)
+//        messageView.postDelayed({ adapter.setSelecting(false) }, 10000)
     }
 
     private fun init() {
