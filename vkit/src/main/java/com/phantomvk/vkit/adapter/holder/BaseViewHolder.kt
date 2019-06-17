@@ -11,8 +11,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.phantomvk.vkit.R
+import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.listener.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.util.dip
+import com.phantomvk.vkit.widget.BubbleRelativeLayout
 import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
 
 /**
@@ -86,6 +89,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
             mGestureDetector.onTouchEvent(event)
             return@setOnTouchListener false
         }
+
+        setBubble()
     }
 
     /**
@@ -127,6 +132,15 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     open fun setDisplayName(message: IMessage) {
         mUsername?.text = message.getSender()
+    }
+
+    open fun setBubble() {
+        val direction = if (mIsHost) Direction.END else Direction.START
+        (mContentView as BubbleRelativeLayout).setBubbleDirection(direction)
+
+        val paddingLeft = if (mIsHost) 0 else itemView.context.dip(5)
+        val paddingRight = if (mIsHost) itemView.context.dip(5) else 0
+        mContentView.setPadding(paddingLeft, 0, paddingRight, 0)
     }
 
     fun getContentView() = mContentView

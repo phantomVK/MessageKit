@@ -17,14 +17,14 @@ import androidx.annotation.ColorInt
  *    ┆          ┆             ┆          ┆
  *    ╰----------╯             ╰----------╯
  */
-class BubbleShape constructor(@Direction var arrowDirection: Int = Direction.START,
-                              var arrowWidth: Float,
-                              var arrowHeight: Float,
-                              var arrowMarginTop: Float,
-                              var strokeWidth: Float,
-                              var cornerRadius: Float,
-                              @ColorInt var solidColor: Int,
-                              @ColorInt var strokeColor: Int) : Shape() {
+class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
+                  var arrowWidth: Float,
+                  var arrowHeight: Float,
+                  var arrowMarginTop: Float,
+                  var strokeWidth: Float,
+                  var cornerRadius: Float,
+                  @ColorInt var solidColor: Int,
+                  @ColorInt var strokeColor: Int) : Shape() {
     /**
      * The path to fill mCanvas.
      */

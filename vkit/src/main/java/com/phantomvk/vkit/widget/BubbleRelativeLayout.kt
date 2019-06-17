@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.RelativeLayout
+import com.phantomvk.vkit.bubble.BubbleDrawer
+import com.phantomvk.vkit.bubble.Direction
 
 class BubbleRelativeLayout
 @JvmOverloads constructor(context: Context,
@@ -21,6 +23,15 @@ class BubbleRelativeLayout
      * Record if the user is touching the layout.
      */
     private var mTouching = false
+
+    /**
+     * Bubble drawer.
+     */
+    private val mBubble = BubbleDrawer(context)
+
+    init {
+        setWillNotDraw(false)
+    }
 
     /**
      * Intercept touch event.
@@ -48,5 +59,22 @@ class BubbleRelativeLayout
         super.dispatchDraw(canvas)
         // Draw foreground here.
         if (mTouching) canvas.drawColor(mMask)
+    }
+
+    override fun draw(canvas: Canvas) {
+        val count = canvas.save()
+        canvas.clipPath(mBubble.path)
+        super.draw(canvas)
+        mBubble.draw(canvas)
+        canvas.restoreToCount(count)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mBubble.resize(w.toFloat(), h.toFloat())
+    }
+
+    fun setBubbleDirection(@Direction arrowDirection: Int) {
+        mBubble.arrowDirection = arrowDirection
     }
 }

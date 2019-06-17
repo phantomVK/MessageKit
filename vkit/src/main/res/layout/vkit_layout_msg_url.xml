@@ -57,7 +57,7 @@
         android:layout_height="0.5dp"
         android:layout_below="@+id/image"
         android:layout_marginTop="8dp"
-        android:background="#CFCFCF"/>
+        android:background="#FFCFCFCF"/>
 
     <TextView
         android:id="@+id/source"
