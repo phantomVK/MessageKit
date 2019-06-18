@@ -5,7 +5,7 @@ package com.phantomvk.vkit.model
  *
  * @param name The name of the location.
  */
-class LocationMessage(var name: String, url: String) : Message(MESSAGE_TYPE_URL, url) {
+class LocationMessage(var name: String) : Message(MESSAGE_TYPE_LOCATION, name) {
     /**
      * The map image of the location, optional.
      */
@@ -15,4 +15,14 @@ class LocationMessage(var name: String, url: String) : Message(MESSAGE_TYPE_URL,
      * The address of the location.
      */
     var address: String? = null
+
+    /**
+     * Latitude.
+     */
+    var latitude = 0.0
+
+    /**
+     * Longitude.
+     */
+    var longitude = 0.0
 }

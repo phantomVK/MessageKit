@@ -6,16 +6,24 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.FrameLayout
+import com.phantomvk.vkit.bubble.BubbleDrawer
+import com.phantomvk.vkit.bubble.Direction
 
 class BubbleFrameLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0) :
+    FrameLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.
      */
-    private var mMask = Color.parseColor("#30000000")
+    private val mMask = Color.parseColor("#30000000")
+
+    /**
+     * Bubble drawer.
+     */
+    private val mDrawer = BubbleDrawer()
 
     /**
      * Record if the user is touching the layout.
@@ -23,6 +31,7 @@ class BubbleFrameLayout
     private var mTouching = false
 
     init {
+        // Force ViewGroup to draw.
         setWillNotDraw(false)
     }
 
@@ -52,5 +61,22 @@ class BubbleFrameLayout
         super.dispatchDraw(canvas)
         // Draw foreground here.
         if (mTouching) canvas.drawColor(mMask)
+    }
+
+    override fun draw(canvas: Canvas) {
+        canvas.save()
+        canvas.clipPath(mDrawer.path)
+        super.draw(canvas)
+        mDrawer.draw(canvas)
+        canvas.restore()
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mDrawer.resize(w.toFloat(), h.toFloat())
+    }
+
+    override fun setBubbleDirection(@Direction arrowDirection: Int) {
+        mDrawer.arrowDirection = arrowDirection
     }
 }

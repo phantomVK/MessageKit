@@ -10,9 +10,7 @@ import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
-import com.phantomvk.vkit.model.NoticeMessage
-import com.phantomvk.vkit.model.TextMessage
-import com.phantomvk.vkit.model.UrlMessage
+import com.phantomvk.vkit.model.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MessagesActivity : AppCompatActivity() {
@@ -33,49 +31,20 @@ class MessagesActivity : AppCompatActivity() {
         messageView.setRecycledViewPool(MessageViewPool)
         MessageHolders.setMaxRecycledViews(messageView)
 
-        init()
-
-//        messageView.postDelayed({ adapter.setSelecting(true) }, 3000)
-//        messageView.postDelayed({ adapter.setSelecting(false) }, 10000)
-    }
-
-    private fun init() {
         addText()
         addUrl()
         addNotification()
+        addLocation()
+        addFile()
     }
 
     private fun addText() {
-        val longText = TextMessage("1234567890ABCDEFG_测试你好")
+        val longText = TextMessage("Hello")
         longText.setSender("Mike")
         mAdapter.add(longText, false)
-        mAdapter.add(longText, false)
-        mAdapter.add(longText, false)
-        mAdapter.add(longText, false)
-        mAdapter.add(longText, false)
 
-        val shortTextMe = TextMessage("ABCD")
-        shortTextMe.setSender("Mike")
-        mAdapter.add(shortTextMe, false)
-        mAdapter.add(shortTextMe, false)
-        mAdapter.add(shortTextMe, false)
-        mAdapter.add(shortTextMe, false)
-        mAdapter.add(shortTextMe, false)
-
-        val longText2 = TextMessage("1234567890ABCDEFG_测试你好")
-        longText2.setSender("John")
-        mAdapter.add(longText2, false)
-        mAdapter.add(longText2, false)
-        mAdapter.add(longText2, false)
-        mAdapter.add(longText2, false)
-        mAdapter.add(longText2, false)
-
-        val shortText2 = TextMessage("ABCD")
+        val shortText2 = TextMessage("Hi")
         shortText2.setSender("John")
-        mAdapter.add(shortText2, false)
-        mAdapter.add(shortText2, false)
-        mAdapter.add(shortText2, false)
-        mAdapter.add(shortText2, false)
         mAdapter.add(shortText2, false)
     }
 
@@ -89,55 +58,40 @@ class MessagesActivity : AppCompatActivity() {
                 "This is a website.This is a website."
         url.domain = "www.google.com"
         mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
-        mAdapter.add(url, false)
 
         val url2 = UrlMessage("Google", "https://www.google.com")
         url2.setSender("John")
         url2.description = "This is a website."
         url2.domain = "www.google.com"
         mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
-        mAdapter.add(url2, false)
     }
 
     private fun addNotification() {
         val notification = NoticeMessage("dfsdgnfhm")
-        mAdapter.add(notification, false)
-        mAdapter.add(notification, false)
-        mAdapter.add(notification, false)
         mAdapter.add(notification)
+    }
+
+    private fun addLocation() {
+        val locationMessage = LocationMessage("Baker street.")
+        locationMessage.address = "ABCDABCDABCDABCDABCDABCDABCDABCDABCD"
+        locationMessage.setSender("Mike")
+
+        val locationMessage2 = LocationMessage("Baker street.")
+        locationMessage2.setSender("John")
+
+        mAdapter.add(locationMessage, false)
+        mAdapter.add(locationMessage2, false)
+    }
+
+    private fun addFile() {
+        val file = FileMessage("Android_development_handbook.pdf")
+        file.setSender("Mike")
+
+        val file2 = FileMessage("Android_development_handbook.pdf")
+        file2.setSender("John")
+
+        mAdapter.add(file, false)
+        mAdapter.add(file2)
     }
 
     override fun onPause() {

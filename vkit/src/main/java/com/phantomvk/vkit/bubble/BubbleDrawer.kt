@@ -1,18 +1,15 @@
 package com.phantomvk.vkit.bubble
 
-import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
-import com.phantomvk.vkit.util.dip
 
-class BubbleDrawer(context: Context,
-                   @Direction var arrowDirection: Int = Direction.START,
-                   var arrowWidth: Float = context.dip(6F),
-                   var arrowHeight: Float = context.dip(12F),
-                   var arrowMarginTop: Float = context.dip(4F),
-                   var cornerRadius: Float = context.dip(10F),
-                   @ColorInt var color: Int = 0xFFCFCFCF.toInt(),
-                   width: Float = context.dip(1F)) {
+class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
+                   var arrowWidth: Float = 18F,
+                   val arrowHeight: Float = 36F,
+                   var arrowMarginTop: Float = 12F,
+                   var cornerRadius: Float = 30F,
+                   width: Float = 3F,
+                   @ColorInt var color: Int = 0xFFCFCFCF.toInt()) {
 
     val path = Path()
 

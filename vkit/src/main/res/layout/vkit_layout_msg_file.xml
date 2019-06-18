@@ -60,7 +60,6 @@
         android:layout_below="@+id/size"
         android:layout_marginTop="4dp"
         android:background="#d8d8d8"
-        android:visibility="gone"
         tools:visibility="visible"/>
 
     <TextView
@@ -76,7 +75,6 @@
         android:maxLines="1"
         android:textColor="#888888"
         android:textSize="11sp"
-        android:visibility="gone"
         tools:ignore="SmallSp"
         tools:text="From Website"
         tools:visibility="visible"/>

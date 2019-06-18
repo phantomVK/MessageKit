@@ -12,24 +12,26 @@ import com.phantomvk.vkit.bubble.Direction
 class BubbleRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0) :
+    RelativeLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.
      */
-    private var mMask = Color.parseColor("#30000000")
+    private val mMask = Color.parseColor("#30000000")
+
+    /**
+     * Bubble drawer.
+     */
+    private val mDrawer = BubbleDrawer()
 
     /**
      * Record if the user is touching the layout.
      */
     private var mTouching = false
 
-    /**
-     * Bubble drawer.
-     */
-    private val mBubble = BubbleDrawer(context)
-
     init {
+        // Force ViewGroup to draw.
         setWillNotDraw(false)
     }
 
@@ -63,18 +65,18 @@ class BubbleRelativeLayout
 
     override fun draw(canvas: Canvas) {
         val count = canvas.save()
-        canvas.clipPath(mBubble.path)
+        canvas.clipPath(mDrawer.path)
         super.draw(canvas)
-        mBubble.draw(canvas)
+        mDrawer.draw(canvas)
         canvas.restoreToCount(count)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        mBubble.resize(w.toFloat(), h.toFloat())
+        mDrawer.resize(w.toFloat(), h.toFloat())
     }
 
-    fun setBubbleDirection(@Direction arrowDirection: Int) {
-        mBubble.arrowDirection = arrowDirection
+    override fun setBubbleDirection(@Direction arrowDirection: Int) {
+        mDrawer.arrowDirection = arrowDirection
     }
 }

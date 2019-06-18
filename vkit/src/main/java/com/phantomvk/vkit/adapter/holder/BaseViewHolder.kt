@@ -15,7 +15,7 @@ import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.listener.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.util.dip
-import com.phantomvk.vkit.widget.BubbleRelativeLayout
+import com.phantomvk.vkit.widget.IBubbleLayout
 import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
 
 /**
@@ -136,7 +136,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 
     open fun setLayoutBubble() {
         val direction = if (mIsHost) Direction.END else Direction.START
-        (contentView as BubbleRelativeLayout).setBubbleDirection(direction)
+        (contentView as IBubbleLayout).setBubbleDirection(direction)
 
         val paddingLeft = if (mIsHost) 0 else itemView.context.dip(5)
         val paddingRight = if (mIsHost) itemView.context.dip(5) else 0
