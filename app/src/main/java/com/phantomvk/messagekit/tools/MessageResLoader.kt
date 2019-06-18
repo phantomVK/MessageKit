@@ -12,28 +12,24 @@ object MessageResLoader : IMessageResLoader {
 
     override fun loadAvatar(context: Context, image: String, view: ImageView) {
         Glide.with(context)
-            .asDrawable()
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }
 
     override fun loadAvatar(context: Context, @RawRes @DrawableRes resId: Int, view: ImageView) {
         Glide.with(context)
-            .asDrawable()
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }
 
     override fun loadImage(context: Context, image: String, view: ImageView) {
         Glide.with(context)
-            .asDrawable()
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }
 
     override fun loadImage(context: Context, @RawRes @DrawableRes resId: Int, view: ImageView) {
         Glide.with(context)
-            .asDrawable()
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }

@@ -1,6 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
-import android.content.Context
+import android.app.Activity
 import android.view.View
 import android.widget.TextView
 import com.phantomvk.vkit.model.IMessage
@@ -12,10 +12,10 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     private val mText: TextView = itemView.notice
 
-    override fun onInit() {
+    override fun onHolderCreated() {
     }
 
-    override fun onBind(context: Context, message: IMessage) {
+    override fun onBind(activity: Activity, message: IMessage) {
         mText.text = message.getBody()
     }
 }

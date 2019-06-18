@@ -130,7 +130,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
             notifyDataSetChanged()
 
-            mItemListener.onSelectionChanged(selecting)
+            mItemListener.onStatesChanged(selecting)
         }
     }
 

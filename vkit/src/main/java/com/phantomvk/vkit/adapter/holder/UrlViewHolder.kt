@@ -1,6 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
-import android.content.Context
+import android.app.Activity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -29,12 +29,12 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mDescription: TextView = itemView.findViewById(R.id.description)
 
-    override fun onBind(context: Context, message: IMessage) {
-        super.onBind(context, message)
-        val urlMessage = message as UrlMessage
-        mTitle.text = urlMessage.title
-        mSource.text = urlMessage.source ?: urlMessage.domain ?: ""
-        mDescription.text = urlMessage.description
-        mResLoader.loadImage(context, urlMessage.image ?: "", mImage)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        val msg = message as UrlMessage
+        mTitle.text = msg.title
+        mSource.text = msg.source ?: msg.domain ?: ""
+        mDescription.text = msg.description
+        mResLoader.loadImage(activity, msg.image ?: "", mImage)
     }
 }

@@ -1,6 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
-import android.content.Context
+import android.app.Activity
 import android.graphics.Point
 import android.view.View
 import android.widget.ImageView
@@ -20,7 +20,7 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mIconPlay: ImageView = itemView.play
 
-    override fun onBind(context: Context, message: IMessage) {
+    override fun onBind(activity: Activity, message: IMessage) {
         val msgType = message.getMsgType()
         if (msgType == Message.MESSAGE_TYPE_IMAGE) {
             mIconPlay.visibility = View.GONE

@@ -1,6 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
-import android.content.Context
+import android.app.Activity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,11 +24,11 @@ class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mImage: ImageView = itemView.findViewById(R.id.image)
 
-    override fun onBind(context: Context, message: IMessage) {
-        super.onBind(context, message)
-        val locationMessage = message as LocationMessage
-        mName.text = locationMessage.name
-        mAddress.text = locationMessage.address
-        mResLoader.loadImage(itemView.context, "", mImage)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        val msg = message as LocationMessage
+        mName.text = msg.name
+        mAddress.text = msg.address
+        mResLoader.loadImage(activity, "", mImage)
     }
 }

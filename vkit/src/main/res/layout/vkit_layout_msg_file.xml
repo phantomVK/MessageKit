@@ -56,7 +56,7 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1px"
         android:layout_below="@+id/size"
         android:layout_marginTop="4dp"
         android:background="#d8d8d8"

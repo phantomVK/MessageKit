@@ -1,5 +1,6 @@
 package com.phantomvk.vkit.adapter.holder
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.PointF
 import android.view.GestureDetector
@@ -73,33 +74,18 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     private lateinit var mGestureDetector: GestureDetector
 
-    override fun onInit() {
-        mAvatarView.setOnClickListener { mItemListener.onAvatarClick(itemView) }
-        mAvatarView.setOnLongClickListener { mItemListener.onAvatarLongClick(itemView) }
-
-        val l = OnGestureListener(this, mItemListener)
-        mGestureDetector = GestureDetector(itemView.context, l)
-
-        contentView.setOnLongClickListener { return@setOnLongClickListener false }
-        contentView.setOnTouchListener { _, event ->
-            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
-                point.set(event.x, event.y)
-            }
-
-            mGestureDetector.onTouchEvent(event)
-            return@setOnTouchListener false
-        }
-
+    override fun onHolderCreated() {
+        setItemListener()
         setLayoutBubble()
     }
 
     /**
      * Template Pattern to bind ViewHolder.
      */
-    override fun onBind(context: Context, message: IMessage) {
+    override fun onBind(activity: Activity, message: IMessage) {
         mDateView.isVisible = true
         mDateView.text = "06:34 02/12/2019"
-        loadAvatar(context)
+        loadAvatar(activity)
         setDisplayName(message)
         selectingMode()
     }
@@ -132,6 +118,24 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     open fun setDisplayName(message: IMessage) {
         mUsername?.text = message.getSender()
+    }
+
+    /**
+     * Set all kinds of click listeners to the item.
+     */
+    open fun setItemListener() {
+        mAvatarView.setOnClickListener { mItemListener.onAvatarClick(itemView) }
+        mAvatarView.setOnLongClickListener { mItemListener.onAvatarLongClick(itemView) }
+
+        val l = OnGestureListener(this, mItemListener)
+        mGestureDetector = GestureDetector(itemView.context, l)
+
+        contentView.setOnLongClickListener { return@setOnLongClickListener false }
+        contentView.setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) point.set(event.x, event.y)
+            mGestureDetector.onTouchEvent(event)
+            return@setOnTouchListener false
+        }
     }
 
     open fun setLayoutBubble() {

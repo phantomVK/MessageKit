@@ -9,8 +9,11 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
                    var arrowMarginTop: Float = 12F,
                    var cornerRadius: Float = 30F,
                    width: Float = 3F,
-                   @ColorInt var color: Int = 0xFFCFCFCF.toInt()) {
+                   @ColorInt var strokeColor: Int = 0xFFCFCFCF.toInt()) {
 
+    /**
+     * Path.
+     */
     val path = Path()
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -41,7 +44,7 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
     private var mRectF = RectF()
 
     init {
-        mPaint.color = color
+        mPaint.color = strokeColor
         mPaint.strokeWidth = width
         mPaint.style = Paint.Style.STROKE
     }

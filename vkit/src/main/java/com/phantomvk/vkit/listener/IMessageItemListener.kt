@@ -45,5 +45,5 @@ interface IMessageItemListener {
     /**
      * Selection mode changed callback.
      */
-    fun onSelectionChanged(isSelecting: Boolean)
+    fun onStatesChanged(isSelecting: Boolean)
 }
