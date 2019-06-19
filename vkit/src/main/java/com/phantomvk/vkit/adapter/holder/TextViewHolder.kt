@@ -13,13 +13,12 @@ class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mText: TextView = itemView.findViewById(R.id.text)
 
-    override fun onHolderCreated() {
-        mText.background = getStateListDrawable(itemView.context, mIsHost)
-        setItemListener()
-    }
-
     override fun onBind(activity: Activity, message: IMessage) {
         super.onBind(activity, message)
         mText.text = message.getBody()
+    }
+
+    override fun setLayoutBubble() {
+        mText.background = getStateListDrawable(itemView.context, mIsHost)
     }
 }

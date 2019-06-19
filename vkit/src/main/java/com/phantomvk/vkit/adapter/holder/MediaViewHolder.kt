@@ -9,7 +9,6 @@ import com.phantomvk.vkit.model.Message
 import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
 class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
-
     /**
      * ImageView to display a thumbnail.
      */

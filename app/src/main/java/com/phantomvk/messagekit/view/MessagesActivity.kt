@@ -10,7 +10,10 @@ import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
-import com.phantomvk.vkit.model.*
+import com.phantomvk.vkit.model.FileMessage
+import com.phantomvk.vkit.model.LocationMessage
+import com.phantomvk.vkit.model.TextMessage
+import com.phantomvk.vkit.model.UrlMessage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MessagesActivity : AppCompatActivity() {
@@ -33,7 +36,6 @@ class MessagesActivity : AppCompatActivity() {
 
         addText()
         addUrl()
-        addNotification()
         addLocation()
         addFile()
     }
@@ -42,9 +44,31 @@ class MessagesActivity : AppCompatActivity() {
         val longText = TextMessage("Hello")
         longText.setSender("Mike")
         mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
+        mAdapter.add(longText, false)
 
         val shortText2 = TextMessage("Hi")
         shortText2.setSender("John")
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
+        mAdapter.add(shortText2, false)
         mAdapter.add(shortText2, false)
     }
 
@@ -64,11 +88,18 @@ class MessagesActivity : AppCompatActivity() {
         url2.description = "This is a website."
         url2.domain = "www.google.com"
         mAdapter.add(url2, false)
-    }
-
-    private fun addNotification() {
-        val notification = NoticeMessage("dfsdgnfhm")
-        mAdapter.add(notification)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
+        mAdapter.add(url2, false)
     }
 
     private fun addLocation() {
@@ -81,6 +112,14 @@ class MessagesActivity : AppCompatActivity() {
 
         mAdapter.add(locationMessage, false)
         mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
+        mAdapter.add(locationMessage2, false)
     }
 
     private fun addFile() {
@@ -90,6 +129,19 @@ class MessagesActivity : AppCompatActivity() {
         val file2 = FileMessage("Android_development_handbook.pdf")
         file2.setSender("John")
 
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
+        mAdapter.add(file, false)
         mAdapter.add(file, false)
         mAdapter.add(file2)
     }

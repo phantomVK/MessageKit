@@ -8,21 +8,9 @@
     android:paddingBottom="6dp"
     tools:ignore="SmallSp,ContentDescription,UseCompoundDrawables">
 
-    <include
-        android:id="@+id/date"
-        layout="@layout/vkit_view_msg_frame_date"/>
+    <include layout="@layout/vkit_view_msg_frame_date"/>
 
-    <CheckBox
-        android:id="@+id/checkbox"
-        style="@style/vkit_checkbox_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="9dp"
-        android:visibility="gone"
-        tools:visibility="visible"/>
+    <include layout="@layout/vkit_view_msg_frame_checkbox"/>
 
     <ImageView
         android:id="@+id/avatar"
@@ -58,19 +46,6 @@
         android:layout_toEndOf="@+id/avatar"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/read_receipt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="6dp"
-            android:includeFontPadding="false"
-            android:minEms="4"
-            android:textColor="#b2b2b2"
-            android:textSize="11sp"
-            android:visibility="gone"
-            tools:text="已读"
-            tools:visibility="visible"/>
+        <include layout="@layout/vkit_view_msg_frame_read"/>
     </LinearLayout>
 </com.phantomvk.vkit.widget.InterceptTouchRelativeLayout>

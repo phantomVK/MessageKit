@@ -12,8 +12,8 @@ import com.phantomvk.vkit.bubble.Direction
 class BubbleRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) :
-    RelativeLayout(context, attrs, defStyleAttr), IBubbleLayout {
+                          defStyleAttr: Int = 0)
+    : RelativeLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.

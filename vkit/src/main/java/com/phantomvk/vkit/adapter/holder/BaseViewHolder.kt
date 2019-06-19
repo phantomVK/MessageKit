@@ -74,7 +74,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     private lateinit var mGestureDetector: GestureDetector
 
-    override fun onHolderCreated() {
+    final override fun onHolderCreated() {
         setItemListener()
         setLayoutBubble()
     }
@@ -83,11 +83,23 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Template Pattern to bind ViewHolder.
      */
     override fun onBind(activity: Activity, message: IMessage) {
-        mDateView.isVisible = true
-        mDateView.text = "06:34 02/12/2019"
         loadAvatar(activity)
         setDisplayName(message)
         selectingMode()
+    }
+
+    /**
+     * Set user avatar. Override this if needed.
+     */
+    open fun loadAvatar(context: Context) {
+        mResLoader.loadAvatar(context, 0, mAvatarView)
+    }
+
+    /**
+     * Set user display name. Override this if needed.
+     */
+    open fun setDisplayName(message: IMessage) {
+        mUsername?.text = message.getSender()
     }
 
     private fun selectingMode() {
@@ -104,20 +116,6 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
                 itemView.setOnClickListener(null)
             }
         }
-    }
-
-    /**
-     * Set user avatar. Override this if needed.
-     */
-    open fun loadAvatar(context: Context) {
-        mResLoader.loadAvatar(context, 0, mAvatarView)
-    }
-
-    /**
-     * Set user display name. Override this if needed.
-     */
-    open fun setDisplayName(message: IMessage) {
-        mUsername?.text = message.getSender()
     }
 
     /**

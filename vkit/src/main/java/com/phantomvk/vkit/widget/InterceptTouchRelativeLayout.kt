@@ -8,7 +8,8 @@ import android.widget.RelativeLayout
 class InterceptTouchRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0)
+    : RelativeLayout(context, attrs, defStyleAttr) {
 
     /**
      * Intercept all touch events to this layout.
