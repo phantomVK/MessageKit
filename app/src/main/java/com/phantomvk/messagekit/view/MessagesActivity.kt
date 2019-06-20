@@ -29,6 +29,7 @@ class MessagesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mAdapter = MessageAdapter(this, MessageItemListener(this), MessageResLoader)
+        mLayoutManager.isSmoothScrollbarEnabled = true
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setRecycledViewPool(MessageViewPool)
