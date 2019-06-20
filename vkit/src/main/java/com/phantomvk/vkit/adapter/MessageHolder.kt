@@ -48,7 +48,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
      */
     fun getHolder(parent: ViewGroup,
                   viewType: Int,
-                  adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>): AbstractViewHolder {
+                  adapter: MessageAdapter): AbstractViewHolder {
 
         val isHost = viewType > 0
         val absViewType = Math.abs(viewType)
@@ -66,7 +66,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
      */
     private fun getHolder(parent: ViewGroup,
                           @LayoutRes layoutResId: Int,
-                          adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
+                          adapter: MessageAdapter,
                           holder: (View) -> AbstractViewHolder,
                           viewType: Int,
                           isHost: Boolean): AbstractViewHolder {
@@ -142,11 +142,12 @@ class MessageHolders(private val mInflater: LayoutInflater,
          */
         private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder)
-            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder)
             val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder)
             val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true)
             val fileConfig = HolderConfig(R.layout.vkit_layout_msg_file, ::FileViewHolder)
+            val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder)
+            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder)
 
             return@lazy SparseArray<HolderConfig>().apply {
                 put(HOLDER_DEFAULT, textConfig)
@@ -155,7 +156,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                 put(HOLDER_LOCATION, locationConfig)
                 put(HOLDER_NOTICE, noticeConfig)
                 put(HOLDER_FILE, fileConfig)
-//            put(HOLDER_AUDIO, HolderConfig(R.layout.vkit_layout_message_audio, ::AudioViewHolder))
+                put(HOLDER_AUDIO, audioConfig)
                 put(HOLDER_IMAGE, mediaConfig)
                 put(HOLDER_VIDEO, mediaConfig)
             }

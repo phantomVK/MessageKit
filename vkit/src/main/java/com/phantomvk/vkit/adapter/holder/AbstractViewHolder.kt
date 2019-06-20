@@ -28,6 +28,7 @@ import android.app.Activity
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
@@ -54,7 +55,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Adapter
      */
-    lateinit var adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>
+    lateinit var adapter: MessageAdapter
 
     /**
      * Init resources and setup configurations only once when holder is creating.
@@ -70,7 +71,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
      * Init params.
      */
     open fun init(isHost: Boolean,
-                  messageAdapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
+                  messageAdapter: MessageAdapter,
                   listener: IMessageItemListener,
                   resLoader: IMessageResLoader): AbstractViewHolder {
 

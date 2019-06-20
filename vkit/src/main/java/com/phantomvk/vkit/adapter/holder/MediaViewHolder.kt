@@ -25,11 +25,14 @@
 package com.phantomvk.vkit.adapter.holder
 
 import android.app.Activity
-import android.graphics.Point
+import android.graphics.PointF
 import android.view.View
 import android.widget.ImageView
+import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.model.MediaMessage
 import com.phantomvk.vkit.model.Message
+import com.phantomvk.vkit.widget.IBubbleLayout
 import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
 class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
@@ -44,21 +47,35 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     private val mIconPlay: ImageView = itemView.play
 
     override fun onBind(activity: Activity, message: IMessage) {
-        val msgType = message.getMsgType()
+        super.onBind(activity, message)
+
+        val msg = message as MediaMessage
+        resize(mImageView, msg.width, msg.height)
+        mResLoader.loadImage(activity, msg.url ?: "", mImageView)
+
+        val msgType = msg.getMsgType()
         if (msgType == Message.MESSAGE_TYPE_IMAGE) {
             mIconPlay.visibility = View.GONE
+
         } else {
             mIconPlay.visibility = View.VISIBLE
         }
     }
 
+    override fun setLayoutBubble() {
+        val direction = if (mIsHost) Direction.END else Direction.START
+        (contentView as IBubbleLayout).setBubbleDirection(direction)
+    }
+
     /**
      * Calculate the size of thumbnail ImageView.
      */
-    private fun resize(point: Point,
-                       width: Int, height: Int,
-                       maxWidth: Int, maxHeight: Int,
-                       minSize: Float, maxSize: Float) {
+    private fun resize(imageView: ImageView, width: Int, height: Int) {
+        val maxWidth = adapter.maxImageWidth
+        val maxHeight = adapter.maxImageHeight
+        val minSize = adapter.minSize
+        val maxSize = adapter.maxSize
+
         var scale = if (width / height > maxWidth / maxHeight) {
             maxWidth.toFloat() / width
         } else {
@@ -67,9 +84,15 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
         var maxScale = maxSize / (if (width > height) width else height)
         maxScale = Math.max(1F, maxScale)
-
         scale = Math.min(maxScale, scale)
-        point.x = Math.max(minSize, width * scale).toInt()
-        point.y = Math.max(minSize, height * scale).toInt()
+
+        val size = PointF((width * scale), (height * scale))
+        size.x = Math.max(minSize, size.x)
+        size.y = Math.max(minSize, size.y)
+
+        val layoutParams = imageView.layoutParams
+        layoutParams.width = size.x.toInt()
+        layoutParams.height = size.y.toInt()
+        imageView.layoutParams = layoutParams
     }
 }

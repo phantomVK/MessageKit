@@ -24,7 +24,19 @@
 
 package com.phantomvk.vkit.model
 
-class FileMessage(body: String) : Message(MESSAGE_TYPE_FILE, body) {
+open class FileMessage(body: String, type: String = MESSAGE_TYPE_FILE) : Message(type, body) {
+    /**
+     * File size, required.
+     */
+    var size: Long = 0 // bytes.
 
-    var size: Long = 17223542 // bytes.
+    /**
+     * File url.
+     */
+    var url: String? = null
+
+    /**
+     * Image file mime type, optional.
+     */
+    var mimeType: String? = null
 }

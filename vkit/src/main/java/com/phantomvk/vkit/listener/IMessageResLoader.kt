@@ -33,7 +33,7 @@ interface IMessageResLoader {
     /**
      * Load drawable resource from url into ImageView for user avatars.
      */
-    fun loadAvatar(context: Context, image: String, view: ImageView)
+    fun loadAvatar(context: Context, image: String?, view: ImageView)
 
     /**
      * Load drawable resource from ResId into ImageView for user avatars.
@@ -43,7 +43,7 @@ interface IMessageResLoader {
     /**
      * Load drawable resource from url into ImageView for messages.
      */
-    fun loadImage(context: Context, image: String, view: ImageView)
+    fun loadImage(context: Context, image: String?, view: ImageView)
 
     /**
      * Load drawable resource from ResId into ImageView for messages.

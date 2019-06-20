@@ -52,7 +52,7 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * mActivity.resources.displayMetrics.density
+    val minSize = 54 * mActivity.resources.displayMetrics.density
 
     /**
      * Max size for displaying thumbnail.
