@@ -37,7 +37,7 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     private val mText: TextView = itemView.notice
 
     /**
-     * Empty implementation.
+     * Override with empty implementation.
      */
     override fun onHolderCreated() {
     }

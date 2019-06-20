@@ -31,20 +31,19 @@ import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 class OnGestureListener(private val viewHolder: BaseViewHolder,
                         private val listener: IMessageItemListener) : GestureDetector.SimpleOnGestureListener() {
 
-    private val location = IntArray(2)
-
     override fun onDown(e: MotionEvent?): Boolean {
         return true
     }
 
     override fun onLongPress(e: MotionEvent?) {
+        val location = IntArray(2)
         viewHolder.contentView.getLocationInWindow(location)
         viewHolder.point.offset(location[0].toFloat(), location[1].toFloat())
 
         listener.onContentLongClick(
             viewHolder.itemView,
             viewHolder.point,
-            viewHolder.adapter,
+            viewHolder.messageAdapter,
             viewHolder.adapterPosition)
     }
 

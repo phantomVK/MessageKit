@@ -24,6 +24,7 @@
 
 package com.phantomvk.vkit.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -62,6 +63,7 @@ class BubbleFrameLayout
     /**
      * Intercept touch event.
      */
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {

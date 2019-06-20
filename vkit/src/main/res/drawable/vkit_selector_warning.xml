@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true" android:state_pressed="true">
+        <layer-list>
+            <item android:drawable="@drawable/vkit_ic_warning"/>
+            <item>
+                <shape>
+                    <solid android:color="#30000000"/>
+                    <corners android:radius="50dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:drawable="@drawable/vkit_ic_warning"/>
+</selector>

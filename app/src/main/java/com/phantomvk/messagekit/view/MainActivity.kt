@@ -22,21 +22,19 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.model
+package com.phantomvk.messagekit.view
 
-open class MediaMessage(type: String, body: String) : FileMessage(body, type) {
-    /**
-     * Thumbnail image url, optional.
-     */
-    var thumbnailUrl: String? = null
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.phantomvk.messagekit.R
+import kotlinx.android.synthetic.main.activity_main.*
 
-    /**
-     * Media width, required.
-     */
-    var width: Int = 0
+class MainActivity : AppCompatActivity() {
 
-    /**
-     * Media height, required.
-     */
-    var height: Int = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        start.setOnClickListener { startActivity(Intent(this, MessagesActivity::class.java)) }
+    }
 }

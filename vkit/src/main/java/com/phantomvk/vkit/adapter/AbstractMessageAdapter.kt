@@ -34,14 +34,9 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     open fun onPause() {}
 
     /**
-     * Add a new message to the adapter and refresh.
+     * Add a new message to the adapter.
      */
-    abstract fun add(message: IMessage)
-
-    /**
-     * Add a new message to the adapter, no refreshing.
-     */
-    abstract fun add(message: IMessage, refresh: Boolean)
+    abstract fun add(message: IMessage, refresh: Boolean = false)
 
     /**
      * Add new messages to the adapter and refresh.
@@ -72,4 +67,9 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
      * Get the selecting status.
      */
     abstract fun getSelecting(): Boolean
+
+    /**
+     * Get message from adapter by adapter position.
+     */
+    abstract fun getMessage(position: Int): IMessage?
 }

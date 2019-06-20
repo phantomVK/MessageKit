@@ -36,7 +36,7 @@ import com.phantomvk.vkit.util.FileUtil
 
 class FileViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * File type icon image.
+     * File type icon.
      */
     private val mImage: ImageView = itemView.findViewById(R.id.image)
 
@@ -56,7 +56,7 @@ class FileViewHolder(itemView: View) : BaseViewHolder(itemView) {
     private val mSource: TextView = itemView.findViewById(R.id.source)
 
     /**
-     * File download or upload progress cover.
+     * File download or upload progress bar cover.
      */
     private val mCover: ProgressBar = itemView.findViewById(R.id.cover)
 

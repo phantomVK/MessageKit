@@ -34,6 +34,8 @@ import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
+import java.util.*
+import kotlin.collections.ArrayList
 
 open class MessageAdapter(private val mActivity: Activity,
                           private val mItemListener: IMessageItemListener,
@@ -52,7 +54,7 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 54 * mActivity.resources.displayMetrics.density
+    val minSize = 48 * mActivity.resources.displayMetrics.density
 
     /**
      * Max size for displaying thumbnail.
@@ -78,6 +80,13 @@ open class MessageAdapter(private val mActivity: Activity,
      * Selected items.
      */
     private val selectedItems = ArrayList<IMessage>()
+
+    /**
+     * Instance used by all ViewHolders in order to reduce memory usage.
+     *
+     * Warning: Used in UiThread only.
+     */
+    val calendar = GregorianCalendar()
 
     init {
         val point = Point()
@@ -108,10 +117,6 @@ open class MessageAdapter(private val mActivity: Activity,
     override fun getItemViewType(position: Int): Int {
         val message = mMessages[position]
         return mHolders.getViewType(message, isHost("Mike", message))
-    }
-
-    override fun add(message: IMessage) {
-        add(message, false)
     }
 
     override fun add(message: IMessage, refresh: Boolean) {
@@ -160,5 +165,9 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun getSelecting(): Boolean {
         return selecting
+    }
+
+    override fun getMessage(position: Int): IMessage? {
+        return mMessages.getOrNull(position)
     }
 }

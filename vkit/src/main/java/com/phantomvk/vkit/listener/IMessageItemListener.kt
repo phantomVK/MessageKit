@@ -67,6 +67,11 @@ interface IMessageItemListener {
     fun onContentAction(itemView: View, adapterPosition: Int)
 
     /**
+     * Resend the content.
+     */
+    fun onContentResent(itemView: View)
+
+    /**
      * Selection mode changed callback.
      */
     fun onStatesChanged(isSelecting: Boolean)

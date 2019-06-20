@@ -25,7 +25,7 @@
 package com.phantomvk.vkit.model
 
 /**
- * For implementing by the real message model.
+ * Implemented by message model.
  */
 abstract class IMessage {
     /**
@@ -57,6 +57,11 @@ abstract class IMessage {
      * Return the message timestamp in millisecond.
      */
     abstract fun getTimestamp(): Long
+
+    /**
+     * Set message timestamp in millisecond.
+     */
+    abstract fun setTimestamp(timestamp: Long)
 
     /**
      * Return the message roomId.

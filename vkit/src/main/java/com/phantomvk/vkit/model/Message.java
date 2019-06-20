@@ -104,6 +104,11 @@ public abstract class Message extends IMessage {
         return timestamp;
     }
 
+    @Override
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @NotNull
     @Override
     public String getRoomId() {

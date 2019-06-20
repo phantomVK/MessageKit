@@ -94,6 +94,10 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         activity.toast("onContentAction")
     }
 
+    override fun onContentResent(itemView: View) {
+        activity.toast("onContentResent")
+    }
+
     override fun onStatesChanged(isSelecting: Boolean) {
         activity.toast("onStatesChanged, isSelecting: $isSelecting")
     }

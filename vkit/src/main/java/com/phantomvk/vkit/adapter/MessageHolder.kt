@@ -141,13 +141,13 @@ class MessageHolders(private val mInflater: LayoutInflater,
          * Use SparseArray<HolderConfig> instead of HashMap<int, HolderConfig> for less memory consuming.
          */
         private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
-            val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder)
-            val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder)
-            val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder)
-            val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, true)
-            val fileConfig = HolderConfig(R.layout.vkit_layout_msg_file, ::FileViewHolder)
-            val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder)
-            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder)
+            val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
+            val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
+            val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)
+            val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, 8, true)
+            val fileConfig = HolderConfig(R.layout.vkit_layout_msg_file, ::FileViewHolder, 11)
+            val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder, 14)
+            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder, 8)
 
             return@lazy SparseArray<HolderConfig>().apply {
                 put(HOLDER_DEFAULT, textConfig)
@@ -163,21 +163,19 @@ class MessageHolders(private val mInflater: LayoutInflater,
         }
 
         /**
-         * Set max recycled views count.
+         * Set max scrap.
          */
-        fun setMaxRecycledViews(view: RecyclerView?) {
+        fun setMaxScrap(view: RecyclerView?) {
             if (view == null) return
             val size = sContentTypes.size()
             for (i in 0 until size) {
                 val viewId = sContentTypes.keyAt(i)
                 val config = sContentTypes.get(viewId)
-                val max = config.maxRecycledViews
-
                 if (config.unique) {
-                    view.recycledViewPool.setMaxRecycledViews(viewId, max)
+                    view.recycledViewPool.setMaxRecycledViews(viewId, config.maxScrap)
                 } else {
-                    view.recycledViewPool.setMaxRecycledViews(viewId, max)
-                    view.recycledViewPool.setMaxRecycledViews(-viewId, max)
+                    view.recycledViewPool.setMaxRecycledViews(viewId, config.maxScrap)
+                    view.recycledViewPool.setMaxRecycledViews(-viewId, config.maxScrap)
                 }
             }
         }

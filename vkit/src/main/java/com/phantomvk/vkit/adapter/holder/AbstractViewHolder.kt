@@ -27,18 +27,17 @@ package com.phantomvk.vkit.adapter.holder
 import android.app.Activity
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
 /**
- * The abstract class of ViewHolder for all incoming or outgoing messages.
+ * The abstract ViewHolder for all incoming or outgoing messages.
  */
 abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**
-     * Tells if I am the sender of current message.
+     * Tells if I'm the sender of current message.
      */
     protected var mIsHost: Boolean = false
 
@@ -53,17 +52,17 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     protected lateinit var mResLoader: IMessageResLoader
 
     /**
-     * Adapter
+     * For adding, removing, replacing items.
      */
-    lateinit var adapter: MessageAdapter
+    lateinit var messageAdapter: MessageAdapter
 
     /**
-     * Init resources and setup configurations only once when holder is creating.
+     * Init resources and setup configurations only once when holder is created.
      */
     abstract fun onHolderCreated()
 
     /**
-     * Bind a message to current item.
+     * Bind message to current item.
      */
     abstract fun onBind(activity: Activity, message: IMessage)
 
@@ -71,14 +70,14 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
      * Init params.
      */
     open fun init(isHost: Boolean,
-                  messageAdapter: MessageAdapter,
+                  adapter: MessageAdapter,
                   listener: IMessageItemListener,
                   resLoader: IMessageResLoader): AbstractViewHolder {
 
         mIsHost = isHost
-        adapter = messageAdapter
         mItemListener = listener
         mResLoader = resLoader
+        messageAdapter = adapter
         onHolderCreated()
         return this
     }

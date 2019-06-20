@@ -30,5 +30,5 @@ import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
 
 class HolderConfig constructor(@LayoutRes val layoutId: Int,
                                val holder: (View) -> AbstractViewHolder,
-                               val unique: Boolean = false,
-                               val maxRecycledViews: Int = 10)
+                               val maxScrap: Int,
+                               val unique: Boolean = false)

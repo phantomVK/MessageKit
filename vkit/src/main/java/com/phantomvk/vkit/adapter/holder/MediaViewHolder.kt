@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
 class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * ImageView to display a thumbnail.
+     * ImageView to display thumbnail.
      */
     private val mImageView: ImageView = itemView.image
 
@@ -68,13 +68,13 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     }
 
     /**
-     * Calculate the size of thumbnail ImageView.
+     * Calculate the layoutParams of thumbnail ImageView.
      */
     private fun resize(imageView: ImageView, width: Int, height: Int) {
-        val maxWidth = adapter.maxImageWidth
-        val maxHeight = adapter.maxImageHeight
-        val minSize = adapter.minSize
-        val maxSize = adapter.maxSize
+        val maxWidth = messageAdapter.maxImageWidth
+        val maxHeight = messageAdapter.maxImageHeight
+        val minSize = messageAdapter.minSize
+        val maxSize = messageAdapter.maxSize
 
         var scale = if (width / height > maxWidth / maxHeight) {
             maxWidth.toFloat() / width

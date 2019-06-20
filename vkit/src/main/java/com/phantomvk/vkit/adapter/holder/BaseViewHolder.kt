@@ -27,6 +27,7 @@ package com.phantomvk.vkit.adapter.holder
 import android.app.Activity
 import android.content.Context
 import android.graphics.PointF
+import android.text.format.DateUtils
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -34,6 +35,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.IntRange
 import androidx.core.view.isVisible
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.bubble.Direction
@@ -42,26 +44,27 @@ import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.util.dip
 import com.phantomvk.vkit.widget.IBubbleLayout
 import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
+import java.util.*
 
 /**
  * The base ViewHolder includes some basic views for all kinds of messages.
- * Use {@link AbstractViewHolder} instead if this class is not suitable.
+ * Use {@link AbstractViewHolder} as super class instead if this class is not suitable.
  */
 open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message date.
      */
-    protected val mDateView: TextView = itemView.findViewById(R.id.date)
+    private val mDateView: TextView = itemView.findViewById(R.id.date)
 
     /**
      * Message user avatar.
      */
-    protected val mAvatarView: ImageView = itemView.findViewById(R.id.avatar)
+    private val mAvatarView: ImageView = itemView.findViewById(R.id.avatar)
 
     /**
      * Message selection checkbox.
      */
-    protected val mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)
+    private val mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
     /**
      * Message content view.
@@ -69,17 +72,17 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     val contentView: View = itemView.findViewById(R.id.msg_body)
 
     /**
-     * Message audio playing progressbar.
+     * Message sending progressbar.
      */
-    protected val mProgressBarView: ProgressBar? = itemView.findViewById(R.id.progress_bar)
+    private val mSendingView: ProgressBar? = itemView.findViewById(R.id.sending)
 
     /**
      * Message user username.
      */
-    protected val mUsername: TextView? = itemView.findViewById(R.id.username)
+    private val mUsername: TextView? = itemView.findViewById(R.id.username)
 
     /**
-     * Message resend button.
+     * Message resending button.
      */
     protected val mResendView: ImageView? = itemView.findViewById(R.id.resend)
 
@@ -89,45 +92,79 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     val point = PointF()
 
     /**
-     * The selecting mode in this view holder.
+     * Current mode of this view holder.
      */
-    protected var holderSelecting = false
+    private var holderSelecting = false
 
     /**
-     * GestureDetector for SingleTap
+     * Do NOT override this method.
      */
-    private lateinit var mGestureDetector: GestureDetector
-
     final override fun onHolderCreated() {
-        setItemListener()
+        setResendListener(mResendView)
+        setItemListener(mAvatarView)
         setLayoutBubble()
     }
 
     /**
-     * Template Pattern to bind ViewHolder.
+     * Set listener to resend view.
+     */
+    open fun setResendListener(view: ImageView?) {
+        view?.setOnClickListener { mItemListener.onContentResent(itemView) }
+    }
+
+    /**
+     * Set all kinds of click listeners to the item, overridden by subclasses..
+     */
+    open fun setItemListener(view: ImageView) {
+        view.setOnClickListener { mItemListener.onAvatarClick(itemView) }
+        view.setOnLongClickListener { mItemListener.onAvatarLongClick(itemView) }
+
+        val l = OnGestureListener(this, mItemListener)
+        val detector = GestureDetector(itemView.context, l)
+
+        contentView.setOnLongClickListener { return@setOnLongClickListener false }
+        contentView.setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) point.set(event.x, event.y)
+            detector.onTouchEvent(event)
+            return@setOnTouchListener false
+        }
+    }
+
+    open fun setLayoutBubble() {
+        val direction = if (mIsHost) Direction.END else Direction.START
+        (contentView as IBubbleLayout).setBubbleDirection(direction)
+
+        val paddingLeft = if (mIsHost) 0 else itemView.context.dip(5)
+        val paddingRight = if (mIsHost) itemView.context.dip(5) else 0
+        contentView.setPadding(paddingLeft, 0, paddingRight, 0)
+    }
+
+    /**
+     * Template Pattern to bind ViewHolder, overridden by subclasses.
      */
     override fun onBind(activity: Activity, message: IMessage) {
         loadAvatar(activity)
         setDisplayName(message)
         selectingMode()
+        setDateView(mDateView, message)
     }
 
     /**
-     * Set user avatar. Override this if needed.
+     * Load user avatar, overridden by subclasses.
      */
     open fun loadAvatar(context: Context) {
         mResLoader.loadAvatar(context, 0, mAvatarView)
     }
 
     /**
-     * Set user display name. Override this if needed.
+     * Set user display name, overridden by subclasses..
      */
     open fun setDisplayName(message: IMessage) {
         mUsername?.text = message.getSender()
     }
 
     private fun selectingMode() {
-        val adapterSelecting = adapter.getSelecting()
+        val adapterSelecting = messageAdapter.getSelecting()
 
         if (holderSelecting != adapterSelecting) {
             holderSelecting = adapterSelecting
@@ -143,29 +180,93 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     /**
-     * Set all kinds of click listeners to the item.
+     * -1: Wait to resend.
+     *  0: Sent.
+     *  1: Sending.
      */
-    open fun setItemListener() {
-        mAvatarView.setOnClickListener { mItemListener.onAvatarClick(itemView) }
-        mAvatarView.setOnLongClickListener { mItemListener.onAvatarLongClick(itemView) }
+    open fun sendingStates(@IntRange(from = -1, to = 1) states: Int) {
+        mSendingView?.isVisible = (states == 1)
+        mResendView?.isVisible = (states == -1)
+    }
 
-        val l = OnGestureListener(this, mItemListener)
-        mGestureDetector = GestureDetector(itemView.context, l)
+    /**
+     * Set text to date view. Timestamps used below are millisecond and must not be negative.
+     *
+     * View visible:
+     *     1. Current message timestamp is #MSG_TS_SPAN_MS larger than the previous;
+     *     2. The message is the last one, also has been sent more then #MSG_TS_SPAN_MS;
+     *     3. The message has been redacted, shows the timestamp of redaction.
+     *
+     * View gone:
+     *     All other conditions.
+     *
+     * Params:
+     *     preTs     previous message timestamp
+     *     msgTs     current message timestamp
+     *     sysTs     system current timestamp
+     *     tsSpan    messages timestamp span, must more than 1s
+     *     redacted  current message is redacted
+     *
+     * @param message current message
+     */
+    open fun setDateView(view: TextView, message: IMessage) {
+        val msgTs = message.getTimestamp()
+        val preTs = messageAdapter.getMessage(adapterPosition - 1)?.getTimestamp() ?: 0
+        val sysTs = System.currentTimeMillis()
+        val redacted = false
 
-        contentView.setOnLongClickListener { return@setOnLongClickListener false }
-        contentView.setOnTouchListener { _, event ->
-            if (event.actionMasked == MotionEvent.ACTION_DOWN) point.set(event.x, event.y)
-            mGestureDetector.onTouchEvent(event)
-            return@setOnTouchListener false
+        if ((msgTs - preTs > MSG_TS_SPAN_MS)
+            || ((adapterPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > MSG_TS_SPAN_MS))
+            || redacted) {
+            view.isVisible = true
+            view.text = getDateText(itemView.context, msgTs, sysTs, messageAdapter.calendar)
+        } else {
+            view.isVisible = false
         }
     }
 
-    open fun setLayoutBubble() {
-        val direction = if (mIsHost) Direction.END else Direction.START
-        (contentView as IBubbleLayout).setBubbleDirection(direction)
+    private fun getDateText(context: Context, ts: Long, sysTs: Long, cal: GregorianCalendar): String {
+        cal.timeInMillis = ts
+        cal.set(Calendar.HOUR_OF_DAY, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+        cal.set(Calendar.MILLISECOND, 0)
 
-        val paddingLeft = if (mIsHost) 0 else itemView.context.dip(5)
-        val paddingRight = if (mIsHost) itemView.context.dip(5) else 0
-        contentView.setPadding(paddingLeft, 0, paddingRight, 0)
+        val interval = sysTs - cal.timeInMillis
+
+        return when {
+            DateUtils.DAY_IN_MILLIS > interval -> {
+                DateUtils.formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
+            }
+
+            DateUtils.DAY_IN_MILLIS * 2 > interval -> {
+                val yesterday = DateUtils.getRelativeTimeSpanString(ts, sysTs,
+                    DateUtils.DAY_IN_MILLIS,
+                    DateUtils.FORMAT_SHOW_DATE).toString()
+
+                yesterday + DateUtils.formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
+            }
+
+            DateUtils.WEEK_IN_MILLIS > interval -> {
+                DateUtils.formatDateTime(context, ts,
+                    DateUtils.FORMAT_SHOW_TIME
+                            or DateUtils.FORMAT_SHOW_WEEKDAY
+                            or DateUtils.FORMAT_ABBREV_ALL)
+            }
+
+            else -> {
+                DateUtils.formatDateTime(context, ts,
+                    DateUtils.FORMAT_SHOW_TIME
+                            or DateUtils.FORMAT_SHOW_DATE
+                            or DateUtils.FORMAT_SHOW_YEAR)
+            }
+        }
+    }
+
+    companion object {
+        /**
+         * Default message timestamp span in millisecond.
+         */
+        private const val MSG_TS_SPAN_MS = 3 * 60 * 1000L // 3min.
     }
 }
