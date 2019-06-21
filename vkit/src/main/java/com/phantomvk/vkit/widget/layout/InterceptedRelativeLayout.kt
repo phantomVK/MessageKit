@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.widget
+package com.phantomvk.vkit.widget.layout
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.RelativeLayout
 
-class InterceptTouchRelativeLayout
+open class InterceptedRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
                           defStyleAttr: Int = 0)

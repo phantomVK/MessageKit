@@ -28,6 +28,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0-alpha02'
     implementation "com.android.support:recyclerview-v7:${versions.support}"
     implementation "org.jetbrains.anko:anko:${versions.anko}"
+    implementation "org.jetbrains.anko:anko-sdk27:${versions.anko}"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:${versions.anko}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

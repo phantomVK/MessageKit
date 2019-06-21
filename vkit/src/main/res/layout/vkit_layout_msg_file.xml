@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.phantomvk.vkit.widget.BubbleRelativeLayout
+<com.phantomvk.vkit.widget.layout.BubbleRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="232dp"
@@ -78,4 +78,4 @@
         tools:ignore="SmallSp"
         tools:text="From Website"
         tools:visibility="visible"/>
-</com.phantomvk.vkit.widget.BubbleRelativeLayout>
+</com.phantomvk.vkit.widget.layout.BubbleRelativeLayout>

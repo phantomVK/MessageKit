@@ -173,7 +173,7 @@ open class MessageAdapter(private val mActivity: Activity,
     }
 
     override fun getMessage(holder: BaseViewHolder): IMessage? {
-        return mMessages.getOrNull(holder.adapterPosition)
+        return mMessages.getOrNull(holder.layoutPosition)
     }
 
     override fun getItemId(position: Int): Long {

@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:clickable="false"
-             android:layout_height="wrap_content">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false">
 
-	<TextView
-		android:id="@+id/notice"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:layout_marginStart="30dp"
-		android:layout_marginTop="6dp"
-		android:layout_marginEnd="30dp"
-		android:layout_marginBottom="6dp"
-		android:autoLink="none"
-		android:background="@drawable/vkit_shape_msg_notice_bg"
-		android:gravity="start|center_vertical"
-		android:textColor="#ffffff"
-		android:textIsSelectable="false"
-		android:textSize="13sp"
-		tools:text="notice"/>
+    <TextView
+        android:id="@+id/notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="6dp"
+        android:autoLink="none"
+        android:background="@drawable/vkit_shape_msg_notice_bg"
+        android:gravity="start|center_vertical"
+        android:textColor="#ffffff"
+        android:textIsSelectable="false"
+        android:textSize="13sp"
+        tools:text="notice"/>
 </FrameLayout>

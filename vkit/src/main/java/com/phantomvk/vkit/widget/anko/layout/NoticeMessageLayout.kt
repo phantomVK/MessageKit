@@ -22,11 +22,35 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.widget
+package com.phantomvk.vkit.widget.anko.layout
 
-import com.phantomvk.vkit.bubble.Direction
+import android.graphics.Color
+import android.view.Gravity
+import android.view.ViewGroup
+import com.phantomvk.vkit.R
+import org.jetbrains.anko.*
 
-interface IBubbleLayout {
+class NoticeMessageLayout<T> : AnkoComponent<T> {
+    override fun createView(ui: AnkoContext<T>) = with(ui) {
+        frameLayout {
+            lparams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            isClickable = false
 
-    fun setBubbleDirection(@Direction arrowDirection: Int)
+            textView {
+                id = R.id.notice
+                autoLinkMask = 0
+                backgroundResource = R.drawable.vkit_shape_msg_notice_bg
+                gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                textColor = Color.parseColor("#ffffff")
+                setTextIsSelectable(false)
+                textSize = 13f //sp
+            }.lparams {
+                gravity = Gravity.CENTER
+                topMargin = dip(6)
+                bottomMargin = dip(6)
+                marginStart = dip(30)
+                marginEnd = dip(30)
+            }
+        }
+    }
 }

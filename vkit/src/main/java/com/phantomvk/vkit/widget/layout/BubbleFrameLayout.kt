@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.widget
+package com.phantomvk.vkit.widget.layout
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -34,7 +34,7 @@ import android.widget.FrameLayout
 import com.phantomvk.vkit.bubble.BubbleDrawer
 import com.phantomvk.vkit.bubble.Direction
 
-class BubbleFrameLayout
+open class BubbleFrameLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
                           defStyleAttr: Int = 0)

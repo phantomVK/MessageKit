@@ -32,7 +32,7 @@ import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.model.MediaMessage
 import com.phantomvk.vkit.model.Message
-import com.phantomvk.vkit.widget.IBubbleLayout
+import com.phantomvk.vkit.widget.layout.IBubbleLayout
 import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
 class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {

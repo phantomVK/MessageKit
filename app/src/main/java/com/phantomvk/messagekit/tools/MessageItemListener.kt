@@ -60,14 +60,14 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
                     .setDataAndType(Uri.parse(message.url), "image/*")
                     .run { activity.startActivity(this) }
             }
-            else -> activity.toast("onContentClick, message type: ${message.getMsgType()}")
+            else -> activity.toast("onContentClick, body: ${message.getBody()}")
         }
     }
 
     override fun onContentLongClick(itemView: View,
                                     point: PointF,
                                     adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
-                                    adapterPosition: Int): Boolean {
+                                    layoutPosition: Int): Boolean {
 
         val anchor = View(activity)
         anchor.layoutParams = ViewGroup.LayoutParams(0, 0)
@@ -88,7 +88,7 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.redact -> {
-                    adapter.remove(adapterPosition)
+                    adapter.remove(layoutPosition)
                 }
             }
             return@setOnMenuItemClickListener true
@@ -103,7 +103,7 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         activity.toast("onDoubleTapEvent")
     }
 
-    override fun onContentAction(itemView: View, adapterPosition: Int) {
+    override fun onContentAction(itemView: View, layoutPosition: Int) {
         activity.toast("onContentAction")
     }
 

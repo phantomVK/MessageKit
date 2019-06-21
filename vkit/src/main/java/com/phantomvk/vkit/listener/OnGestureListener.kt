@@ -44,7 +44,7 @@ class OnGestureListener(private val viewHolder: BaseViewHolder,
             viewHolder.itemView,
             viewHolder.point,
             viewHolder.messageAdapter,
-            viewHolder.adapterPosition)
+            viewHolder.layoutPosition)
     }
 
     override fun onDoubleTapEvent(e: MotionEvent?): Boolean {

@@ -42,8 +42,8 @@ import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.listener.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.util.dip
-import com.phantomvk.vkit.widget.IBubbleLayout
-import com.phantomvk.vkit.widget.InterceptTouchRelativeLayout
+import com.phantomvk.vkit.widget.layout.IBubbleLayout
+import com.phantomvk.vkit.widget.layout.InterceptedRelativeLayout
 import java.util.*
 
 /**
@@ -155,17 +155,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Load user avatar, overridden by subclasses.
      */
     open fun loadAvatar(context: Context, message: IMessage) {
-        if (message.getSender() == "Austin") {
-            val url =
-                "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1" +
-                        "&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-            mResLoader.loadAvatar(context, url, mAvatarView)
-        } else {
-            val url =
-                "https://images.unsplash.com/photo-1554928253-515c5783243a?ixlib=rb-1.2.1" +
-                        "&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
-            mResLoader.loadAvatar(context, url, mAvatarView)
-        }
+        mResLoader.loadAvatar(context, "", mAvatarView)
     }
 
     /**
@@ -179,7 +169,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         if (holderSelecting != adapterSelecting) {
             holderSelecting = adapterSelecting
             mCheckBox.isVisible = adapterSelecting
-            (itemView as InterceptTouchRelativeLayout).intercepted = adapterSelecting
+            (itemView as InterceptedRelativeLayout).intercepted = adapterSelecting
 
             if (adapterSelecting) {
                 itemView.setOnClickListener { mCheckBox.isChecked = !mCheckBox.isChecked }
@@ -221,12 +211,12 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     open fun setDateView(view: TextView, message: IMessage) {
         val msgTs = message.getTimestamp()
-        val preTs = messageAdapter.getMessage(adapterPosition - 1)?.getTimestamp() ?: 0
+        val preTs = messageAdapter.getMessage(layoutPosition - 1)?.getTimestamp() ?: 0
         val sysTs = System.currentTimeMillis()
         val redacted = false
 
         if ((msgTs - preTs > MSG_TS_SPAN_MS)
-            || ((adapterPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > MSG_TS_SPAN_MS))
+            || ((layoutPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > MSG_TS_SPAN_MS))
             || redacted) {
             view.isVisible = true
             view.text = getDateText(itemView.context, msgTs, sysTs, messageAdapter.calendar)

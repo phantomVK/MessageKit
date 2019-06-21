@@ -74,32 +74,50 @@ class MessagesActivity : AppCompatActivity() {
         msg1.setSender("Austin")
         msg1.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 10 - 1000 * 60 * 60 * 25)
         mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
 
         val msg2 = TextMessage("Hi")
         msg2.setSender("Daniel")
         msg2.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 6)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
         mAdapter.add(msg2)
     }
 
     private fun addUrl() {
         val msg1 = UrlMessage("Google", "https://www.google.com")
         msg1.setSender("Austin")
-        msg1.image = "https://image.flaticon.com/teams/slug/google.jpg"
         msg1.domain = "https://www.google.com"
         msg1.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
                 "and hardware."
         mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
 
         val msg2 = UrlMessage("Google", "https://www.google.com")
         msg2.setSender("Daniel")
-        msg2.image = "https://image.flaticon.com/teams/slug/google.jpg"
         msg2.domain = "https://www.google.com"
         msg2.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
                 "and hardware."
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
         mAdapter.add(msg2)
     }
 
@@ -107,9 +125,19 @@ class MessagesActivity : AppCompatActivity() {
         val msg1 = LocationMessage("Baker street")
         msg1.setSender("Austin")
         mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
 
         val msg2 = LocationMessage("Baker street")
         msg2.setSender("Daniel")
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
         mAdapter.add(msg2)
     }
 
@@ -117,38 +145,65 @@ class MessagesActivity : AppCompatActivity() {
         val mag1 = FileMessage("Android_development_handbook.pdf")
         mag1.setSender("Austin")
         mAdapter.add(mag1)
+        mAdapter.add(mag1)
+        mAdapter.add(mag1)
+        mAdapter.add(mag1)
+        mAdapter.add(mag1)
+        mAdapter.add(mag1)
 
         val msg2 = FileMessage("Android_development_handbook.pdf")
         msg2.setSender("Daniel")
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
         mAdapter.add(msg2)
     }
 
     private fun addImages() {
         val msg1 = ImageMessage("img_2")
         msg1.setSender("Austin")
-        msg1.width = 668
-        msg1.height = 1002
-        msg1.url =
-            "https://images.unsplash.com/photo-1558960561-ad9fef3d65f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"
-
-        val msg3 = ImageMessage("img_3")
-        msg3.setSender("Daniel")
-        msg3.width = 2850
-        msg3.height = 1900
-        msg3.url =
-            "https://images.unsplash.com/photo-1558981130-93d25a4d4212?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
-
+        msg1.width = 1330
+        msg1.height = 2000
+        msg1.url="http://up.tukuwa.com/pic_source/ec/eb/7d/eceb7d5bdb5ea716be17bc20d15c0275.jpg"
         mAdapter.add(msg1)
-        mAdapter.add(msg3)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+
+        val msg2 = ImageMessage("img_3")
+        msg2.setSender("Daniel")
+        msg2.width = 2000
+        msg2.height = 1330
+        msg2.url="http://up.tukuwa.com/pic_source/a3/3f/03/a33f0374d254b20975790f69c177205d.jpg"
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
+        mAdapter.add(msg2)
     }
 
     private fun addAudio() {
         val msg = AudioMessage("audio")
         msg.setSender("Austin")
         mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
 
         val msg1 = AudioMessage("audio")
         msg1.setSender("Daniel")
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
+        mAdapter.add(msg1)
         mAdapter.add(msg1)
     }
 }

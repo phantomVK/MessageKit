@@ -55,7 +55,7 @@ interface IMessageItemListener {
     fun onContentLongClick(itemView: View,
                            point: PointF,
                            adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
-                           adapterPosition: Int): Boolean
+                           layoutPosition: Int): Boolean
 
     /**
      * Double click on the message content.
@@ -65,7 +65,7 @@ interface IMessageItemListener {
     /**
      * The action of the long click content.
      */
-    fun onContentAction(itemView: View, adapterPosition: Int)
+    fun onContentAction(itemView: View, layoutPosition: Int)
 
     /**
      * Resend the content.

@@ -22,23 +22,22 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.widget
+package com.phantomvk.vkit.widget.layout
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.widget.FrameLayout
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.phantomvk.vkit.bubble.BubbleDrawer
 import com.phantomvk.vkit.bubble.Direction
 
-class BubbleLinearLayout
+open class BubbleRelativeLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
                           defStyleAttr: Int = 0)
-    : LinearLayout(context, attrs, defStyleAttr), IBubbleLayout {
+    : RelativeLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.
@@ -89,11 +88,11 @@ class BubbleLinearLayout
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.save()
+        val count = canvas.save()
         canvas.clipPath(mDrawer.path)
         super.draw(canvas)
         mDrawer.draw(canvas)
-        canvas.restore()
+        canvas.restoreToCount(count)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
