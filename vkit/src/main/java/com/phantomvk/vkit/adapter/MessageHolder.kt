@@ -47,7 +47,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
 
-    private val isXmlStyle = true
+    private val isXmlStyle = false
 
     /**
      * Bind view.

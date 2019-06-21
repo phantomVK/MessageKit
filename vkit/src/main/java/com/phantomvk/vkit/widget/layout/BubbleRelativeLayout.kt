@@ -88,11 +88,9 @@ open class BubbleRelativeLayout
     }
 
     override fun draw(canvas: Canvas) {
-        val count = canvas.save()
         canvas.clipPath(mDrawer.path)
         super.draw(canvas)
         mDrawer.draw(canvas)
-        canvas.restoreToCount(count)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

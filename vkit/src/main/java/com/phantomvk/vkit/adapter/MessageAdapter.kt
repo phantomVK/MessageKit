@@ -65,12 +65,12 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Max width pixel for displaying ImageMessage.
      */
-    val maxImageWidth: Int
+    val maxImageWidth: Float
 
     /**
      * Max height pixel for displaying ImageMessage.
      */
-    val maxImageHeight: Int
+    val maxImageHeight: Float
 
     /**
      * Start messages selecting.
@@ -95,11 +95,11 @@ open class MessageAdapter(private val mActivity: Activity,
 
         // Init only once.
         if (point.x < point.y) { // landscape
-            maxImageWidth = Math.round(point.x * 0.6F)
-            maxImageHeight = Math.round(point.y * 0.4F)
+            maxImageWidth = point.x * 0.6F
+            maxImageHeight = point.y * 0.4F
         } else { // portrait.
-            maxImageWidth = Math.round(point.x * 0.4F)
-            maxImageHeight = Math.round(point.y * 0.6F)
+            maxImageWidth = point.x * 0.4F
+            maxImageHeight = point.y * 0.6F
         }
     }
 

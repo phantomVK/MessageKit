@@ -110,7 +110,7 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
         if (arrowDirection == Direction.END) {
             val matrix = Matrix()
             matrix.postScale(-1f, 1f)
-            matrix.postTranslate(w.toFloat(), 0f)
+            matrix.postTranslate(w, 0f)
             path.transform(matrix)
         }
     }

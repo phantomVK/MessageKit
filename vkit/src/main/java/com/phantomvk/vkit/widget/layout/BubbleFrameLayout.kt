@@ -90,11 +90,9 @@ open class BubbleFrameLayout
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.save()
         canvas.clipPath(mDrawer.path)
         super.draw(canvas)
         mDrawer.draw(canvas)
-        canvas.restore()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

@@ -25,7 +25,6 @@
 package com.phantomvk.vkit.adapter.holder
 
 import android.app.Activity
-import android.graphics.PointF
 import android.view.View
 import android.widget.ImageView
 import com.phantomvk.vkit.bubble.Direction
@@ -56,7 +55,6 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val msgType = msg.getMsgType()
         if (msgType == Message.MESSAGE_TYPE_IMAGE) {
             mIconPlay.visibility = View.GONE
-
         } else {
             mIconPlay.visibility = View.VISIBLE
         }
@@ -77,22 +75,18 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val maxSize = messageAdapter.maxSize
 
         var scale = if (width / height > maxWidth / maxHeight) {
-            maxWidth.toFloat() / width
+            maxWidth / width
         } else {
-            maxHeight.toFloat() / height
+            maxHeight / height
         }
 
         var maxScale = maxSize / (if (width > height) width else height)
         maxScale = Math.max(1F, maxScale)
         scale = Math.min(maxScale, scale)
 
-        val size = PointF((width * scale), (height * scale))
-        size.x = Math.max(minSize, size.x)
-        size.y = Math.max(minSize, size.y)
-
         val layoutParams = imageView.layoutParams
-        layoutParams.width = size.x.toInt()
-        layoutParams.height = size.y.toInt()
-        imageView.layoutParams = layoutParams
+        layoutParams.width = Math.max(minSize, (width * scale)).toInt()
+        layoutParams.height = Math.max(minSize, (height * scale)).toInt()
+//        imageView.layoutParams = layoutParams
     }
 }
