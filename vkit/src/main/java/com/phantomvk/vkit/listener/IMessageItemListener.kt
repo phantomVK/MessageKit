@@ -28,6 +28,7 @@ import android.graphics.PointF
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import com.phantomvk.vkit.model.IMessage
 
 /**
  * Message item listener.
@@ -46,7 +47,7 @@ interface IMessageItemListener {
     /**
      * Click on the message content.
      */
-    fun onContentClick(itemView: View)
+    fun onContentClick(itemView: View, message: IMessage)
 
     /**
      * Long click on the message content.

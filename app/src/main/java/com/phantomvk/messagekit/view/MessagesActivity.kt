@@ -50,10 +50,13 @@ class MessagesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_message)
 
         mAdapter = MessageAdapter(this, MessageItemListener(this), MessageResLoader)
+        mAdapter.setHasStableIds(true)
+
         mLayoutManager.isSmoothScrollbarEnabled = true
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setRecycledViewPool(MessageViewPool)
+        messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
         addText()
@@ -61,280 +64,91 @@ class MessagesActivity : AppCompatActivity() {
         addLocation()
         addFile()
         addImages()
-        audio()
+        addAudio()
 
         mAdapter.notifyDataSetChanged()
     }
 
     private fun addText() {
-        val longText = TextMessage("Hello")
-        longText.setSender("Mike")
-        longText.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 10 - 1000 * 60 * 60 * 25)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
-        mAdapter.add(longText)
+        val msg1 = TextMessage("Hello")
+        msg1.setSender("Austin")
+        msg1.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 10 - 1000 * 60 * 60 * 25)
+        mAdapter.add(msg1)
 
-        val shortText2 = TextMessage("Hi")
-        shortText2.setSender("John")
-        shortText2.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 6)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-        mAdapter.add(shortText2)
-
-        val shortText3 = TextMessage("Hey.")
-        shortText3.setSender("Bob")
-        shortText3.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 2)
-        mAdapter.add(shortText3)
-        mAdapter.add(shortText3)
-        mAdapter.add(shortText3)
-        mAdapter.add(shortText3)
-        mAdapter.add(shortText3)
-        mAdapter.add(shortText3)
+        val msg2 = TextMessage("Hi")
+        msg2.setSender("Daniel")
+        msg2.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 6)
+        mAdapter.add(msg2)
     }
 
     private fun addUrl() {
-        val url = UrlMessage("Google", "https://www.google.com")
-        url.setSender("Mike")
-        url.description = "This is a website.This is a website." +
-                "This is a website.This is a website." +
-                "This is a website.This is a website." +
-                "This is a website.This is a website." +
-                "This is a website.This is a website."
-        url.domain = "www.google.com"
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
-        mAdapter.add(url)
+        val msg1 = UrlMessage("Google", "https://www.google.com")
+        msg1.setSender("Austin")
+        msg1.image = "https://image.flaticon.com/teams/slug/google.jpg"
+        msg1.domain = "https://www.google.com"
+        msg1.description = "Google LLC is an American multinational technology company " +
+                "that specializes in Internet-related services and products, which include " +
+                "online advertising technologies, search engine, cloud computing, software, " +
+                "and hardware."
+        mAdapter.add(msg1)
 
-        val url2 = UrlMessage("Google", "https://www.google.com")
-        url2.setSender("John")
-        url2.description = "This is a website."
-        url2.domain = "www.google.com"
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
-        mAdapter.add(url2)
+        val msg2 = UrlMessage("Google", "https://www.google.com")
+        msg2.setSender("Daniel")
+        msg2.image = "https://image.flaticon.com/teams/slug/google.jpg"
+        msg2.domain = "https://www.google.com"
+        msg2.description = "Google LLC is an American multinational technology company " +
+                "that specializes in Internet-related services and products, which include " +
+                "online advertising technologies, search engine, cloud computing, software, " +
+                "and hardware."
+        mAdapter.add(msg2)
     }
 
     private fun addLocation() {
-        val locationMessage = LocationMessage("Baker street.")
-        locationMessage.address = "ABCDABCDABCDABCDABCDABCDABCDABCDABCD"
-        locationMessage.setSender("Mike")
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
-        mAdapter.add(locationMessage)
+        val msg1 = LocationMessage("Baker street")
+        msg1.setSender("Austin")
+        mAdapter.add(msg1)
 
-        val locationMessage2 = LocationMessage("Baker street.")
-        locationMessage2.setSender("John")
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
-        mAdapter.add(locationMessage2)
+        val msg2 = LocationMessage("Baker street")
+        msg2.setSender("Daniel")
+        mAdapter.add(msg2)
     }
 
     private fun addFile() {
-        val file = FileMessage("Android_development_handbook.pdf")
-        file.setSender("Mike")
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
-        mAdapter.add(file)
+        val mag1 = FileMessage("Android_development_handbook.pdf")
+        mag1.setSender("Austin")
+        mAdapter.add(mag1)
 
-        val file2 = FileMessage("Android_development_handbook.pdf")
-        file2.setSender("John")
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
-        mAdapter.add(file2)
+        val msg2 = FileMessage("Android_development_handbook.pdf")
+        msg2.setSender("Daniel")
+        mAdapter.add(msg2)
     }
 
     private fun addImages() {
-        val msg = ImageMessage("img_1")
-        msg.setSender("Mike")
-        msg.width = 714
-        msg.height = 7730
-        msg.url = "https://img.zcool.cn/community/02172958db679ca801219c7790da38.jpg"
-
-        val msg2 = ImageMessage("img_2")
-        msg2.setSender("Bob")
-        msg2.width = 750
-        msg2.height = 500
-        msg2.url = "https://kaboompics.com/cache/2/2/4/5/3/22453134c1a1f749446bc9d40312dbec26cc6c92.jpeg?version=v49"
+        val msg1 = ImageMessage("img_2")
+        msg1.setSender("Austin")
+        msg1.width = 668
+        msg1.height = 1002
+        msg1.url =
+            "https://images.unsplash.com/photo-1558960561-ad9fef3d65f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80"
 
         val msg3 = ImageMessage("img_3")
-        msg3.setSender("Bob")
-        msg3.width = 2145
-        msg3.height = 544
-        msg3.url = "http://ps.missyuan.com/upimg/allimg/090121/1424321.jpg"
+        msg3.setSender("Daniel")
+        msg3.width = 2850
+        msg3.height = 1900
+        msg3.url =
+            "https://images.unsplash.com/photo-1558981130-93d25a4d4212?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
 
-        mAdapter.add(msg)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg2)
-        mAdapter.add(msg)
-        mAdapter.add(msg2)
+        mAdapter.add(msg1)
         mAdapter.add(msg3)
-        mAdapter.add(msg3)
-        mAdapter.add(msg3)
-        mAdapter.add(msg)
     }
 
-    private fun audio() {
+    private fun addAudio() {
         val msg = AudioMessage("audio")
-        msg.setSender("John")
+        msg.setSender("Austin")
         mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        mAdapter.onPause()
+        val msg1 = AudioMessage("audio")
+        msg1.setSender("Daniel")
+        mAdapter.add(msg1)
     }
 }

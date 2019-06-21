@@ -29,7 +29,7 @@ package com.phantomvk.vkit.model
  *
  * Website title and website url are both required.
  */
-class UrlMessage(var title: String, url: String) : Message(MESSAGE_TYPE_URL, url) {
+class UrlMessage(var title: String, val url: String) : Message(MESSAGE_TYPE_URL, url) {
     /**
      * Website icon url, optional.
      */

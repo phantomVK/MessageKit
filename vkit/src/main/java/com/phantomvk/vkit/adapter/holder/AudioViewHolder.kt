@@ -42,7 +42,7 @@ class AudioViewHolder(itemView: View) : BaseViewHolder(itemView) {
     private val progressBar: ProgressBar = itemView.progress
 
     /**
-     * Audio duration.
+     * Duration.
      */
     private val duration: TextView = itemView.duration
 }

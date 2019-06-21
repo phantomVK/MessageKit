@@ -33,7 +33,7 @@ import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
 /**
- * The abstract ViewHolder for all incoming or outgoing messages.
+ * The abstract ViewHolder for messages to implement.
  */
 abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     /**

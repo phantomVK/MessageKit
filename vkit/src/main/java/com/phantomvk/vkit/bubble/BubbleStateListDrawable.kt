@@ -31,7 +31,7 @@ import androidx.core.content.ContextCompat
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.util.dip
 
-class BubbleStateListDrawable(context: Context, shape: BubbleShape) : StateListDrawable() {
+private class BubbleStateListDrawable(context: Context, shape: BubbleShape) : StateListDrawable() {
     init {
         val color = shape.solidColor
         val darkColor = Color.rgb(

@@ -23,9 +23,4 @@
         android:id="@+id/redact"
         android:title="@string/redact"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/selection"
-        android:title="@string/selection"
-        app:showAsAction="ifRoom"/>
 </menu>

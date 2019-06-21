@@ -180,7 +180,8 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
         mPathStroke.lineTo(width - cornerRadius, strokeOffset)
 
         // Upper right corner and the right line.
-        mRectF.set(width - cornerRadius + strokeOffset, strokeOffset, width - strokeOffset, cornerRadius - strokeOffset)
+        mRectF.set(width - cornerRadius + strokeOffset, strokeOffset,
+            width - strokeOffset, cornerRadius - strokeOffset)
         mPathStroke.arcTo(mRectF, 270F, 90F)
         mPathStroke.lineTo(width - strokeOffset, height - cornerRadius)
 

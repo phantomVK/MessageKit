@@ -61,7 +61,8 @@ class OnGestureListener(private val viewHolder: BaseViewHolder,
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-        listener.onContentClick(viewHolder.itemView)
+        val msg = viewHolder.messageAdapter.getMessage(viewHolder)!!
+        listener.onContentClick(viewHolder.itemView, msg)
         return true
     }
 }

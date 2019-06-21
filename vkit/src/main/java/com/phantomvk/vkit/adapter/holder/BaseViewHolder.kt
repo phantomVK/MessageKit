@@ -84,7 +84,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Message resending button.
      */
-    protected val mResendView: ImageView? = itemView.findViewById(R.id.resend)
+    private val mResendView: ImageView? = itemView.findViewById(R.id.resend)
 
     /**
      * For long click popup menu.
@@ -113,7 +113,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     /**
-     * Set all kinds of click listeners to the item, overridden by subclasses..
+     * Set all kinds of click listeners to the item, overridden by subclasses.
      */
     open fun setItemListener(view: ImageView) {
         view.setOnClickListener { mItemListener.onAvatarClick(itemView) }
@@ -143,29 +143,39 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Template Pattern to bind ViewHolder, overridden by subclasses.
      */
     override fun onBind(activity: Activity, message: IMessage) {
-        loadAvatar(activity)
+        loadAvatar(activity, message)
         setDisplayName(message)
-        selectingMode()
-        setDateView(mDateView, message)
+        selectingMode(messageAdapter.getSelecting())
+
+        // Uncomment line below to show date.
+        // setDateView(mDateView, message)
     }
 
     /**
      * Load user avatar, overridden by subclasses.
      */
-    open fun loadAvatar(context: Context) {
-        mResLoader.loadAvatar(context, 0, mAvatarView)
+    open fun loadAvatar(context: Context, message: IMessage) {
+        if (message.getSender() == "Austin") {
+            val url =
+                "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1" +
+                        "&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+            mResLoader.loadAvatar(context, url, mAvatarView)
+        } else {
+            val url =
+                "https://images.unsplash.com/photo-1554928253-515c5783243a?ixlib=rb-1.2.1" +
+                        "&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
+            mResLoader.loadAvatar(context, url, mAvatarView)
+        }
     }
 
     /**
-     * Set user display name, overridden by subclasses..
+     * Set user display name, overridden by subclasses.
      */
     open fun setDisplayName(message: IMessage) {
         mUsername?.text = message.getSender()
     }
 
-    private fun selectingMode() {
-        val adapterSelecting = messageAdapter.getSelecting()
-
+    private fun selectingMode(adapterSelecting: Boolean) {
         if (holderSelecting != adapterSelecting) {
             holderSelecting = adapterSelecting
             mCheckBox.isVisible = adapterSelecting
@@ -180,7 +190,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     /**
-     * -1: Wait to resend.
+     * -1: Resendable.
      *  0: Sent.
      *  1: Sending.
      */
@@ -195,7 +205,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * View visible:
      *     1. Current message timestamp is #MSG_TS_SPAN_MS larger than the previous;
      *     2. The message is the last one, also has been sent more then #MSG_TS_SPAN_MS;
-     *     3. The message has been redacted, shows the timestamp of redaction.
+     *     3. The message has been redacted, just shows the timestamp of redaction.
      *
      * View gone:
      *     All other conditions.

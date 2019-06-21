@@ -25,7 +25,9 @@
 package com.phantomvk.messagekit.tools
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.PointF
+import android.net.Uri
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.listener.IMessageItemListener
+import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.model.ImageMessage
+import com.phantomvk.vkit.model.UrlMessage
 import com.phantomvk.vkit.util.toast
 
 class MessageItemListener(private val activity: Activity) : IMessageItemListener {
@@ -47,8 +52,16 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
         return true
     }
 
-    override fun onContentClick(itemView: View) {
-        activity.toast("onContentClick")
+    override fun onContentClick(itemView: View, message: IMessage) {
+        when (message) {
+            is UrlMessage -> activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(message.url)))
+            is ImageMessage -> {
+                Intent().setAction(Intent.ACTION_VIEW)
+                    .setDataAndType(Uri.parse(message.url), "image/*")
+                    .run { activity.startActivity(this) }
+            }
+            else -> activity.toast("onContentClick, message type: ${message.getMsgType()}")
+        }
     }
 
     override fun onContentLongClick(itemView: View,

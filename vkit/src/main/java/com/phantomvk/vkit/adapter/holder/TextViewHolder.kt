@@ -33,7 +33,7 @@ import com.phantomvk.vkit.model.IMessage
 
 class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * TextView.
+     * TextView, required.
      */
     private val mText: TextView = itemView.findViewById(R.id.text)
 

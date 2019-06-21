@@ -37,12 +37,12 @@ import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
 class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * ImageView to display thumbnail.
+     * ImageView to display thumbnail, required.
      */
     private val mImageView: ImageView = itemView.image
 
     /**
-     * An icon to indicate that this is a VideoMessage.
+     * An icon to indicate that this is a VideoMessage, required.
      */
     private val mIconPlay: ImageView = itemView.play
 

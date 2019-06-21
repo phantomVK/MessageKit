@@ -44,6 +44,21 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mResLoader: IMessageResLoader) {
 
     /**
+     * Bind view.
+     */
+    fun onBind(activity: Activity, holder: AbstractViewHolder, message: IMessage) {
+        holder.onBind(activity, message)
+    }
+
+    /**
+     * Get view type by Message's msgType.
+     */
+    fun getViewType(message: IMessage, isSender: Boolean): Int {
+        val viewType = sViewType[message.getMsgType()] ?: HOLDER_DEFAULT
+        return if (isSender) viewType else -viewType
+    }
+
+    /**
      * Get view holder.
      */
     fun getHolder(parent: ViewGroup,
@@ -95,21 +110,6 @@ class MessageHolders(private val mInflater: LayoutInflater,
         }
     }
 
-    /**
-     * Bind view.
-     */
-    fun onBind(activity: Activity, holder: AbstractViewHolder, message: IMessage) {
-        holder.onBind(activity, message)
-    }
-
-    /**
-     * Get view type by Message's msgType.
-     */
-    fun getViewType(message: IMessage, isSender: Boolean): Int {
-        val viewType = sViewType[message.getMsgType()] ?: HOLDER_DEFAULT
-        return if (isSender) viewType else -viewType
-    }
-
     companion object {
         private const val HOLDER_DEFAULT = 1
         private const val HOLDER_TEXT = 2
@@ -138,7 +138,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         /**
          * Content types array.
          *
-         * Use SparseArray<HolderConfig> instead of HashMap<int, HolderConfig> for less memory consuming.
+         * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
          */
         private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)

@@ -25,11 +25,12 @@
 package com.phantomvk.vkit.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.model.IMessage
 
 abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
     /**
-     * Call when activity or fragment pauses to save battery by stopping the playing medias.
+     * Call when activity or fragment pauses, in order to save battery by stopping the playing media.
      */
     open fun onPause() {}
 
@@ -72,4 +73,9 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
      * Get message from adapter by adapter position.
      */
     abstract fun getMessage(position: Int): IMessage?
+
+    /**
+     * Get message from adapter by ViewHolder.
+     */
+    abstract fun getMessage(holder: BaseViewHolder): IMessage?
 }

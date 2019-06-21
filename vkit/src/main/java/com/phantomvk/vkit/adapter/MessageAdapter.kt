@@ -31,6 +31,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
+import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
@@ -84,7 +85,7 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Instance used by all ViewHolders in order to reduce memory usage.
      *
-     * Warning: Used in UiThread only.
+     * Warning: Used in UiThread.
      */
     val calendar = GregorianCalendar()
 
@@ -116,7 +117,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun getItemViewType(position: Int): Int {
         val message = mMessages[position]
-        return mHolders.getViewType(message, isHost("Mike", message))
+        return mHolders.getViewType(message, isHost("Austin", message))
     }
 
     override fun add(message: IMessage, refresh: Boolean) {
@@ -139,8 +140,8 @@ open class MessageAdapter(private val mActivity: Activity,
         notifyItemRemoved(adapterPos)
     }
 
-    private fun isHost(userId: String, message: IMessage): Boolean {
-        return userId == message.getSender()
+    private fun isHost(currUserId: String, message: IMessage): Boolean {
+        return currUserId == message.getSender()
     }
 
     override fun clear() {
@@ -169,5 +170,13 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun getMessage(position: Int): IMessage? {
         return mMessages.getOrNull(position)
+    }
+
+    override fun getMessage(holder: BaseViewHolder): IMessage? {
+        return mMessages.getOrNull(holder.adapterPosition)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return mMessages[position].hashCode().toLong()
     }
 }
