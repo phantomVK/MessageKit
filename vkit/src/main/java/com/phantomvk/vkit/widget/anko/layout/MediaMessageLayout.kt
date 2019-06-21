@@ -24,10 +24,8 @@
 
 package com.phantomvk.vkit.widget.anko.layout
 
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
@@ -35,11 +33,8 @@ import org.jetbrains.anko.*
 class MediaMessageLayout<T> : AnkoComponent<T> {
     override fun createView(ui: AnkoContext<T>) = with(ui) {
         bubbleFrameLayout {
-            lparams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
             imageView {
                 id = R.id.image
-                backgroundColor = Color.parseColor("#eaeaea")
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }
 

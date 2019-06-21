@@ -47,6 +47,8 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
 
+    private val isXmlStyle = true
+
     /**
      * Bind view.
      */
@@ -132,34 +134,14 @@ class MessageHolders(private val mInflater: LayoutInflater,
         val container = frame.findViewById<LinearLayout>(R.id.container)
 
         val bodyView = when (layoutResId) {
-            R.layout.vkit_layout_msg_url -> {
-                UrlMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            R.layout.vkit_layout_msg_notice -> {
-                NoticeMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            R.layout.vkit_layout_msg_file -> {
-                FileMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            R.layout.vkit_layout_msg_audio -> {
-                AudioMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            R.layout.vkit_layout_msg_media -> {
-                MediaMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            R.layout.vkit_layout_msg_location -> {
-                LocationMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-
-            else -> {
-                TextMessageLayout<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-            }
-        }
+            R.layout.vkit_layout_msg_url -> UrlMessageLayout<ViewGroup>()
+            R.layout.vkit_layout_msg_notice -> NoticeMessageLayout<ViewGroup>()
+            R.layout.vkit_layout_msg_file -> FileMessageLayout()
+            R.layout.vkit_layout_msg_audio -> AudioMessageLayout()
+            R.layout.vkit_layout_msg_media -> MediaMessageLayout()
+            R.layout.vkit_layout_msg_location -> LocationMessageLayout()
+            else -> TextMessageLayout()
+        }.createView(AnkoContext.create(parent.context, parent))
 
         bodyView.id = R.id.msg_body
         container.addView(bodyView, if (isHost) container.childCount else 0)
@@ -169,8 +151,6 @@ class MessageHolders(private val mInflater: LayoutInflater,
     }
 
     companion object {
-        private const val isXmlStyle = false
-
         private const val HOLDER_DEFAULT = 1
         private const val HOLDER_TEXT = 2
         private const val HOLDER_URL = 3

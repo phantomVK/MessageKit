@@ -27,6 +27,7 @@ package com.phantomvk.vkit.widget.anko.layout
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
@@ -48,7 +49,8 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
 
             progressBar {
                 id = R.id.progress
-                applyRecursively { R.style.vkit_audio_progress_bar }
+                progressDrawable = ContextCompat.getDrawable(context, android.R.drawable.progress_horizontal)
+                indeterminateDrawable = ContextCompat.getDrawable(context, R.drawable.vkit_list_progress_bar)
             }.lparams(width = dip(100), height = dip(2)) {
                 marginStart = dip(6)
             }
