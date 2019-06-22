@@ -38,8 +38,8 @@ import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.model.Message
-import com.phantomvk.vkit.widget.anko.frame.MessageIncomingFrame
-import com.phantomvk.vkit.widget.anko.frame.MessageOutgoingFrame
+import com.phantomvk.vkit.widget.anko.frame.MessageFrameIncoming
+import com.phantomvk.vkit.widget.anko.frame.MessageFrameOutgoing
 import com.phantomvk.vkit.widget.anko.layout.*
 import org.jetbrains.anko.AnkoContext
 
@@ -47,7 +47,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
 
-    private val isXmlStyle = false
+    private var xmlStyle = false
 
     /**
      * Bind view.
@@ -92,26 +92,34 @@ class MessageHolders(private val mInflater: LayoutInflater,
                           viewType: Int,
                           isHost: Boolean): AbstractViewHolder {
 
-        return if (viewType == HOLDER_NOTICE) {
-            holder.invoke(mInflater.inflate(layoutResId, parent, false))
+        return if (xmlStyle) {
+            xmlStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         } else {
-            if (isXmlStyle) {
-                xmlStyle(isHost, parent, layoutResId, adapter, holder)
-            } else {
-                dslStyle(isHost, parent, layoutResId, adapter, holder)
-            }
+            dslStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         }
     }
 
-    private fun xmlStyle(isHost: Boolean, parent: ViewGroup, layoutResId: Int, adapter: MessageAdapter,
-                         holder: (View) -> AbstractViewHolder): AbstractViewHolder {
+    /**
+     * Inflate layouts using LayoutInflater with xml.
+     */
+    private fun xmlStyle(parent: ViewGroup,
+                         @LayoutRes layoutResId: Int,
+                         adapter: MessageAdapter,
+                         holder: (View) -> AbstractViewHolder,
+                         viewType: Int,
+                         isHost: Boolean): AbstractViewHolder {
+
+        if (viewType == HOLDER_NOTICE) {
+            return holder.invoke(mInflater.inflate(layoutResId, parent, false))
+        }
+
         val frame = if (isHost) {
             R.layout.vkit_item_msg_frame_outgoing
         } else {
             R.layout.vkit_item_msg_frame_incoming
         }
-        val frameView = mInflater.inflate(frame, parent, false)
 
+        val frameView = mInflater.inflate(frame, parent, false)
         val container = frameView.findViewById<LinearLayout>(R.id.container)
 
         // Inflate the body then add to the container.
@@ -123,27 +131,41 @@ class MessageHolders(private val mInflater: LayoutInflater,
         return holder.invoke(frameView).init(isHost, adapter, mItemListener, mResLoader)
     }
 
-    private fun dslStyle(isHost: Boolean, parent: ViewGroup, layoutResId: Int, adapter: MessageAdapter,
-                         holder: (View) -> AbstractViewHolder): AbstractViewHolder {
-        val frame = if (isHost) {
-            MessageOutgoingFrame<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
-        } else {
-            MessageIncomingFrame<ViewGroup>().createView(AnkoContext.create(parent.context, parent))
+    /**
+     * Inflate layouts using AnkoContext with DSL.
+     */
+    private fun dslStyle(parent: ViewGroup,
+                         @LayoutRes layoutResId: Int,
+                         adapter: MessageAdapter,
+                         holder: (View) -> AbstractViewHolder,
+                         viewType: Int,
+                         isHost: Boolean): AbstractViewHolder {
+
+        // AnkoContext.
+        val ankoContext = AnkoContext.create(parent.context, parent)
+
+        if (viewType == HOLDER_NOTICE) {
+            return holder.invoke(NoticeMessageLayout<ViewGroup>().createView(ankoContext))
         }
 
-        val container = frame.findViewById<LinearLayout>(R.id.container)
+        val frame = if (isHost) {
+            MessageFrameOutgoing<ViewGroup>().createView(ankoContext)
+        } else {
+            MessageFrameIncoming<ViewGroup>().createView(ankoContext)
+        }
 
         val bodyView = when (layoutResId) {
             R.layout.vkit_layout_msg_url -> UrlMessageLayout<ViewGroup>()
-            R.layout.vkit_layout_msg_notice -> NoticeMessageLayout<ViewGroup>()
+            R.layout.vkit_layout_msg_location -> LocationMessageLayout<ViewGroup>()
             R.layout.vkit_layout_msg_file -> FileMessageLayout()
             R.layout.vkit_layout_msg_audio -> AudioMessageLayout()
             R.layout.vkit_layout_msg_media -> MediaMessageLayout()
-            R.layout.vkit_layout_msg_location -> LocationMessageLayout()
             else -> TextMessageLayout()
         }.createView(AnkoContext.create(parent.context, parent))
 
         bodyView.id = R.id.msg_body
+
+        val container = frame.findViewById<LinearLayout>(R.id.container)
         container.addView(bodyView, if (isHost) container.childCount else 0)
 
         // Init ViewHolder.

@@ -34,8 +34,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <include layout="@layout/vkit_view_msg_frame_read"/>
-
         <ProgressBar
             android:id="@+id/sending"
             android:layout_width="17dp"

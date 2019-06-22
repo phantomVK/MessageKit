@@ -25,7 +25,6 @@
 package com.phantomvk.vkit.widget.anko.frame
 
 import android.graphics.Color
-import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -34,7 +33,7 @@ import com.phantomvk.vkit.R
 import com.phantomvk.vkit.widget.anko.layout.interceptTouchRelativeLayout
 import org.jetbrains.anko.*
 
-class MessageIncomingFrame<T> : AnkoComponent<T> {
+class MessageFrameOutgoing<T> : AnkoComponent<T> {
     override fun createView(ui: AnkoContext<T>) = with(ui) {
         interceptTouchRelativeLayout {
             topPadding = dip(6)
@@ -65,43 +64,50 @@ class MessageIncomingFrame<T> : AnkoComponent<T> {
                 id = R.id.avatar
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }.lparams(width = dip(40), height = dip(40)) {
-                endOf(R.id.checkbox)
-                marginStart = dip(9)
-            }
-
-            textView {
-                id = R.id.username
-                ellipsize = TextUtils.TruncateAt.END
-                includeFontPadding = false
-                singleLine = true
-                textColor = Color.parseColor("#666666")
-                textSize = 11f //sp
-            }.lparams {
-                endOf(R.id.avatar)
-                sameTop(R.id.avatar)
-                marginStart = dip(11)
-                bottomMargin = dip(4)
+                alignParentEnd()
+                below(R.id.date)
+                marginEnd = dip(9)
             }
 
             linearLayout {
                 id = R.id.container
+                gravity = Gravity.CENTER_VERTICAL
                 orientation = LinearLayout.HORIZONTAL
-                textView {
-                    id = R.id.read_receipt
-                    includeFontPadding = false
-                    textColor = Color.parseColor("#b2b2b2")
-                    textSize = 11f //sp
+
+//                textView {
+//                    id = R.id.read_receipt
+//                    includeFontPadding = false
+//                    textColor = Color.parseColor("#b2b2b2")
+//                    textSize = 11f //sp
+//                    visibility = View.GONE
+//                }.lparams {
+//                    gravity = Gravity.BOTTOM
+//                    marginStart = dip(5)
+//                    bottomMargin = dip(6)
+//                }
+
+                progressBar {
+                    id = R.id.sending
+                    isIndeterminate = true
                     visibility = View.GONE
-                }.lparams {
-                    gravity = Gravity.BOTTOM
-                    marginStart = dip(5)
-                    bottomMargin = dip(6)
+                }.lparams(width = dip(17), height = dip(17)) {
+                    marginEnd = dip(10)
+                }
+
+                imageView {
+                    id = R.id.resend
+                    padding = dip(5)
+                    imageResource = R.drawable.vkit_selector_warning
+                    visibility = View.GONE
+                }.lparams(width = dip(30), height = dip(30)) {
+                    marginEnd = dip(5)
                 }
             }.lparams {
-                endOf(R.id.avatar)
-                below(R.id.username)
-                marginStart = dip(4)
-                marginEnd = dip(10)
+                startOf(R.id.avatar)
+                below(R.id.date)
+                sameTop(R.id.avatar)
+                marginStart = dip(10)
+                marginEnd = dip(4)
             }
         }
     }

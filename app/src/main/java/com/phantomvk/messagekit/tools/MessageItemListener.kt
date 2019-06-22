@@ -41,26 +41,26 @@ import com.phantomvk.vkit.model.ImageMessage
 import com.phantomvk.vkit.model.UrlMessage
 import com.phantomvk.vkit.util.toast
 
-class MessageItemListener(private val activity: Activity) : IMessageItemListener {
+object MessageItemListener : IMessageItemListener {
 
     override fun onAvatarClick(itemView: View) {
-        activity.toast("onAvatarClick")
+        itemView.context.toast("onAvatarClick")
     }
 
     override fun onAvatarLongClick(itemView: View): Boolean {
-        activity.toast("onAvatarLongClick")
+        itemView.context.toast("onAvatarLongClick")
         return true
     }
 
     override fun onContentClick(itemView: View, message: IMessage) {
         when (message) {
-            is UrlMessage -> activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(message.url)))
+            is UrlMessage -> itemView.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(message.url)))
             is ImageMessage -> {
                 Intent().setAction(Intent.ACTION_VIEW)
                     .setDataAndType(Uri.parse(message.url), "image/*")
-                    .run { activity.startActivity(this) }
+                    .run { itemView.context.startActivity(this) }
             }
-            else -> activity.toast("onContentClick, body: ${message.getBody()}")
+            else -> itemView.context.toast("onContentClick, body: ${message.getBody()}")
         }
     }
 
@@ -69,15 +69,15 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
                                     adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
                                     layoutPosition: Int): Boolean {
 
-        val anchor = View(activity)
+        val anchor = View(itemView.context)
         anchor.layoutParams = ViewGroup.LayoutParams(0, 0)
         anchor.x = point.x
         anchor.y = point.y
 
-        val root = activity.findViewById<ViewGroup>(android.R.id.content)
+        val root = ((itemView.context) as Activity).findViewById<ViewGroup>(android.R.id.content)
         root.addView(anchor)
 
-        val popupMenu = PopupMenu(activity, anchor, Gravity.CENTER)
+        val popupMenu = PopupMenu(itemView.context, anchor, Gravity.CENTER)
         popupMenu.menuInflater.inflate(R.menu.vkit_menu_message_long_click, popupMenu.menu)
 
         popupMenu.setOnDismissListener { menu ->
@@ -91,6 +91,8 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
                     adapter.remove(layoutPosition)
                 }
             }
+            root.removeView(anchor)
+            popupMenu.dismiss()
             return@setOnMenuItemClickListener true
         }
 
@@ -100,18 +102,18 @@ class MessageItemListener(private val activity: Activity) : IMessageItemListener
     }
 
     override fun onContentDoubleClick(itemView: View) {
-        activity.toast("onDoubleTapEvent")
+        itemView.context.toast("onDoubleTapEvent")
     }
 
     override fun onContentAction(itemView: View, layoutPosition: Int) {
-        activity.toast("onContentAction")
+        itemView.context.toast("onContentAction")
     }
 
     override fun onContentResent(itemView: View) {
-        activity.toast("onContentResent")
+        itemView.context.toast("onContentResent")
     }
 
-    override fun onStatesChanged(isSelecting: Boolean) {
-        activity.toast("onStatesChanged, isSelecting: $isSelecting")
+    override fun onStatesChanged(itemView: View, isSelecting: Boolean) {
+        itemView.context.toast("onStatesChanged, isSelecting: $isSelecting")
     }
 }

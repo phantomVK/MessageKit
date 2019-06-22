@@ -27,6 +27,7 @@ package com.phantomvk.vkit.adapter
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
@@ -95,11 +96,11 @@ open class MessageAdapter(private val mActivity: Activity,
 
         // Init only once.
         if (point.x < point.y) { // landscape
-            maxImageWidth = point.x * 0.6F
-            maxImageHeight = point.y * 0.4F
+            maxImageWidth = point.x * 0.40F
+            maxImageHeight = point.y * 0.24F
         } else { // portrait.
-            maxImageWidth = point.x * 0.4F
-            maxImageHeight = point.y * 0.6F
+            maxImageWidth = point.x * 0.24F
+            maxImageHeight = point.y * 0.40F
         }
     }
 
@@ -150,7 +151,7 @@ open class MessageAdapter(private val mActivity: Activity,
         notifyItemRangeRemoved(0, count)
     }
 
-    override fun setSelecting(isSelecting: Boolean) {
+    override fun setSelecting(itemView: View, isSelecting: Boolean) {
         if (selecting != isSelecting) {
             selecting = isSelecting
 
@@ -160,7 +161,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
             notifyDataSetChanged()
 
-            mItemListener.onStatesChanged(selecting)
+            mItemListener.onStatesChanged(itemView, selecting)
         }
     }
 

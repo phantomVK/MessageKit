@@ -44,8 +44,5 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/avatar"
-        android:orientation="horizontal">
-
-        <include layout="@layout/vkit_view_msg_frame_read"/>
-    </LinearLayout>
+        android:orientation="horizontal"/>
 </com.phantomvk.vkit.widget.layout.InterceptedRelativeLayout>

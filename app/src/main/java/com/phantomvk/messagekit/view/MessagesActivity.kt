@@ -31,7 +31,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
-import com.phantomvk.messagekit.tools.MessageViewPool
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.*
@@ -49,13 +48,12 @@ class MessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
-        mAdapter = MessageAdapter(this, MessageItemListener(this), MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageItemListener, MessageResLoader)
         mAdapter.setHasStableIds(true)
 
         mLayoutManager.isSmoothScrollbarEnabled = true
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
-        messageView.setRecycledViewPool(MessageViewPool)
         messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
@@ -65,6 +63,7 @@ class MessagesActivity : AppCompatActivity() {
         addFile()
         addImages()
         addAudio()
+        notice()
 
         mAdapter.notifyDataSetChanged()
     }
@@ -166,7 +165,7 @@ class MessagesActivity : AppCompatActivity() {
         msg1.setSender("Austin")
         msg1.width = 1330
         msg1.height = 2000
-        msg1.url="http://up.tukuwa.com/pic_source/ec/eb/7d/eceb7d5bdb5ea716be17bc20d15c0275.jpg"
+        msg1.url = "http://up.tukuwa.com/pic_source/ec/eb/7d/eceb7d5bdb5ea716be17bc20d15c0275.jpg"
         mAdapter.add(msg1)
         mAdapter.add(msg1)
         mAdapter.add(msg1)
@@ -178,7 +177,7 @@ class MessagesActivity : AppCompatActivity() {
         msg2.setSender("Daniel")
         msg2.width = 2000
         msg2.height = 1330
-        msg2.url="http://up.tukuwa.com/pic_source/a3/3f/03/a33f0374d254b20975790f69c177205d.jpg"
+        msg2.url = "http://up.tukuwa.com/pic_source/a3/3f/03/a33f0374d254b20975790f69c177205d.jpg"
         mAdapter.add(msg2)
         mAdapter.add(msg2)
         mAdapter.add(msg2)
@@ -205,5 +204,15 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.add(msg1)
         mAdapter.add(msg1)
         mAdapter.add(msg1)
+    }
+
+    private fun notice() {
+        val msg = NoticeMessage("Notice")
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
+        mAdapter.add(msg)
     }
 }

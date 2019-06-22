@@ -24,6 +24,7 @@
 
 package com.phantomvk.vkit.adapter
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.model.IMessage
@@ -62,7 +63,7 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     /**
      * Start or finish the selecting mode.
      */
-    abstract fun setSelecting(isSelecting: Boolean)
+    abstract fun setSelecting(itemView: View, isSelecting: Boolean)
 
     /**
      * Get the selecting status.
