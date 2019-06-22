@@ -41,7 +41,7 @@ import com.phantomvk.vkit.model.ImageMessage
 import com.phantomvk.vkit.model.UrlMessage
 import com.phantomvk.vkit.util.toast
 
-object MessageItemListener : IMessageItemListener {
+class MessageItemListener : IMessageItemListener {
 
     override fun onAvatarClick(itemView: View) {
         itemView.context.toast("onAvatarClick")
@@ -54,12 +54,17 @@ object MessageItemListener : IMessageItemListener {
 
     override fun onContentClick(itemView: View, message: IMessage) {
         when (message) {
-            is UrlMessage -> itemView.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(message.url)))
+            is UrlMessage -> {
+                Intent(Intent.ACTION_VIEW, Uri.parse(message.url))
+                    .run { itemView.context.startActivity(this) }
+            }
+
             is ImageMessage -> {
                 Intent().setAction(Intent.ACTION_VIEW)
                     .setDataAndType(Uri.parse(message.url), "image/*")
                     .run { itemView.context.startActivity(this) }
             }
+
             else -> itemView.context.toast("onContentClick, body: ${message.getBody()}")
         }
     }
@@ -91,8 +96,6 @@ object MessageItemListener : IMessageItemListener {
                     adapter.remove(layoutPosition)
                 }
             }
-            root.removeView(anchor)
-            popupMenu.dismiss()
             return@setOnMenuItemClickListener true
         }
 
@@ -109,8 +112,8 @@ object MessageItemListener : IMessageItemListener {
         itemView.context.toast("onContentAction")
     }
 
-    override fun onContentResent(itemView: View) {
-        itemView.context.toast("onContentResent")
+    override fun onContentResend(itemView: View) {
+        itemView.context.toast("onContentResend")
     }
 
     override fun onStatesChanged(itemView: View, isSelecting: Boolean) {

@@ -47,6 +47,8 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
                 marginStart = dip(10)
             }
 
+            // Warning: Something wrong with setting progress bar style using Anko.
+            // To fix this bug, you'd better include view from xml.
             progressBar {
                 id = R.id.progress
                 progressDrawable = ContextCompat.getDrawable(context, android.R.drawable.progress_horizontal)
@@ -58,7 +60,7 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
             textView {
                 id = R.id.duration
                 text = "00:12"
-                textColor = resources.getColor(R.color.vkit_color_host_stroke)
+                textColor = ContextCompat.getColor(context, R.color.vkit_color_host_stroke)
                 textSize = 11f //sp
             }.lparams {
                 marginStart = dip(6)

@@ -42,9 +42,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+//    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+//    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+//    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
 
     // Glide
     implementation "com.github.bumptech.glide:okhttp3-integration:${versions.glide}@aar"

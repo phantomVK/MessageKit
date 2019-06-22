@@ -52,7 +52,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     protected lateinit var mResLoader: IMessageResLoader
 
     /**
-     * For adding, removing, replacing items.
+     * For adding, removing, replacing message items.
      */
     lateinit var messageAdapter: MessageAdapter
 

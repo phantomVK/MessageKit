@@ -25,6 +25,7 @@
 package com.phantomvk.messagekit.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,9 +47,10 @@ class MessagesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         setContentView(R.layout.activity_message)
 
-        mAdapter = MessageAdapter(this, MessageItemListener, MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader)
         mAdapter.setHasStableIds(true)
 
         mLayoutManager.isSmoothScrollbarEnabled = true
@@ -57,10 +59,10 @@ class MessagesActivity : AppCompatActivity() {
         messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
-        addText()
-        addUrl()
-        addLocation()
-        addFile()
+//        addText()
+//        addUrl()
+//        addLocation()
+//        addFile()
         addImages()
         addAudio()
         notice()
@@ -71,22 +73,13 @@ class MessagesActivity : AppCompatActivity() {
     private fun addText() {
         val msg1 = TextMessage("Hello")
         msg1.setSender("Austin")
-        msg1.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 10 - 1000 * 60 * 60 * 25)
+        msg1.setTimestamp(1548518400) // millisecond.
         mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
+        mAdapter.notifyDataSetChanged()
 
         val msg2 = TextMessage("Hi")
         msg2.setSender("Daniel")
         msg2.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 6)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
         mAdapter.add(msg2)
     }
 
@@ -94,69 +87,55 @@ class MessagesActivity : AppCompatActivity() {
         val msg1 = UrlMessage("Google", "https://www.google.com")
         msg1.setSender("Austin")
         msg1.domain = "https://www.google.com"
+        msg1.image = "http://img1.imgtn.bdimg.com/it/u=3690048061,2739563546&fm=214&gp=0.jpg"
         msg1.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
                 "and hardware."
         mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
 
         val msg2 = UrlMessage("Google", "https://www.google.com")
         msg2.setSender("Daniel")
         msg2.domain = "https://www.google.com"
+        msg2.image = "http://img1.imgtn.bdimg.com/it/u=3690048061,2739563546&fm=214&gp=0.jpg"
         msg2.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
                 "and hardware."
         mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
     }
 
     private fun addLocation() {
-        val msg1 = LocationMessage("Baker street")
+        val msg1 = LocationMessage("Beijing, China")
         msg1.setSender("Austin")
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
+        msg1.address = "Wangjing, Chaoyang District, Beijing City, China"
+        msg1.image =
+            "http://restapi.amap.com/v3/staticmap" +
+                    "?location=116.481485,39.990464" +
+                    "&zoom=12&size=696*270" +
+                    "&key=6912dce4d721f10e97753912cdb9e885"
         mAdapter.add(msg1)
 
-        val msg2 = LocationMessage("Baker street")
+        val msg2 = LocationMessage("Beijing, China")
         msg2.setSender("Daniel")
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
+        msg2.address = "Wangjing, Chaoyang District, Beijing City"
+        msg2.image =
+            "http://restapi.amap.com/v3/staticmap" +
+                    "?location=116.481485,39.990464" +
+                    "&zoom=12&size=696*270" +
+                    "&key=6912dce4d721f10e97753912cdb9e885"
         mAdapter.add(msg2)
     }
 
     private fun addFile() {
-        val mag1 = FileMessage("Android_development_handbook.pdf")
-        mag1.setSender("Austin")
-        mAdapter.add(mag1)
-        mAdapter.add(mag1)
-        mAdapter.add(mag1)
-        mAdapter.add(mag1)
-        mAdapter.add(mag1)
-        mAdapter.add(mag1)
+        val msg1 = FileMessage("Android_development_handbook.pdf")
+        msg1.setSender("Austin")
+        msg1.size = 125536 // bytes
+        mAdapter.add(msg1)
 
         val msg2 = FileMessage("Android_development_handbook.pdf")
         msg2.setSender("Daniel")
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
+        msg2.size = 125536 // bytes
         mAdapter.add(msg2)
     }
 
@@ -167,11 +146,6 @@ class MessagesActivity : AppCompatActivity() {
         msg1.height = 2000
         msg1.url = "http://up.tukuwa.com/pic_source/ec/eb/7d/eceb7d5bdb5ea716be17bc20d15c0275.jpg"
         mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
 
         val msg2 = ImageMessage("img_3")
         msg2.setSender("Daniel")
@@ -179,40 +153,22 @@ class MessagesActivity : AppCompatActivity() {
         msg2.height = 1330
         msg2.url = "http://up.tukuwa.com/pic_source/a3/3f/03/a33f0374d254b20975790f69c177205d.jpg"
         mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
-        mAdapter.add(msg2)
     }
 
     private fun addAudio() {
         val msg = AudioMessage("audio")
         msg.setSender("Austin")
         mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
 
         val msg1 = AudioMessage("audio")
         msg1.setSender("Daniel")
         mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
-        mAdapter.add(msg1)
     }
 
     private fun notice() {
-        val msg = NoticeMessage("Notice")
+        val msg = NoticeMessage("This is notice")
+        val msg2 = NoticeMessage("This is notice")
         mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
-        mAdapter.add(msg)
+        mAdapter.add(msg2)
     }
 }

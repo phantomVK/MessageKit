@@ -53,6 +53,6 @@ class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val msg = message as LocationMessage
         mName.text = msg.name
         mAddress.text = msg.address
-        mResLoader.loadImage(activity, "", mImage)
+        mResLoader.loadImage(activity, message.image ?: "", mImage)
     }
 }

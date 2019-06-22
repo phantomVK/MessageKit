@@ -109,7 +109,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set listener to resend view.
      */
     open fun setResendListener(view: ImageView?) {
-        view?.setOnClickListener { mItemListener.onContentResent(itemView) }
+        view?.setOnClickListener { mItemListener.onContentResend(itemView) }
     }
 
     /**
@@ -155,7 +155,13 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Load user avatar, overridden by subclasses.
      */
     open fun loadAvatar(context: Context, message: IMessage) {
-        mResLoader.loadAvatar(context, "", mAvatarView)
+        // Free images of people from: https://www.pexels.com/search/people/
+        val url = if (message.getSender() == "Daniel") {
+            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=-220453.jpg&fm=jpg"
+        } else {
+            "https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?cs=srgb&dl=adult-beach-casual-736716.jpg&fm=jpg"
+        }
+        mResLoader.loadAvatar(context, url, mAvatarView)
     }
 
     /**
@@ -200,7 +206,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * View gone:
      *     All other conditions.
      *
-     * Params:
+     * Variable:
      *     preTs     previous message timestamp
      *     msgTs     current message timestamp
      *     sysTs     system current timestamp

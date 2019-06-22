@@ -70,7 +70,7 @@ interface IMessageItemListener {
     /**
      * Resend the content.
      */
-    fun onContentResent(itemView: View)
+    fun onContentResend(itemView: View)
 
     /**
      * Selection mode changed callback.

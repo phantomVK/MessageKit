@@ -27,7 +27,7 @@ package com.phantomvk.vkit.model
 /**
  * Implemented by message model.
  */
-abstract class IMessage {
+interface IMessage {
     /**
      * Return the message type.
      */

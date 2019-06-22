@@ -53,12 +53,15 @@ class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mDescription: TextView = itemView.findViewById(R.id.description)
 
+    /**
+     * Set text to the view named 'mSource' using msg.domain if msg.source is null.
+     */
     override fun onBind(activity: Activity, message: IMessage) {
         super.onBind(activity, message)
         val msg = message as UrlMessage
         mTitle.text = msg.title
         mSource.text = msg.source ?: msg.domain ?: ""
         mDescription.text = msg.description
-        mResLoader.loadImage(activity, msg.image, mImage)
+        mResLoader.loadImage(activity, msg.image, mImage) // Website icon.
     }
 }
