@@ -32,7 +32,7 @@ import com.bumptech.glide.Glide
 import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.listener.IMessageResLoader
 
-object MessageResLoader : IMessageResLoader {
+class MessageResLoader : IMessageResLoader {
 
     override fun loadAvatar(context: Context, image: String?, view: ImageView) {
         if (image.isNullOrBlank()) {

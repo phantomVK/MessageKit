@@ -50,7 +50,7 @@ class MessagesActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         setContentView(R.layout.activity_message)
 
-        mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader)
+        mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader())
         mAdapter.setHasStableIds(true)
 
         mLayoutManager.isSmoothScrollbarEnabled = true
@@ -59,10 +59,10 @@ class MessagesActivity : AppCompatActivity() {
         messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
-//        addText()
-//        addUrl()
-//        addLocation()
-//        addFile()
+        addText()
+        addUrl()
+        addLocation()
+        addFile()
         addImages()
         addAudio()
         notice()

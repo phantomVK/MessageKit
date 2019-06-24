@@ -113,6 +113,8 @@ public abstract class Message implements IMessage {
 
 实现 __ViewHolder__，父类可选 __BaseViewHolder__ 或 __AbstractViewHolder__。
 
+![classes](images/classes.jpg)
+
 __BaseViewHolder__ 继承 __AbstractViewHolder__，已处理头像加载、名称设置、消息前景背景、监听器绑定操作，使用方法请参考 __LocationViewHolder__。
 
 ```kotlin
