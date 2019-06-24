@@ -25,7 +25,6 @@
 package com.phantomvk.vkit.adapter
 
 import android.app.Activity
-import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +47,9 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
 
+    /**
+     * LayoutInflater to inflate XML, or Anko to create views.
+     */
     private var xmlStyle = true
 
     /**
@@ -83,9 +85,6 @@ class MessageHolders(private val mInflater: LayoutInflater,
         }
     }
 
-    private var time = 0L
-    private var counts = 0L
-
     /**
      * Get view holder.
      */
@@ -95,19 +94,12 @@ class MessageHolders(private val mInflater: LayoutInflater,
                           holder: (View) -> AbstractViewHolder,
                           viewType: Int,
                           isHost: Boolean): AbstractViewHolder {
-        val start = System.currentTimeMillis()
 
-        val holder = if (xmlStyle) {
+        return if (xmlStyle) {
             xmlStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         } else {
             dslStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         }
-
-        val curr = (System.currentTimeMillis() - start)
-        time += curr
-        Log.e("MessageHolder", "$counts $curr ${time / ++counts}")
-
-        return holder
     }
 
     /**
@@ -183,6 +175,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         return holder.invoke(frame).init(isHost, adapter, mItemListener, mResLoader)
     }
 
+    // Register you ViewHolder here like this:
     companion object {
         private const val HOLDER_DEFAULT = 1
         private const val HOLDER_TEXT = 2

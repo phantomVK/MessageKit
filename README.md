@@ -6,35 +6,37 @@ __README in English is coming soon.__
 
 #### 简介
 
-__MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何合理设计并开发一个美观、具有实用性的消息界面。
+__MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何合理设计并开发一个美观、实用的消息界面。如有错误或异常修复，欢迎提交修改。
 
-![image](images/image.png)
+![image](images/image.jpg)
 
 
 
 #### 特性：
 
-- 开源库已包含多种常用消息的布局，详情请参考下文；
+- 开源库已包含多种常用消息类型的布局，详情请参考下文；
 - 根据图片尺寸默认缩略图视图大小，具体参数可根据实际自行修改；
-- 消息气泡样式均通过视图代码直接绘制，没有使用 __9-Patch__ 图片，最终安装包体积更小；
-- 实现的消息布局和左右位置关系分离。消息布局编写一次，即可适配发送者和接收者；
+- 消息气泡样式用代码直接绘制，没有使用 __9-Patch__ 图片，最终安装包体积更小；
+- 实现的消息布局和左右位置关系分离。消息布局编写一次，即适配发送者和接收者；
 - 已定义抽象消息模型 __IMessage__，数据模型和业务解耦；
-- 长按消息的交互蒙版位于消息最上层(foreground)，而非消息背景颜色(background)，视觉效果最佳；
+- 长按消息的交互蒙层位于消息前景(foreground)，而非消息背景(background)，因此视觉效果更佳；
 - 头像、图片的加载框架与源码解耦，可自行选择框架实现图片加载；
-- 列表已支持多选模式，但需要进一步自行实现多选操作和逻辑；
-- 不同于 __LayoutInfaltor__，源码更包含Anko实现的代码布局，能避免读取xml布局反射导致主线程阻塞；
-- 多种设计模式简化后期维护难度，如：__模板模式__；
+- 列表已支持多选模式，但需要进一步实现多选后的操作和逻辑；
+- 除了使用 __LayoutInflator__，源码更包含Anko实现的(实验性)布局，能避免xml布局反射导致主线程阻塞；
+- 多种设计模式的应用降低后期工程的维护难度，如：__模板模式__ ；
 
 #### 注意事项：
 
-- 聊天消息界面需求变化多端，本工程不具备一般仓库开箱即用的能力。所以强烈建议开发者把源码集成到目标工程，并且不提供Maven依赖；
+- 聊天消息界面需求变化多端，本工程不具备一般仓库开箱即用的能力。强烈建议开发者把源码集成到目标工程，本源码也不提供Maven依赖；
 - 因不提供线上版本依赖，__错误__ 和 __缺陷修复__ 请关注更新列表和最新源码；
 
-- 源码集成后还需要各位根据需求继续开发，开发预估时间更长，因此在 __商业项目__ 中谨慎使用；
-- 若有自定义功能或其他样式要求，请基于本代码实现。本仓库无法接受具有定制化性质的 Pull Request；
+- 源码集成后还需要各位根据需求继续开发，开发预估时间更长，在 __商业项目__ 中谨慎使用；
+- 若有自定义功能或其他样式，请基于已有代码继续实现。本仓库暂不接受带定制化性质的 Pull Request；
 - 如果有任何疑问请提issue，作者会尽量回答问题并选择性添加到Readme供参阅；
 
-#### 已支持:
+#### 支持类型:
+
+__Max Scrap__ for screen resolution: 1920*1080
 
 |   Type   |     Message Name      |     Layout Type     | Max Scrap |
 | :------: | :-------------------: | :-----------------: | :-------: |
@@ -49,7 +51,7 @@ __MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何�
 
 ## 使用方式
 
-请先迁移 __基础源码__ 到您的工程。源码包含 __布局资源__、__字符串资源__、__库自定义类__ 和 __gradle依赖__，具体消息(示例)实现类选择性迁移。
+迁移 __基础源码__ 到您的工程。源码包含 __布局资源__、__字符串资源__、__库定义类__ 和 __gradle依赖__，具体消息(示例)实现类选择性迁移。
 
 #### 数据模型：
 
@@ -109,29 +111,38 @@ public abstract class Message implements IMessage {
 
 #### 视图绑定：
 
-实现ViewHolder，其父类可选 __BaseViewHolder__ 或 __AbstractViewHolder__。
+实现 __ViewHolder__，父类可选 __BaseViewHolder__ 或 __AbstractViewHolder__。
 
-其中 __BaseViewHolder__ 继承自__AbstractViewHolder__，已处理头像加载、名称设置、消息前景背景、监听器绑定操作，使用方法参考 __TextViewHolder__。
+__BaseViewHolder__ 继承 __AbstractViewHolder__，已处理头像加载、名称设置、消息前景背景、监听器绑定操作，使用方法请参考 __LocationViewHolder__。
 
 ```kotlin
-class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
+class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * TextView, required.
+     * The name of the location, required.
      */
-    private val mText: TextView = itemView.findViewById(R.id.text)
+    private val mName: TextView = itemView.findViewById(R.id.name)
+
+    /**
+     * The address of the location, required.
+     */
+    private val mAddress: TextView = itemView.findViewById(R.id.address)
+
+    /**
+     * The map image of the location, optional.
+     */
+    private val mImage: ImageView = itemView.findViewById(R.id.image)
 
     override fun onBind(activity: Activity, message: IMessage) {
         super.onBind(activity, message)
-        mText.text = message.getBody()
-    }
-
-    override fun setLayoutBubble() {
-        mText.background = getStateListDrawable(itemView.context, mIsHost)
+        val msg = message as LocationMessage
+        mName.text = msg.name
+        mAddress.text = msg.address
+        mResLoader.loadImage(activity, message.image ?: "", mImage)
     }
 }
 ```
 
-如果需要更简单的逻辑，可使用 __AbstractViewHolder__，参考 __NoticeViewHolder__。
+如果需要更简单的逻辑，可使用 __AbstractViewHolder__ 抽象父类，请参考 __NoticeViewHolder__。
 
 ```kotlin
 class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
@@ -152,7 +163,7 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 }
 ```
 
-设置完成后的视图需要在 __MessageHolders__ 内注册。
+设置完成后的视图在 __MessageHolders__ 内注册：
 
 ```kotlin
 class MessageHolders(private val mInflater: LayoutInflater,
@@ -221,7 +232,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
 #### 初始化
 
-初始化 __AbstractMessageAdapter__ 实现类并设置到 __RecyclerView__ 视图上。
+初始化 __AbstractMessageAdapter__ 实现类并设置到 __RecyclerView__：
 
 - __MessageItemListener__ 是 __IMessageItemListener__ 的实现类，负责处理消息点击、长按等操作；
 
@@ -240,6 +251,7 @@ class MessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
 
+        // MessageResLoader is a Kotlin singleton.
         mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader)
         mAdapter.setHasStableIds(true)
 
