@@ -28,6 +28,13 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
 
+/**
+ * @param layoutId layout resource id.
+ * @param holder   ViewHolder constructor.
+ * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
+ * @param unique   this is system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ *
+ */
 class HolderConfig constructor(@LayoutRes val layoutId: Int,
                                val holder: (View) -> AbstractViewHolder,
                                val maxScrap: Int,
