@@ -31,40 +31,40 @@ interface IMessage {
     /**
      * Return the message type.
      */
-    abstract fun getMsgType(): String
+    fun getMsgType(): String
 
     /**
      * Returns the message identifier.
      */
-    abstract fun getId(): String
+    fun getId(): String
 
     /**
      * Return the message body.
      */
-    abstract fun getBody(): String
+    fun getBody(): String
 
     /**
      * Return the message sender. See the {@link IUser} for more details.
      */
-    abstract fun getSender(): String
+    fun getSender(): String
 
     /**
      * Set message sender. See the {@link IUser} for more details.
      */
-    abstract fun setSender(userId: String)
+    fun setSender(userId: String)
 
     /**
      * Return the message timestamp in millisecond.
      */
-    abstract fun getTimestamp(): Long
+    fun getTimestamp(): Long
 
     /**
      * Set message timestamp in millisecond.
      */
-    abstract fun setTimestamp(timestamp: Long)
+    fun setTimestamp(timestamp: Long)
 
     /**
      * Return the message roomId.
      */
-    abstract fun getRoomId(): String
+    fun getRoomId(): String
 }

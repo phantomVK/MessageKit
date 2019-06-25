@@ -97,6 +97,11 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     private var holderSelecting = false
 
     /**
+     * Default message timestamp span in millisecond.
+     */
+    private val messageTimestampSpan = 3 * 60 * 1000L // 3min.
+
+    /**
      * Do NOT override this method.
      */
     final override fun onHolderCreated() {
@@ -146,9 +151,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         loadAvatar(activity, message)
         setDisplayName(message)
         selectingMode(messageAdapter.getSelecting())
-
-        // Uncomment line below to show date.
-        // setDateView(mDateView, message)
+        setDateView(mDateView, message)
+        sendingStates(0)
     }
 
     /**
@@ -199,8 +203,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set text to date view. Timestamps used below are millisecond and must not be negative.
      *
      * View visible:
-     *     1. Current message timestamp is #MSG_TS_SPAN_MS larger than the previous;
-     *     2. The message is the last one, also has been sent more then #MSG_TS_SPAN_MS;
+     *     1. Current message timestamp is #messageTimestampSpan larger than the previous;
+     *     2. The message is the last one, also has been sent more then #messageTimestampSpan;
      *     3. The message has been redacted, just shows the timestamp of redaction.
      *
      * View gone:
@@ -221,8 +225,12 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         val sysTs = System.currentTimeMillis()
         val redacted = false
 
-        if ((msgTs - preTs > MSG_TS_SPAN_MS)
-            || ((layoutPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > MSG_TS_SPAN_MS))
+        if (msgTs == 0L) {
+            view.visibility = View.GONE
+        }
+
+        if ((msgTs - preTs > messageTimestampSpan)
+            || ((layoutPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > messageTimestampSpan))
             || redacted) {
             view.isVisible = true
             view.text = getDateText(itemView.context, msgTs, sysTs, messageAdapter.calendar)
@@ -267,12 +275,5 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
                             or DateUtils.FORMAT_SHOW_YEAR)
             }
         }
-    }
-
-    companion object {
-        /**
-         * Default message timestamp span in millisecond.
-         */
-        private const val MSG_TS_SPAN_MS = 3 * 60 * 1000L // 3min.
     }
 }
