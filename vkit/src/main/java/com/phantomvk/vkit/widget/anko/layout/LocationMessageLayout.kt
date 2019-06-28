@@ -67,11 +67,19 @@ class LocationMessageLayout<T> : AnkoComponent<T> {
                 bottomMargin = dip(7)
             }
 
+            view {
+                id = R.id.line
+                backgroundColor = Color.parseColor("#CFCFCF")
+            }.lparams(width = matchParent, height = 1) {
+                below(R.id.address)
+                topMargin = dip(8)
+            }
+
             imageView {
                 id = R.id.image
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }.lparams(width = matchParent, height = dip(90)) {
-                below(R.id.address)
+                below(R.id.line)
             }
         }
     }

@@ -24,9 +24,9 @@
 
 package com.phantomvk.vkit.model
 
-class AudioMessage(body: String) : FileMessage(body, MESSAGE_TYPE_AUDIO){
+class AudioMessage(body: String) : FileMessage(body, MESSAGE_TYPE_AUDIO) {
     /**
      * Audio duration, millisecond.
      */
-    var duration:Long = 0
+    var duration: Long = 0
 }

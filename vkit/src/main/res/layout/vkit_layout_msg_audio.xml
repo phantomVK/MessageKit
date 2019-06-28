@@ -17,12 +17,7 @@
         android:src="@drawable/vkit_ic_play_audio"
         tools:ignore="ContentDescription"/>
 
-    <ProgressBar
-        android:id="@+id/progress"
-        style="@style/vkit_audio_progress_bar"
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="6dp"/>
+    <include layout="@layout/vkit_view_msg_audio_progressbar"/>
 
     <TextView
         android:id="@+id/duration"
@@ -30,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginEnd="10dp"
-        android:text="00:12"
         android:textColor="@color/vkit_color_host_stroke"
         android:textSize="11sp"
-        tools:ignore="SmallSp"/>
+        tools:ignore="SmallSp"
+        tools:text="00:16"/>
 </com.phantomvk.vkit.widget.layout.BubbleLinearLayout>

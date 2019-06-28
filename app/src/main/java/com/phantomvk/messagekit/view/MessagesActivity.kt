@@ -59,13 +59,15 @@ class MessagesActivity : AppCompatActivity() {
         messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
-        addText()
-        addUrl()
-        addLocation()
-        addFile()
-        addImages()
-        addAudio()
-        notice()
+        for (i in 0..10) {
+            addText()
+            addUrl()
+            addLocation()
+            addFile()
+            addImages()
+            addAudio()
+            notice()
+        }
 
         mAdapter.notifyDataSetChanged()
     }
@@ -158,10 +160,12 @@ class MessagesActivity : AppCompatActivity() {
     private fun addAudio() {
         val msg = AudioMessage("audio")
         msg.setSender("Austin")
+        msg.duration = 12000
         mAdapter.add(msg)
 
         val msg1 = AudioMessage("audio")
         msg1.setSender("Daniel")
+        msg1.duration = 60000
         mAdapter.add(msg1)
     }
 

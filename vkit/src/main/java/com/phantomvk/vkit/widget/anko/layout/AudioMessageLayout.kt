@@ -27,6 +27,7 @@ package com.phantomvk.vkit.widget.anko.layout
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
@@ -47,19 +48,12 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
                 marginStart = dip(10)
             }
 
-            // Warning: Something wrong with setting progress bar style using Anko.
-            // To fix this bug, you'd better include view from xml.
-            progressBar {
-                id = R.id.progress
-                progressDrawable = ContextCompat.getDrawable(context, android.R.drawable.progress_horizontal)
-                indeterminateDrawable = ContextCompat.getDrawable(context, R.drawable.vkit_list_progress_bar)
-            }.lparams(width = dip(100), height = dip(2)) {
-                marginStart = dip(6)
-            }
+            // Warning: Something wrong with setting the style to View using Anko.
+            // To fix bug, you'd better include view from xml like this.
+            include<ProgressBar>(R.layout.vkit_view_msg_audio_progressbar)
 
             textView {
                 id = R.id.duration
-                text = "00:12"
                 textColor = ContextCompat.getColor(context, R.color.vkit_color_host_stroke)
                 textSize = 11f //sp
             }.lparams {

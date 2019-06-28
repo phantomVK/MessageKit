@@ -24,11 +24,18 @@
 
 package com.phantomvk.vkit.adapter.holder
 
+import android.app.Activity
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.phantomvk.vkit.model.AudioMessage
+import com.phantomvk.vkit.model.IMessage
 import kotlinx.android.synthetic.main.vkit_layout_msg_audio.view.*
+import kotlinx.android.synthetic.main.vkit_view_msg_audio_progressbar.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AudioViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
@@ -45,4 +52,20 @@ class AudioViewHolder(itemView: View) : BaseViewHolder(itemView) {
      * Duration.
      */
     private val duration: TextView = itemView.duration
+
+    /**
+     * SimpleDateFormat
+     */
+    private val dateFormat: DateFormat = SimpleDateFormat("mm:ss", Locale.ROOT)
+
+    init {
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT");
+    }
+
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+
+        val msg = message as AudioMessage
+        duration.text = dateFormat.format(msg.duration)
+    }
 }

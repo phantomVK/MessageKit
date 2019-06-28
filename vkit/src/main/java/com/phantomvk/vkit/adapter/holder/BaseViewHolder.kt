@@ -104,7 +104,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Do NOT override this method.
      */
-    final override fun onHolderCreated() {
+    final override fun created() {
         setResendListener(mResendView)
         setItemListener(mAvatarView)
         setLayoutBubble()
@@ -241,10 +241,6 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 
     private fun getDateText(context: Context, ts: Long, sysTs: Long, cal: GregorianCalendar): String {
         cal.timeInMillis = ts
-        cal.set(Calendar.HOUR_OF_DAY, 0)
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-        cal.set(Calendar.MILLISECOND, 0)
 
         val interval = sysTs - cal.timeInMillis
 

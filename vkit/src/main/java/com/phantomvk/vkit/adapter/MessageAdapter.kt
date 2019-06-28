@@ -102,6 +102,11 @@ open class MessageAdapter(private val mActivity: Activity,
             maxImageWidth = point.x * 0.24F
             maxImageHeight = point.y * 0.40F
         }
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
