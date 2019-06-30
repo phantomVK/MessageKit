@@ -25,7 +25,6 @@
 package com.phantomvk.messagekit.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +46,6 @@ class MessagesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         setContentView(R.layout.activity_message)
 
         mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader())

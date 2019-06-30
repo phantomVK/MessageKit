@@ -206,7 +206,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
          *
          * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
          */
-        private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
+        private val sContentTypes = SparseArray<HolderConfig>().apply {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
             val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)
@@ -215,17 +215,15 @@ class MessageHolders(private val mInflater: LayoutInflater,
             val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder, 14)
             val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder, 8)
 
-            return@lazy SparseArray<HolderConfig>().apply {
-                put(HOLDER_DEFAULT, textConfig)
-                put(HOLDER_TEXT, textConfig)
-                put(HOLDER_URL, urlConfig)
-                put(HOLDER_LOCATION, locationConfig)
-                put(HOLDER_NOTICE, noticeConfig)
-                put(HOLDER_FILE, fileConfig)
-                put(HOLDER_AUDIO, audioConfig)
-                put(HOLDER_IMAGE, mediaConfig)
-                put(HOLDER_VIDEO, mediaConfig)
-            }
+            put(HOLDER_DEFAULT, textConfig)
+            put(HOLDER_TEXT, textConfig)
+            put(HOLDER_URL, urlConfig)
+            put(HOLDER_LOCATION, locationConfig)
+            put(HOLDER_NOTICE, noticeConfig)
+            put(HOLDER_FILE, fileConfig)
+            put(HOLDER_AUDIO, audioConfig)
+            put(HOLDER_IMAGE, mediaConfig)
+            put(HOLDER_VIDEO, mediaConfig)
         }
 
         /**
