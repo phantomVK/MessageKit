@@ -50,7 +50,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
     /**
      * LayoutInflater to inflate XML, or Anko to create views.
      */
-    private var xmlStyle = true
+    private var xmlStyle = false
 
     /**
      * Bind view.

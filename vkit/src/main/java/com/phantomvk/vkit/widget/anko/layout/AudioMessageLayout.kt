@@ -27,9 +27,9 @@ package com.phantomvk.vkit.widget.anko.layout
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import com.phantomvk.vkit.R
+import com.phantomvk.vkit.util.styledProgressBar
 import org.jetbrains.anko.*
 
 class AudioMessageLayout<T> : AnkoComponent<T> {
@@ -48,9 +48,16 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
                 marginStart = dip(10)
             }
 
-            // Warning: Something wrong with setting the style to View using Anko.
-            // To fix bug, you'd better include view from xml like this.
-            include<ProgressBar>(R.layout.vkit_view_msg_audio_progressbar)
+            /**
+             * Set custom style to ProgressBar programmatically, do it yourself because it is not supported by Anko.
+             *
+             * See: https://github.com/Kotlin/anko/issues/16
+             */
+            styledProgressBar(R.style.vkit_audio_progress_bar) {
+                id = R.id.progress
+            }.lparams(width = dip(100), height = dip(2)) {
+                marginStart = dip(6)
+            }
 
             textView {
                 id = R.id.duration
