@@ -27,6 +27,7 @@ package com.phantomvk.vkit.widget.anko.frame
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.phantomvk.vkit.R
@@ -36,6 +37,7 @@ import org.jetbrains.anko.*
 class MessageFrameOutgoing<T> : AnkoComponent<T> {
     override fun createView(ui: AnkoContext<T>) = with(ui) {
         interceptTouchRelativeLayout {
+            lparams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             topPadding = dip(6)
             bottomPadding = dip(6)
 

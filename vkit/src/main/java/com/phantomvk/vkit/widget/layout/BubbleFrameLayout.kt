@@ -37,8 +37,7 @@ import com.phantomvk.vkit.bubble.Direction
 open class BubbleFrameLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0)
-    : FrameLayout(context, attrs, defStyleAttr), IBubbleLayout {
+                          defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.
