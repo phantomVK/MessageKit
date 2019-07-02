@@ -32,7 +32,7 @@ import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
  * @param layoutId layout resource id.
  * @param holder   ViewHolder constructor.
  * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   this is system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
  *
  */
 class HolderConfig constructor(@LayoutRes val layoutId: Int,

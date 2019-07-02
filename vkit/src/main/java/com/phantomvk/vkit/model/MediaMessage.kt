@@ -24,6 +24,11 @@
 
 package com.phantomvk.vkit.model
 
+/**
+ * The message of media, mainly used to be extended by subclasses.
+ *
+ * @param type message type, such as MESSAGE_TYPE_IMAGE.
+ */
 open class MediaMessage(type: String, body: String) : FileMessage(body, type) {
     /**
      * Thumbnail image url, optional.

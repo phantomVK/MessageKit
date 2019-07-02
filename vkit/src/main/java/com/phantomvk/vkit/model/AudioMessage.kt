@@ -24,6 +24,11 @@
 
 package com.phantomvk.vkit.model
 
+/**
+ * The message of audio.
+ *
+ * @param body audio name
+ */
 class AudioMessage(body: String) : FileMessage(body, MESSAGE_TYPE_AUDIO) {
     /**
      * Audio duration, millisecond.

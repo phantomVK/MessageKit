@@ -25,9 +25,10 @@
 package com.phantomvk.vkit.model
 
 /**
- * UrlMessage class.
+ * The message of url.
  *
- * Website title and website url are both required.
+ * @param title website title
+ * @param url   website url
  */
 class UrlMessage(var title: String, val url: String) : Message(MESSAGE_TYPE_URL, url) {
     /**

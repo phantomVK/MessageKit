@@ -120,7 +120,6 @@ public abstract class Message implements IMessage {
     }
 
     public static final String MESSAGE_TYPE_TEXT = "TEXT";
-    public static final String MESSAGE_TYPE_ALERT = "ALERT";
     public static final String MESSAGE_TYPE_URL = "URL";
     public static final String MESSAGE_TYPE_LOCATION = "LOCATION";
     public static final String MESSAGE_TYPE_NOTICE = "NOTICE";

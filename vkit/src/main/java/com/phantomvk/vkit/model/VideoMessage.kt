@@ -25,9 +25,11 @@
 package com.phantomvk.vkit.model
 
 /**
- * @param body image name.
+ * The message video,
+ *
+ * @param body video name.
  */
-class VideoMessage(body: String) : MediaMessage(MESSAGE_TYPE_IMAGE, body) {
+class VideoMessage(body: String) : MediaMessage(MESSAGE_TYPE_VIDEO, body) {
     /**
      * Video duration, millisecond.
      */

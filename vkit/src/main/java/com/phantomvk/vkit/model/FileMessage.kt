@@ -24,6 +24,12 @@
 
 package com.phantomvk.vkit.model
 
+/**
+ * The message of file.
+ *
+ * @param body file name
+ * @param type MESSAGE_TYPE_FILE or subtypes, such as MESSAGE_TYPE_IMAGE.
+ */
 open class FileMessage(body: String, type: String = MESSAGE_TYPE_FILE) : Message(type, body) {
     /**
      * File size, required.

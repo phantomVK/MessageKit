@@ -52,6 +52,7 @@ class AudioMessageLayout<T> : AnkoComponent<T> {
              * Set custom style to ProgressBar programmatically, do it yourself because it is not supported by Anko.
              *
              * See: https://github.com/Kotlin/anko/issues/16
+             * See: https://stackoverflow.com/q/11723881/8750399
              */
             styledProgressBar(R.style.vkit_audio_progress_bar) {
                 id = R.id.progress

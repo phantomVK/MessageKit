@@ -25,6 +25,8 @@
 package com.phantomvk.vkit.model
 
 /**
+ * The message of image.
+ *
  * @param body image name.
  */
 class ImageMessage(body: String) : MediaMessage(MESSAGE_TYPE_IMAGE, body) {

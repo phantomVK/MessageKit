@@ -24,4 +24,7 @@
 
 package com.phantomvk.vkit.model
 
+/**
+ * The message of text, includes rich text and etc.
+ */
 class TextMessage(body: String) : Message(MESSAGE_TYPE_TEXT, body)

@@ -48,7 +48,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mResLoader: IMessageResLoader) {
 
     /**
-     * LayoutInflater to inflate XML, or Anko to create views.
+     * Use LayoutInflater to inflate XML, or Anko to create views.
      */
     private var xmlStyle = false
 
@@ -98,7 +98,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         return if (xmlStyle) {
             xmlStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         } else {
-            dslStyle(parent, layoutResId, adapter, holder, viewType, isHost)
+            ankoStyle(parent, layoutResId, adapter, holder, viewType, isHost)
         }
     }
 
@@ -135,14 +135,14 @@ class MessageHolders(private val mInflater: LayoutInflater,
     }
 
     /**
-     * Inflate layouts using AnkoContext with DSL.
+     * Experimental, create Views using Anko.
      */
-    private fun dslStyle(parent: ViewGroup,
-                         @LayoutRes layoutResId: Int,
-                         adapter: MessageAdapter,
-                         holder: (View) -> AbstractViewHolder,
-                         viewType: Int,
-                         isHost: Boolean): AbstractViewHolder {
+    private fun ankoStyle(parent: ViewGroup,
+                          @LayoutRes layoutResId: Int,
+                          adapter: MessageAdapter,
+                          holder: (View) -> AbstractViewHolder,
+                          viewType: Int,
+                          isHost: Boolean): AbstractViewHolder {
 
         // AnkoContext.
         val ankoContext = AnkoContext.create(parent.context, parent)

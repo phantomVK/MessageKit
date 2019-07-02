@@ -33,6 +33,7 @@ import org.jetbrains.anko.custom.ankoView
  * Set custom style to ProgressBar programmatically, do it yourself because it is not supported by Anko.
  *
  * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
  */
 inline fun ViewManager.styledProgressBar(styleRes: Int = 0, init: ProgressBar.() -> Unit): ProgressBar {
     return ankoView({
@@ -48,5 +49,6 @@ inline fun ViewManager.styledProgressBar(styleRes: Int = 0, init: ProgressBar.()
  * Set custom style to ProgressBar programmatically, do it yourself because it is not supported by Anko.
  *
  * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
  */
 fun ViewManager.styledProgressBar(styleRes: Int = 0): ProgressBar = styledProgressBar(styleRes) {}

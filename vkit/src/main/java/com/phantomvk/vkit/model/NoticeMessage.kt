@@ -25,6 +25,8 @@
 package com.phantomvk.vkit.model
 
 /**
- * The notice message.
+ * The message of notice. This message created by Server, not the user.
+ *
+ * @param notice Notice content
  */
 class NoticeMessage(notice: String) : Message(MESSAGE_TYPE_NOTICE, notice)
