@@ -24,17 +24,39 @@
 
 package com.phantomvk.messagekit.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.phantomvk.messagekit.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        start.setOnClickListener { startActivity(Intent(this, MessagesActivity::class.java)) }
+        setTheme(R.style.AppTheme)
+
+        // LayoutParams for button.
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT)
+        layoutParams.gravity = Gravity.CENTER
+
+        // Create button.
+        val button = Button(this)
+        button.text = "Start"
+        button.isAllCaps = false
+        button.layoutParams = layoutParams
+        button.setOnClickListener { startActivity(Intent(this, MessagesActivity::class.java)) }
+        addContentView(button, layoutParams)
+
+        // Set window's background.
+        (window.decorView as ViewGroup).setBackgroundColor(Color.parseColor("#FFFFFF"))
     }
 }

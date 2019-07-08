@@ -87,6 +87,5 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val layoutParams = imageView.layoutParams
         layoutParams.width = Math.max(minSize, (width * scale)).toInt()
         layoutParams.height = Math.max(minSize, (height * scale)).toInt()
-//        imageView.layoutParams = layoutParams
     }
 }

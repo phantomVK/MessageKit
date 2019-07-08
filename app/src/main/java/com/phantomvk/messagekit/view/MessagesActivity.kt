@@ -24,19 +24,22 @@
 
 package com.phantomvk.messagekit.view
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.vkit.adapter.MessageAdapter
 import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.*
-import kotlinx.android.synthetic.main.activity_message.*
 
 class MessagesActivity : AppCompatActivity() {
+    /**
+     * Adapter.
+     */
     private lateinit var mAdapter: MessageAdapter
 
     /**
@@ -46,17 +49,36 @@ class MessagesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_message)
 
+        // LayoutParams for RecyclerView.
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT)
+
+        // Create RecyclerView.
+        val messageView = RecyclerView(this)
+        messageView.layoutParams = layoutParams
+        messageView.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        messageView.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        messageView.isVerticalScrollBarEnabled = true
+
+        // Add RecyclerView to contentView.
+        addContentView(messageView, layoutParams)
+
+        // Create MessageAdapter.
         mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader())
         mAdapter.setHasStableIds(true)
-
         mLayoutManager.isSmoothScrollbarEnabled = true
+
         messageView.layoutManager = mLayoutManager
         messageView.adapter = mAdapter
         messageView.setHasFixedSize(true)
         MessageHolders.setMaxScrap(messageView)
 
+        initData()
+    }
+
+    private fun initData() {
         for (i in 0..10) {
             addText()
             addUrl()
