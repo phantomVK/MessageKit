@@ -30,8 +30,8 @@ import android.view.ViewGroup
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
-class NoticeMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class NoticeMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         frameLayout {
             lparams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             isClickable = false

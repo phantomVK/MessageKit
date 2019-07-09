@@ -26,12 +26,13 @@ package com.phantomvk.vkit.widget.anko.layout
 
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
-class MediaMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class MediaMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         bubbleFrameLayout {
             imageView {
                 id = R.id.image

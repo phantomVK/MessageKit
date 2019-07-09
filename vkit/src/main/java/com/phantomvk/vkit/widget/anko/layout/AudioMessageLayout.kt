@@ -32,8 +32,8 @@ import com.phantomvk.vkit.R
 import com.phantomvk.vkit.util.styledProgressBar
 import org.jetbrains.anko.*
 
-class AudioMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class AudioMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         bubbleLinearLayout {
             lparams(ViewGroup.LayoutParams.WRAP_CONTENT, dip(40))
             gravity = Gravity.CENTER_VERTICAL

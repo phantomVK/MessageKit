@@ -31,8 +31,8 @@ import android.view.ViewGroup
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
-class FileMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class FileMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         bubbleRelativeLayout {
             lparams(dip(232), ViewGroup.LayoutParams.WRAP_CONTENT)
 

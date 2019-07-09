@@ -32,8 +32,8 @@ import android.widget.ImageView
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
-class LocationMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class LocationMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         bubbleRelativeLayout {
             lparams(dip(232), ViewGroup.LayoutParams.WRAP_CONTENT)
 

@@ -34,8 +34,8 @@ import com.phantomvk.vkit.R
 import com.phantomvk.vkit.widget.anko.layout.interceptTouchRelativeLayout
 import org.jetbrains.anko.*
 
-class MessageFrameIncoming<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class MessageFrameIncoming : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         interceptTouchRelativeLayout {
             lparams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             topPadding = dip(6)

@@ -148,18 +148,18 @@ class MessageHolders(private val mInflater: LayoutInflater,
         val ankoContext = AnkoContext.create(parent.context, parent)
 
         if (viewType == HOLDER_NOTICE) {
-            return holder.invoke(NoticeMessageLayout<ViewGroup>().createView(ankoContext))
+            return holder.invoke(NoticeMessageLayout().createView(ankoContext))
         }
 
         val frame = if (isHost) {
-            MessageFrameOutgoing<ViewGroup>().createView(ankoContext)
+            MessageFrameOutgoing().createView(ankoContext)
         } else {
-            MessageFrameIncoming<ViewGroup>().createView(ankoContext)
+            MessageFrameIncoming().createView(ankoContext)
         }
 
         val bodyView = when (layoutResId) {
-            R.layout.vkit_layout_msg_url -> UrlMessageLayout<ViewGroup>()
-            R.layout.vkit_layout_msg_location -> LocationMessageLayout<ViewGroup>()
+            R.layout.vkit_layout_msg_url -> UrlMessageLayout()
+            R.layout.vkit_layout_msg_location -> LocationMessageLayout()
             R.layout.vkit_layout_msg_file -> FileMessageLayout()
             R.layout.vkit_layout_msg_audio -> AudioMessageLayout()
             R.layout.vkit_layout_msg_media -> MediaMessageLayout()
@@ -175,7 +175,9 @@ class MessageHolders(private val mInflater: LayoutInflater,
         return holder.invoke(frame).init(isHost, adapter, mItemListener, mResLoader)
     }
 
-    // Register you ViewHolder here like this:
+    /**
+     * Register you ViewHolder here.
+     */
     companion object {
         private const val HOLDER_DEFAULT = 1
         private const val HOLDER_TEXT = 2
@@ -190,7 +192,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         /**
          * Get view type id by message's type string.
          */
-        private val sViewType = HashMap<String, Int>().apply {
+        val sViewType = HashMap<String, Int>().apply {
             put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
             put(Message.MESSAGE_TYPE_URL, HOLDER_URL)
             put(Message.MESSAGE_TYPE_LOCATION, HOLDER_LOCATION)
@@ -206,7 +208,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
          *
          * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
          */
-        private val sContentTypes = SparseArray<HolderConfig>().apply {
+        val sContentTypes = SparseArray<HolderConfig>().apply {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
             val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)

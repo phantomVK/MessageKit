@@ -26,10 +26,13 @@ package com.phantomvk.messagekit.view
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ContextThemeWrapper
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.vkit.adapter.MessageAdapter
@@ -42,44 +45,38 @@ class MessagesActivity : AppCompatActivity() {
      */
     private lateinit var mAdapter: MessageAdapter
 
-    /**
-     * LinearLayoutManager for MessageAdapter.
-     */
-    private val mLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // LayoutParams for RecyclerView.
-        val layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT)
-
-        // Create RecyclerView.
-        val messageView = RecyclerView(this)
-        messageView.layoutParams = layoutParams
-        messageView.setBackgroundColor(Color.parseColor("#FFFFFF"))
-        messageView.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-        messageView.isVerticalScrollBarEnabled = true
-
-        // Add RecyclerView to contentView.
-        addContentView(messageView, layoutParams)
 
         // Create MessageAdapter.
         mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader())
         mAdapter.setHasStableIds(true)
-        mLayoutManager.isSmoothScrollbarEnabled = true
 
-        messageView.layoutManager = mLayoutManager
-        messageView.adapter = mAdapter
-        messageView.setHasFixedSize(true)
+        val layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        val themeWrapper = ContextThemeWrapper(this, R.style.ScrollbarRecyclerView)
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.isSmoothScrollbarEnabled = true
+
+        val messageView = RecyclerView(themeWrapper).apply {
+            adapter = mAdapter
+            overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            setHasFixedSize(true)
+            setLayoutParams(layoutParams)
+            setLayoutManager(layoutManager)
+            setBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
+
+        // Reset max scrap.
         MessageHolders.setMaxScrap(messageView)
+
+        // Add RecyclerView to contentView.
+        addContentView(messageView, layoutParams)
 
         initData()
     }
 
     private fun initData() {
-        for (i in 0..10) {
+        for (i in 0..1) {
             addText()
             addUrl()
             addLocation()

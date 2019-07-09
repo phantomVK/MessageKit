@@ -31,8 +31,8 @@ import android.view.ViewGroup
 import com.phantomvk.vkit.R
 import org.jetbrains.anko.*
 
-class TextMessageLayout<T> : AnkoComponent<T> {
-    override fun createView(ui: AnkoContext<T>) = with(ui) {
+class TextMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
         frameLayout {
             lparams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
