@@ -176,7 +176,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
     }
 
     /**
-     * Register you ViewHolder here.
+     * Register your ViewHolder here.
      */
     companion object {
         private const val HOLDER_DEFAULT = 1
@@ -192,7 +192,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         /**
          * Get view type id by message's type string.
          */
-        val sViewType = HashMap<String, Int>().apply {
+        private val sViewType = HashMap<String, Int>().apply {
             put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
             put(Message.MESSAGE_TYPE_URL, HOLDER_URL)
             put(Message.MESSAGE_TYPE_LOCATION, HOLDER_LOCATION)
@@ -208,7 +208,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
          *
          * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
          */
-        val sContentTypes = SparseArray<HolderConfig>().apply {
+        private val sContentTypes = SparseArray<HolderConfig>().apply {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
             val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)

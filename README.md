@@ -170,7 +170,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
                      private val mResLoader: IMessageResLoader) {
    ......
 
-    // Register you ViewHolder here like this:
+    // Register your ViewHolder here like this:
     companion object {
         private const val HOLDER_TEXT = 2
 
