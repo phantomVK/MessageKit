@@ -100,9 +100,7 @@ public abstract class Message implements IMessage {
         this.sender = sender;
         this.roomId = roomId;
         this.timestamp = timestamp;
-    }
-    
-    ......
+    }   
 }
 ```
 
@@ -168,7 +166,6 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 class MessageHolders(private val mInflater: LayoutInflater,
                      private val mItemListener: IMessageItemListener,
                      private val mResLoader: IMessageResLoader) {
-   ......
 
     // Register your ViewHolder here like this:
     companion object {
@@ -192,9 +189,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
             return@lazy SparseArray<HolderConfig>().apply {
                 put(HOLDER_DEFAULT, textConfig)
             }
-        }
-      
-        ......
+        } 
     }
 }
 ```
@@ -221,10 +216,10 @@ class MessageHolders(private val mInflater: LayoutInflater,
 ```kotlin
 open class MessageAdapter(private val mActivity: Activity,
                           private val mItemListener: IMessageItemListener,
-                          resLoader: IMessageResLoader) :AbstractMessageAdapter<RecyclerView.ViewHolder>() {
+                          resLoader: IMessageResLoader)
+    :AbstractMessageAdapter<RecyclerView.ViewHolder>() {
     
     // Some abstract methods must to implement here.
-    ....
 }
 ```
 
