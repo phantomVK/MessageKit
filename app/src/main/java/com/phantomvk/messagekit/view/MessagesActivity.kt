@@ -57,7 +57,7 @@ class MessagesActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
 
-        val messageView = RecyclerView(themeWrapper).apply {
+        val messageView = RecyclerView(themeWrapper.baseContext).apply {
             adapter = mAdapter
             overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             setHasFixedSize(true)
