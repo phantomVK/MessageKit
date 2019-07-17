@@ -59,7 +59,7 @@ class AudioViewHolder(itemView: View) : BaseViewHolder(itemView) {
     private val dateFormat: DateFormat = SimpleDateFormat("mm:ss", Locale.ROOT)
 
     init {
-        dateFormat.timeZone = TimeZone.getTimeZone("GMT");
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
     }
 
     override fun onBind(activity: Activity, message: IMessage) {
