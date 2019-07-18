@@ -26,7 +26,7 @@ package com.phantomvk.vkit.bubble
 
 import android.content.Context
 import android.graphics.drawable.ShapeDrawable
-import com.phantomvk.vkit.util.dip
+import org.jetbrains.anko.dip
 
 class BubbleDrawable(context: Context, shape: BubbleShape) : ShapeDrawable(shape) {
     init {

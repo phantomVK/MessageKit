@@ -156,22 +156,52 @@ open class MessageAdapter(private val mActivity: Activity,
         notifyItemRangeRemoved(0, count)
     }
 
+    override fun setSelecting(isSelecting: Boolean) {
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+        notifyDataSetChanged()
+    }
+
+    override fun setSelecting(isSelecting: Boolean, positionStart: Int, positionLast: Int) {
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+
+        if (positionStart != RecyclerView.NO_POSITION) {
+            val itemCount = positionLast - positionStart + 1
+            notifyItemRangeChanged(positionStart, itemCount)
+        }
+    }
+
     override fun setSelecting(itemView: View, isSelecting: Boolean) {
-        if (selecting != isSelecting) {
-            selecting = isSelecting
+        if (selecting == isSelecting) return
 
-            if (!isSelecting) {
-                selectedItems.clear()
-            }
+        selecting = isSelecting
+        mItemListener.onStatesChanged(itemView, selecting)
+        notifyDataSetChanged()
+    }
 
-            notifyDataSetChanged()
+    override fun setSelecting(itemView: View, isSelecting: Boolean,
+                              positionStart: Int, positionLast: Int) {
 
-            mItemListener.onStatesChanged(itemView, selecting)
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+        mItemListener.onStatesChanged(itemView, selecting)
+
+        if (positionStart != RecyclerView.NO_POSITION) {
+            val itemCount = positionLast - positionStart + 1
+            notifyItemRangeChanged(positionStart, itemCount)
         }
     }
 
     override fun getSelecting(): Boolean {
         return selecting
+    }
+
+    override fun clearSelectedItems() {
+        selectedItems.clear()
     }
 
     override fun getMessage(position: Int): IMessage? {

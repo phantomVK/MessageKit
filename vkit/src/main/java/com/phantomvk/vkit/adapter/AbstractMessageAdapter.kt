@@ -63,12 +63,32 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     /**
      * Start or finish the selecting mode.
      */
+    abstract fun setSelecting(isSelecting: Boolean)
+
+    /**
+     * Start or finish the selecting mode, notify items range changed.
+     */
+    abstract fun setSelecting(isSelecting: Boolean, positionStart: Int, positionLast: Int)
+
+    /**
+     * Start or finish the selecting mode.
+     */
     abstract fun setSelecting(itemView: View, isSelecting: Boolean)
+
+    /**
+     * Start or finish the selecting mode, notify items range changed.
+     */
+    abstract fun setSelecting(itemView: View, isSelecting: Boolean, positionStart: Int, positionLast: Int)
 
     /**
      * Get the selecting status.
      */
     abstract fun getSelecting(): Boolean
+
+    /**
+     * Clear all selected items.
+     */
+    abstract fun clearSelectedItems()
 
     /**
      * Get message from adapter by adapter position.

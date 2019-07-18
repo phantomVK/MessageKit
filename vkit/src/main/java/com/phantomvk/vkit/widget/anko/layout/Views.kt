@@ -29,6 +29,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewManager
+import android.widget.CheckBox
+import android.widget.ProgressBar
+import androidx.appcompat.view.ContextThemeWrapper
 import com.phantomvk.vkit.widget.layout.BubbleFrameLayout
 import com.phantomvk.vkit.widget.layout.BubbleLinearLayout
 import com.phantomvk.vkit.widget.layout.BubbleRelativeLayout
@@ -371,3 +374,51 @@ open class KBubbleRelativeLayout(ctx: Context) : BubbleRelativeLayout(ctx) {
         return this
     }
 }
+
+/**
+ * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
+ *
+ * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
+ */
+inline fun ViewManager.styledProgressBar(styleRes: Int = 0, init: ProgressBar.() -> Unit): ProgressBar {
+    return ankoView({
+        if (styleRes == 0) {
+            ProgressBar(it)
+        } else {
+            ProgressBar(ContextThemeWrapper(it, styleRes), null, 0)
+        }
+    }, styleRes) { init() }
+}
+
+/**
+ * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
+ *
+ * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
+ */
+fun ViewManager.styledProgressBar(styleRes: Int = 0): ProgressBar = styledProgressBar(styleRes) {}
+
+/**
+ * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
+ *
+ * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
+ */
+inline fun ViewManager.styledCheckBox(styleRes: Int = 0, init: CheckBox.() -> Unit): CheckBox {
+    return ankoView({
+        if (styleRes == 0) {
+            CheckBox(it)
+        } else {
+            CheckBox(ContextThemeWrapper(it, styleRes), null, 0)
+        }
+    }, styleRes) { init() }
+}
+
+/**
+ * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
+ *
+ * See: https://github.com/Kotlin/anko/issues/16
+ * See: https://stackoverflow.com/q/11723881/8750399
+ */
+fun ViewManager.styledCheckBox(styleRes: Int = 0): CheckBox = styledCheckBox(styleRes) {}

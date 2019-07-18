@@ -57,8 +57,7 @@ fun getStateListDrawable(context: Context, isHost: Boolean): StateListDrawable {
 
     val direction = if (isHost) Direction.END else Direction.START
 
-    val shape = BubbleShape(
-        direction,
+    val shape = BubbleShape(direction,
         context.dip(6F),
         context.dip(12F),
         context.dip(4F),

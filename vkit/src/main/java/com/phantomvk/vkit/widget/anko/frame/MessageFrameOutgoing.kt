@@ -32,6 +32,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.phantomvk.vkit.R
 import com.phantomvk.vkit.widget.anko.layout.interceptTouchRelativeLayout
+import com.phantomvk.vkit.widget.anko.layout.styledCheckBox
 import org.jetbrains.anko.*
 
 class MessageFrameOutgoing : AnkoComponent<ViewGroup> {
@@ -53,13 +54,13 @@ class MessageFrameOutgoing : AnkoComponent<ViewGroup> {
                 bottomMargin = dip(12)
             }
 
-            checkBox {
+            styledCheckBox(R.style.vkit_checkbox_style) {
                 id = R.id.checkbox
-                applyRecursively { R.style.vkit_checkbox_style }
                 visibility = View.GONE
             }.lparams {
                 below(R.id.date)
-                margin = dip(9)
+                marginStart = dip(9)
+                marginEnd = dip(9)
             }
 
             imageView {

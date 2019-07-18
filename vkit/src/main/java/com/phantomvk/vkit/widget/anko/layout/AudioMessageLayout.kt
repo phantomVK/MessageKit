@@ -29,7 +29,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.phantomvk.vkit.R
-import com.phantomvk.vkit.util.styledProgressBar
 import org.jetbrains.anko.*
 
 class AudioMessageLayout : AnkoComponent<ViewGroup> {

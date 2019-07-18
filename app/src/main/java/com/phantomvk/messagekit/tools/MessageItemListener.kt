@@ -92,9 +92,8 @@ class MessageItemListener : IMessageItemListener {
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.redact -> {
-                    adapter.remove(layoutPosition)
-                }
+                R.id.redact -> adapter.remove(layoutPosition)
+                R.id.selection -> adapter.setSelecting(itemView, true)
             }
             return@setOnMenuItemClickListener true
         }
@@ -117,6 +116,5 @@ class MessageItemListener : IMessageItemListener {
     }
 
     override fun onStatesChanged(itemView: View, isSelecting: Boolean) {
-        itemView.context.toast("onStatesChanged, isSelecting: $isSelecting")
     }
 }

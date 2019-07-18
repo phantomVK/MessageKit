@@ -7,6 +7,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@+id/date"
-    android:layout_margin="9dp"
+    android:layout_marginStart="9dp"
+    android:layout_marginEnd="9dp"
     android:visibility="gone"
     tools:visibility="visible"/>

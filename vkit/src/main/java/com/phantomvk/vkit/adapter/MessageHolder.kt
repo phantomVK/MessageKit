@@ -158,6 +158,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
         }
 
         val bodyView = when (layoutResId) {
+            R.layout.vkit_layout_msg_text -> TextMessageLayout()
             R.layout.vkit_layout_msg_url -> UrlMessageLayout()
             R.layout.vkit_layout_msg_location -> LocationMessageLayout()
             R.layout.vkit_layout_msg_file -> FileMessageLayout()

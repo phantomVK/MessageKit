@@ -26,13 +26,11 @@ package com.phantomvk.messagekit.view
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
 import com.phantomvk.vkit.adapter.MessageAdapter
@@ -40,9 +38,7 @@ import com.phantomvk.vkit.adapter.MessageHolders
 import com.phantomvk.vkit.model.*
 
 class MessagesActivity : AppCompatActivity() {
-    /**
-     * Adapter.
-     */
+
     private lateinit var mAdapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +49,10 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.setHasStableIds(true)
 
         val layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        val themeWrapper = ContextThemeWrapper(this, R.style.ScrollbarRecyclerView)
         val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
 
-        val messageView = RecyclerView(themeWrapper.baseContext).apply {
+        val messageView = RecyclerView(this).apply {
             adapter = mAdapter
             overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             setHasFixedSize(true)
@@ -73,6 +68,14 @@ class MessagesActivity : AppCompatActivity() {
         addContentView(messageView, layoutParams)
 
         initData()
+    }
+
+    override fun onBackPressed() {
+        if (mAdapter.getSelecting()) {
+            mAdapter.setSelecting(false)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun initData() {

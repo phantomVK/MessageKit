@@ -41,9 +41,9 @@ import com.phantomvk.vkit.R
 import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.listener.OnGestureListener
 import com.phantomvk.vkit.model.IMessage
-import com.phantomvk.vkit.util.dip
 import com.phantomvk.vkit.widget.layout.IBubbleLayout
 import com.phantomvk.vkit.widget.layout.InterceptedRelativeLayout
+import org.jetbrains.anko.dip
 import java.util.*
 
 /**
