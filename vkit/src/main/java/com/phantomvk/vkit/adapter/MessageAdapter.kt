@@ -27,9 +27,11 @@ package com.phantomvk.vkit.adapter
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.util.contains
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.holder.AbstractViewHolder
 import com.phantomvk.vkit.adapter.holder.BaseViewHolder
@@ -81,7 +83,7 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Selected items.
      */
-    private val selectedItems = ArrayList<IMessage>()
+    private val selectedItems = SparseArray<IMessage>()
 
     /**
      * Instance used by all ViewHolders in order to reduce memory usage.
@@ -196,8 +198,27 @@ open class MessageAdapter(private val mActivity: Activity,
         }
     }
 
-    override fun getSelecting(): Boolean {
-        return selecting
+    override fun getSelecting() = selecting
+
+    override fun onItemSelectedChange(position: Int, isSelected: Boolean, message: IMessage?) {
+        if (isSelected) {
+            selectedItems.remove(position)
+        } else {
+            selectedItems.put(position, message)
+        }
+    }
+
+    override fun getSelectedItems(): List<IMessage> {
+        val size = selectedItems.size()
+        val selected = ArrayList<IMessage>(size)
+        for (index in 0 until size) {
+            selected.add(selectedItems.valueAt(index))
+        }
+        return selected
+    }
+
+    override fun isItemSelected(index: Int): Boolean {
+        return selectedItems.contains(index)
     }
 
     override fun clearSelectedItems() {

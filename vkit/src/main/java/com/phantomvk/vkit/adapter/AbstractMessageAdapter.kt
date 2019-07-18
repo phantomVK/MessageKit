@@ -81,9 +81,24 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     abstract fun setSelecting(itemView: View, isSelecting: Boolean, positionStart: Int, positionLast: Int)
 
     /**
-     * Get the selecting status.
+     * Get the selecting states.
      */
     abstract fun getSelecting(): Boolean
+
+    /**
+     * Change item selected states.
+     */
+    abstract fun onItemSelectedChange(position: Int, isSelected: Boolean, message: IMessage?)
+
+    /**
+     * Get all selected items.
+     */
+    abstract fun getSelectedItems(): List<IMessage>
+
+    /**
+     * Tells if the item has been selected.
+     */
+    abstract fun isItemSelected(index: Int): Boolean
 
     /**
      * Clear all selected items.

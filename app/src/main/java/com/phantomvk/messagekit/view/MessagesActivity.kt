@@ -73,13 +73,14 @@ class MessagesActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (mAdapter.getSelecting()) {
             mAdapter.setSelecting(false)
+            mAdapter.clearSelectedItems()
         } else {
             super.onBackPressed()
         }
     }
 
     private fun initData() {
-        for (i in 0..1) {
+        for (i in 0..5) {
             addText()
             addUrl()
             addLocation()

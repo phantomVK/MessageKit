@@ -31,30 +31,26 @@ import android.view.ViewGroup
 import android.view.ViewManager
 import android.widget.CheckBox
 import android.widget.ProgressBar
-import androidx.appcompat.view.ContextThemeWrapper
 import com.phantomvk.vkit.widget.layout.BubbleFrameLayout
 import com.phantomvk.vkit.widget.layout.BubbleLinearLayout
 import com.phantomvk.vkit.widget.layout.BubbleRelativeLayout
 import com.phantomvk.vkit.widget.layout.InterceptedRelativeLayout
 import org.jetbrains.anko.AnkoViewDslMarker
 import org.jetbrains.anko.custom.ankoView
+import org.jetbrains.anko.internals.AnkoInternals
 
-inline fun ViewManager.interceptTouchRelativeLayout(): InterceptedRelativeLayout = interceptTouchRelativeLayout {}
 inline fun ViewManager.interceptTouchRelativeLayout(init: (@AnkoViewDslMarker KInterceptedRelativeLayout).() -> Unit): InterceptedRelativeLayout {
     return ankoView({ ctx: Context -> KInterceptedRelativeLayout(ctx) }, theme = 0) { init() }
 }
 
-inline fun ViewManager.bubbleFrameLayout(): BubbleFrameLayout = bubbleFrameLayout {}
 inline fun ViewManager.bubbleFrameLayout(init: (@AnkoViewDslMarker KBubbleFrameLayout).() -> Unit): BubbleFrameLayout {
     return ankoView({ ctx: Context -> KBubbleFrameLayout(ctx) }, theme = 0) { init() }
 }
 
-inline fun ViewManager.bubbleLinearLayout(): BubbleLinearLayout = bubbleLinearLayout {}
 inline fun ViewManager.bubbleLinearLayout(init: (@AnkoViewDslMarker KBubbleLinearLayout).() -> Unit): BubbleLinearLayout {
     return ankoView({ ctx: Context -> KBubbleLinearLayout(ctx) }, theme = 0) { init() }
 }
 
-inline fun ViewManager.bubbleRelativeLayout(): BubbleRelativeLayout = bubbleRelativeLayout {}
 inline fun ViewManager.bubbleRelativeLayout(init: (@AnkoViewDslMarker KBubbleRelativeLayout).() -> Unit): BubbleRelativeLayout {
     return ankoView({ ctx: Context -> KBubbleRelativeLayout(ctx) }, theme = 0) { init() }
 }
@@ -381,14 +377,8 @@ open class KBubbleRelativeLayout(ctx: Context) : BubbleRelativeLayout(ctx) {
  * See: https://github.com/Kotlin/anko/issues/16
  * See: https://stackoverflow.com/q/11723881/8750399
  */
-inline fun ViewManager.styledProgressBar(styleRes: Int = 0, init: ProgressBar.() -> Unit): ProgressBar {
-    return ankoView({
-        if (styleRes == 0) {
-            ProgressBar(it)
-        } else {
-            ProgressBar(ContextThemeWrapper(it, styleRes), null, 0)
-        }
-    }, styleRes) { init() }
+inline fun ViewManager.styledProgressBar(styleRes: Int, init: ProgressBar.() -> Unit): ProgressBar {
+    return ankoView({ ProgressBar(it, null, 0) }, styleRes) { init() }
 }
 
 /**
@@ -397,28 +387,19 @@ inline fun ViewManager.styledProgressBar(styleRes: Int = 0, init: ProgressBar.()
  * See: https://github.com/Kotlin/anko/issues/16
  * See: https://stackoverflow.com/q/11723881/8750399
  */
-fun ViewManager.styledProgressBar(styleRes: Int = 0): ProgressBar = styledProgressBar(styleRes) {}
-
-/**
- * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
- *
- * See: https://github.com/Kotlin/anko/issues/16
- * See: https://stackoverflow.com/q/11723881/8750399
- */
-inline fun ViewManager.styledCheckBox(styleRes: Int = 0, init: CheckBox.() -> Unit): CheckBox {
-    return ankoView({
-        if (styleRes == 0) {
-            CheckBox(it)
-        } else {
-            CheckBox(ContextThemeWrapper(it, styleRes), null, 0)
-        }
-    }, styleRes) { init() }
+inline fun ViewManager.styledCheckBox(styleRes: Int, init: CheckBox.() -> Unit): CheckBox {
+    return ankoView({ CheckBox(it, null, 0) }, styleRes) { init() }
 }
 
 /**
- * Set custom style to View programmatically, do it yourself because it is not supported by Anko.
- *
- * See: https://github.com/Kotlin/anko/issues/16
- * See: https://stackoverflow.com/q/11723881/8750399
+ * Set custom style to View programmatically.
  */
-fun ViewManager.styledCheckBox(styleRes: Int = 0): CheckBox = styledCheckBox(styleRes) {}
+inline fun <reified T : View> ViewManager.styledView(theme: Int, init: T.() -> Unit): T {
+    val ctx = AnkoInternals.wrapContextIfNeeded(AnkoInternals.getContext(this), theme)
+    val view = T::class.java
+        .getDeclaredConstructor(Context::class.java, AttributeSet::class.java, Int::class.java)
+        .newInstance(ctx, null, 0)
+    view.init()
+    AnkoInternals.addView(this, view)
+    return view
+}

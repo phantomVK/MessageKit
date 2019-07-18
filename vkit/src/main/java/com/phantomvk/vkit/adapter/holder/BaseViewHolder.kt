@@ -133,6 +133,13 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
             detector.onTouchEvent(event)
             return@setOnTouchListener false
         }
+
+        itemView.setOnClickListener {
+            if (!holderSelecting) return@setOnClickListener
+            val isSelected = mCheckBox.isChecked
+            mCheckBox.isChecked = !isSelected
+            messageAdapter.onItemSelectedChange(layoutPosition, isSelected, null)
+        }
     }
 
     open fun setLayoutBubble() {
@@ -150,7 +157,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     override fun onBind(activity: Activity, message: IMessage) {
         loadAvatar(activity, message)
         setDisplayName(message)
-        selectingMode(messageAdapter.getSelecting())
+        setSelecting(messageAdapter.getSelecting())
         setDateView(mDateView, message)
         sendingStates(0)
     }
@@ -175,17 +182,15 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         mUsername?.text = message.getSender()
     }
 
-    private fun selectingMode(adapterSelecting: Boolean) {
-        if (holderSelecting != adapterSelecting) {
-            holderSelecting = adapterSelecting
-            mCheckBox.isVisible = adapterSelecting
-            (itemView as InterceptedRelativeLayout).intercepted = adapterSelecting
-
-            if (adapterSelecting) {
-                itemView.setOnClickListener { mCheckBox.isChecked = !mCheckBox.isChecked }
-            } else {
-                itemView.setOnClickListener(null)
-            }
+    /**
+     * ItemView blocked all touch events if adapterSelecting is true.
+     */
+    private fun setSelecting(adapterSelecting: Boolean) {
+        (itemView as InterceptedRelativeLayout).intercepted = adapterSelecting
+        holderSelecting = adapterSelecting
+        mCheckBox.isVisible = adapterSelecting
+        if (adapterSelecting) {
+            mCheckBox.isChecked = messageAdapter.isItemSelected(layoutPosition)
         }
     }
 
