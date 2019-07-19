@@ -58,7 +58,7 @@ class MessagesActivity : AppCompatActivity() {
             setHasFixedSize(true)
             setLayoutParams(layoutParams)
             setLayoutManager(layoutManager)
-            setBackgroundColor(Color.parseColor("#FFFFFF"))
+            setBackgroundColor(Color.WHITE)
         }
 
         // Reset max scrap.

@@ -57,6 +57,6 @@ class MainActivity : AppCompatActivity() {
         addContentView(button, layoutParams)
 
         // Set window's background.
-        (window.decorView as ViewGroup).setBackgroundColor(Color.parseColor("#FFFFFF"))
+        (window.decorView as ViewGroup).setBackgroundColor(Color.WHITE)
     }
 }

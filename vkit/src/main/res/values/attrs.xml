@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="vkit_color_mask_bubble" format="color"/>
+
+    <declare-styleable name="BubbleFrameLayout">
+        <attr name="vkit_color_mask_bubble"/>
+    </declare-styleable>
+
+    <declare-styleable name="BubbleLinearLayout">
+        <attr name="vkit_color_mask_bubble"/>
+    </declare-styleable>
+
+    <declare-styleable name="BubbleRelativeLayout">
+        <attr name="vkit_color_mask_bubble"/>
+    </declare-styleable>
+</resources>

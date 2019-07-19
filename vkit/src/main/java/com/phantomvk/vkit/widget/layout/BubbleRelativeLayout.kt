@@ -26,10 +26,10 @@ package com.phantomvk.vkit.widget.layout
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.RelativeLayout
+import com.phantomvk.vkit.R
 import com.phantomvk.vkit.bubble.BubbleDrawer
 import com.phantomvk.vkit.bubble.Direction
 
@@ -41,7 +41,7 @@ open class BubbleRelativeLayout
     /**
      * Foreground mask.
      */
-    private val mMask = Color.parseColor("#30000000")
+    private var mMask: Int
 
     /**
      * Bubble drawer.
@@ -54,7 +54,14 @@ open class BubbleRelativeLayout
     private var mTouching = false
 
     init {
-        // Force ViewGroup to draw.
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.BubbleRelativeLayout)
+        mMask = ta.getColor(R.styleable.BubbleRelativeLayout_vkit_color_mask_bubble, 0x30000000)
+        ta.recycle()
+    }
+
+    // Force ViewGroup to draw.
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         setWillNotDraw(false)
     }
 
