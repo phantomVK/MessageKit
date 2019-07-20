@@ -48,7 +48,7 @@ import java.util.*
 
 /**
  * The base ViewHolder includes some basic views for all kinds of messages.
- * Use {@link AbstractViewHolder} as super class instead if this class is not suitable.
+ * Use {@link AbstractViewHolder} as super class instead if this class is not suitable for you.
  */
 open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**

@@ -47,7 +47,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     protected lateinit var mItemListener: IMessageItemListener
 
     /**
-     * Message resource loader.
+     * Message image resource loader.
      */
     protected lateinit var mResLoader: IMessageResLoader
 
