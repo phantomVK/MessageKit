@@ -78,29 +78,28 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        for (i in 0..5) {
-            addText()
-            addUrl()
-            addLocation()
-            addFile()
-            addImages()
-            addAudio()
-            notice()
-        }
+        Thread {
+            for (i in 0..5) {
+                addText()
+                addUrl()
+                addLocation()
+                addFile()
+                addImages()
+                addAudio()
+                notice()
+            }
 
-        mAdapter.notifyDataSetChanged()
+            runOnUiThread { mAdapter.notifyDataSetChanged() }
+        }.start()
     }
 
     private fun addText() {
         val msg1 = TextMessage("Hello")
         msg1.setSender("Austin")
-        msg1.setTimestamp(1548518400) // millisecond.
         mAdapter.add(msg1)
-        mAdapter.notifyDataSetChanged()
 
         val msg2 = TextMessage("Hi")
         msg2.setSender("Daniel")
-        msg2.setTimestamp(System.currentTimeMillis() - 1000 * 60 * 6)
         mAdapter.add(msg2)
     }
 

@@ -70,7 +70,7 @@ class MediaViewHolder(itemView: View) : BaseViewHolder(itemView) {
      * Calculate the layoutParams of thumbnail ImageView.
      */
     private fun resize(imageView: ImageView, width: Int, height: Int) {
-        val adapter = messageAdapter as MessageAdapter
+        val adapter = adapter as MessageAdapter
         val maxWidth = adapter.maxImageWidth
         val maxHeight = adapter.maxImageHeight
         val minSize = adapter.minSize

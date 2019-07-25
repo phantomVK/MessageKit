@@ -100,7 +100,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Default message timestamp span in millisecond.
      */
-    private val messageTimestampSpan = 3 * 60 * 1000L // 3min.
+    private val msgSpan = 3 * 60 * 1000L // 3min.
 
     /**
      * Do NOT override this method.
@@ -139,7 +139,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
             if (!holderSelecting) return@setOnClickListener
             val isSelected = mCheckBox.isChecked
             mCheckBox.isChecked = !isSelected
-            messageAdapter.onItemSelectedChange(layoutPosition, isSelected, null)
+            adapter.onItemSelectedChange(layoutPosition, isSelected, null)
         }
     }
 
@@ -158,7 +158,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     override fun onBind(activity: Activity, message: IMessage) {
         loadAvatar(activity, message)
         setDisplayName(message)
-        setSelecting(messageAdapter.getSelecting())
+        setSelecting(adapter.getSelecting())
         setDateView(mDateView, message)
         sendingStates(0)
     }
@@ -185,7 +185,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         holderSelecting = adapterSelecting
         mCheckBox.isVisible = adapterSelecting
         if (adapterSelecting) {
-            mCheckBox.isChecked = messageAdapter.isItemSelected(layoutPosition)
+            mCheckBox.isChecked = adapter.isItemSelected(layoutPosition)
         }
     }
 
@@ -203,8 +203,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set text to date view. Timestamps used below are millisecond and must not be negative.
      *
      * View visible:
-     *     1. Current message timestamp is #messageTimestampSpan larger than the previous;
-     *     2. The message is the last one, also has been sent more then #messageTimestampSpan;
+     *     1. Current message timestamp is #msgSpan larger than the previous;
+     *     2. The message is the last one, also has been sent more then #msgSpan;
      *     3. The message has been redacted, just shows the timestamp of redaction.
      *
      * View gone:
@@ -221,16 +221,14 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     open fun setDateView(view: TextView, message: IMessage) {
         val msgTs = message.getTimestamp()
-        val preTs = messageAdapter.getMessage(layoutPosition - 1)?.getTimestamp() ?: 0
+        val preTs = adapter.getMessage(layoutPosition - 1)?.getTimestamp() ?: 0
         val sysTs = System.currentTimeMillis()
         val redacted = false
 
         if (msgTs == 0L) {
             view.visibility = View.GONE
-        }
-
-        if ((msgTs - preTs > messageTimestampSpan)
-            || ((layoutPosition == messageAdapter.itemCount - 1) && (sysTs - msgTs > messageTimestampSpan))
+        } else if ((msgTs - preTs > msgSpan)
+            || (layoutPosition == adapter.itemCount - 1 && sysTs - msgTs > msgSpan)
             || redacted) {
             view.isVisible = true
             view.text = getDateText(itemView.context, msgTs, sysTs)

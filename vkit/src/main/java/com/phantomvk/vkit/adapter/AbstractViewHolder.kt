@@ -53,7 +53,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * For adding, removing, replacing message items.
      */
-    lateinit var messageAdapter: AbstractMessageAdapter<AbstractViewHolder>
+    lateinit var adapter: AbstractMessageAdapter<AbstractViewHolder>
 
     /**
      * Init resources and setup configurations only once when holder is created.
@@ -76,7 +76,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         this.isHost = isHost
         this.itemListener = itemListener
         this.resLoader = resLoader
-        messageAdapter = adapter
+        this.adapter = adapter
         created()
         return this
     }

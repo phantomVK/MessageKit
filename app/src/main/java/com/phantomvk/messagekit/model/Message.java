@@ -62,6 +62,7 @@ public abstract class Message implements IMessage {
     public Message(@NonNull String type, @NonNull String body) {
         this.type = type;
         this.body = body;
+        this.timestamp = System.currentTimeMillis();
     }
 
     @NotNull

@@ -89,8 +89,8 @@ class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItem
         popupMenu.menuInflater.inflate(R.menu.vkit_menu_message_long_click, popupMenu.menu)
 
         popupMenu.setOnDismissListener { menu ->
-            root.removeView(anchor)
             menu.dismiss()
+            root.removeView(anchor)
         }
 
         popupMenu.setOnMenuItemClickListener { item ->

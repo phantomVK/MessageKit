@@ -42,7 +42,7 @@ class OnGestureListener(private val holder: BaseViewHolder,
         listener.onContentLongClick(
             holder.itemView,
             holder.point,
-            holder.messageAdapter,
+            holder.adapter,
             holder.layoutPosition)
     }
 
@@ -52,7 +52,7 @@ class OnGestureListener(private val holder: BaseViewHolder,
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-        val adapter = holder.messageAdapter as MessageAdapter
+        val adapter = holder.adapter as MessageAdapter
         val message = adapter.getMessage(holder) ?: return false
         listener.onContentClick(holder.itemView, message)
         return true
