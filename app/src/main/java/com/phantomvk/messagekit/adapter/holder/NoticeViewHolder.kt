@@ -22,58 +22,28 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.messagekit.adapter.holder
 
-import android.graphics.PointF
+import android.app.Activity
 import android.view.View
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import android.widget.TextView
 import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.model.IMessage
+import kotlinx.android.synthetic.main.vkit_layout_msg_notice.view.*
 
-/**
- * Message item listener.
- */
-interface IMessageItemListener {
+class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
-     * Click on the user avatar.
+     * Notice text.
      */
-    fun onAvatarClick(itemView: View)
+    private val mText: TextView = itemView.notice
 
     /**
-     * Long click on the user avatar.
+     * Override as an empty implementation.
      */
-    fun onAvatarLongClick(itemView: View): Boolean
+    override fun created() {
+    }
 
-    /**
-     * Click on the message content.
-     */
-    fun onContentClick(itemView: View, message: IMessage)
-
-    /**
-     * Long click on the message content.
-     */
-    fun onContentLongClick(itemView: View,
-                           point: PointF,
-                           adapter: AbstractMessageAdapter<AbstractViewHolder>,
-                           layoutPosition: Int): Boolean
-
-    /**
-     * Double click on the message content.
-     */
-    fun onContentDoubleClick(itemView: View)
-
-    /**
-     * The action of the long click content.
-     */
-    fun onContentAction(itemView: View, layoutPosition: Int)
-
-    /**
-     * Resend the content.
-     */
-    fun onContentResend(itemView: View)
-
-    /**
-     * Selection mode changed callback.
-     */
-    fun onStatesChanged(itemView: View, isSelecting: Boolean)
+    override fun onBind(activity: Activity, message: IMessage) {
+        mText.text = message.getBody()
+    }
 }

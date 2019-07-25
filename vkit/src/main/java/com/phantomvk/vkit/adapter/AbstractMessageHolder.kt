@@ -24,17 +24,21 @@
 
 package com.phantomvk.vkit.adapter
 
-import android.view.View
-import androidx.annotation.LayoutRes
+import android.app.Activity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.phantomvk.vkit.listener.IMessageItemListener
+import com.phantomvk.vkit.listener.IMessageResLoader
+import com.phantomvk.vkit.model.IMessage
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+abstract class AbstractMessageHolder<T : AbstractMessageAdapter<AbstractViewHolder>>
+constructor(val inflater: LayoutInflater,
+            val itemListener: IMessageItemListener,
+            val resLoader: IMessageResLoader) {
+
+    abstract fun onBind(activity: Activity, holder: AbstractViewHolder, message: IMessage)
+
+    abstract fun getHolder(parent: ViewGroup, viewType: Int, adapter: T): AbstractViewHolder
+
+    abstract fun getViewType(message: IMessage, isSender: Boolean): Int
+}

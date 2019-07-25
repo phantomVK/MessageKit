@@ -32,13 +32,13 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
-import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
+import com.phantomvk.messagekit.model.ImageMessage
+import com.phantomvk.messagekit.model.UrlMessage
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.model.IMessage
-import com.phantomvk.vkit.model.ImageMessage
-import com.phantomvk.vkit.model.UrlMessage
 import com.phantomvk.vkit.util.toast
 
 class MessageItemListener : IMessageItemListener {
@@ -71,7 +71,7 @@ class MessageItemListener : IMessageItemListener {
 
     override fun onContentLongClick(itemView: View,
                                     point: PointF,
-                                    adapter: AbstractMessageAdapter<RecyclerView.ViewHolder>,
+                                    adapter: AbstractMessageAdapter<AbstractViewHolder>,
                                     layoutPosition: Int): Boolean {
 
         val anchor = View(itemView.context)

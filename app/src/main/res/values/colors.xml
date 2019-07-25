@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="vkit_color_host_solid">#AAC9FD</color>
+    <color name="vkit_color_host_stroke">#7D9DD1</color>
+    <color name="vkit_color_guest_solid">#FFFFFF</color>
+    <color name="vkit_color_guest_stroke">#CFCFCF</color>
+
 </resources>

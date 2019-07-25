@@ -22,19 +22,27 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.messagekit.adapter.holder
 
+import android.app.Activity
 import android.view.View
-import androidx.annotation.LayoutRes
+import android.widget.TextView
+import com.phantomvk.vkit.R
+import com.phantomvk.messagekit.widget.getStateListDrawable
+import com.phantomvk.vkit.model.IMessage
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    /**
+     * TextView, required.
+     */
+    private val mText: TextView = itemView.findViewById(R.id.text)
+
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        mText.text = message.getBody()
+    }
+
+    override fun setLayoutBubble() {
+        mText.background = getStateListDrawable(itemView.context, isHost)
+    }
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.phantomvk.vkit.widget.BubbleLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/vkit_ic_play_audio"
+        tools:ignore="ContentDescription"/>
+
+    <include layout="@layout/vkit_view_msg_audio_progressbar"/>
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/vkit_color_host_stroke"
+        android:textSize="11sp"
+        tools:ignore="SmallSp"
+        tools:text="00:16"/>
+</com.phantomvk.vkit.widget.BubbleLinearLayout>

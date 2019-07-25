@@ -22,19 +22,26 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
-
-import android.view.View
-import androidx.annotation.LayoutRes
+package com.phantomvk.messagekit.model
 
 /**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ * The message of media, mainly used to be extended by subclasses.
  *
+ * @param type message type, such as MESSAGE_TYPE_IMAGE.
  */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+open class MediaMessage(type: String, body: String) : FileMessage(body, type) {
+    /**
+     * Thumbnail image url, optional.
+     */
+    var thumbnailUrl: String? = null
+
+    /**
+     * Media width, required.
+     */
+    var width: Int = 0
+
+    /**
+     * Media height, required.
+     */
+    var height: Int = 0
+}

@@ -22,19 +22,24 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.vkit.widget
 
-import android.view.View
-import androidx.annotation.LayoutRes
+import android.content.Context
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.widget.RelativeLayout
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+open class InterceptedRelativeLayout
+@JvmOverloads constructor(context: Context,
+                          attrs: AttributeSet? = null,
+                          defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+
+    /**
+     * Intercept all touch events to this layout.
+     */
+    var intercepted = false
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        return intercepted || super.onInterceptTouchEvent(ev)
+    }
+}

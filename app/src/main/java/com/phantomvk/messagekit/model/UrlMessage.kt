@@ -22,19 +22,32 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
-
-import android.view.View
-import androidx.annotation.LayoutRes
+package com.phantomvk.messagekit.model
 
 /**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ * The message of url.
  *
+ * @param title website title
+ * @param url   website url
  */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class UrlMessage(var title: String, val url: String) : Message(MESSAGE_TYPE_URL, url) {
+    /**
+     * Website icon url, optional.
+     */
+    var image: String? = null
+
+    /**
+     * Website source, optional.
+     */
+    var source: String? = null
+
+    /**
+     * Website domain, optional.
+     */
+    var domain: String? = null
+
+    /**
+     * Website description, optional.
+     */
+    var description: String? = null
+}

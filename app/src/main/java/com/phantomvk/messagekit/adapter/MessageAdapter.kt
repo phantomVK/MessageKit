@@ -1,0 +1,225 @@
+/**
+ * MIT License
+ *
+ * Copyright (c) 2019 Wenkang Tan
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package com.phantomvk.messagekit.adapter
+
+import android.app.Activity
+import android.content.Context
+import android.graphics.Point
+import android.util.SparseArray
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.util.contains
+import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import com.phantomvk.vkit.adapter.AbstractViewHolder
+import com.phantomvk.vkit.listener.IMessageItemListener
+import com.phantomvk.vkit.listener.IMessageResLoader
+import com.phantomvk.vkit.model.IMessage
+
+open class MessageAdapter(private val mActivity: Activity,
+                          private val mItemListener: IMessageItemListener,
+                          resLoader: IMessageResLoader) : AbstractMessageAdapter<AbstractViewHolder>() {
+
+    /**
+     * Message holders to inflate view by message's type.
+     */
+    private val mHolders = MessageHolder(mActivity.layoutInflater, mItemListener, resLoader)
+
+    /**
+     * All received messages.
+     */
+    private val mMessages = ArrayList<IMessage>()
+
+    /**
+     * Min size for displaying thumbnail.
+     */
+    val minSize = 48 * mActivity.resources.displayMetrics.density
+
+    /**
+     * Max size for displaying thumbnail.
+     */
+    val maxSize = 134 * mActivity.resources.displayMetrics.density
+
+    /**
+     * Max width pixel for displaying ImageMessage.
+     */
+    val maxImageWidth: Float
+
+    /**
+     * Max height pixel for displaying ImageMessage.
+     */
+    val maxImageHeight: Float
+
+    /**
+     * Start messages selecting.
+     */
+    private var selecting: Boolean = false
+
+    /**
+     * Selected items.
+     */
+    private val selectedItems = SparseArray<IMessage>()
+
+    init {
+        val point = Point()
+        (mActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+
+        // Init only once.
+        if (point.x < point.y) { // landscape
+            maxImageWidth = point.x * 0.40F
+            maxImageHeight = point.y * 0.24F
+        } else { // portrait.
+            maxImageWidth = point.x * 0.24F
+            maxImageHeight = point.y * 0.40F
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder {
+        return mHolders.getHolder(parent, viewType, this)
+    }
+
+    override fun getItemCount(): Int {
+        return mMessages.size
+    }
+
+    override fun onBindViewHolder(holder: AbstractViewHolder, position: Int) {
+        mHolders.onBind(mActivity, holder, mMessages[position])
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        val message = mMessages[position]
+        return mHolders.getViewType(message, isHost("Austin", message))
+    }
+
+    override fun add(message: IMessage, refresh: Boolean) {
+        mMessages.add(message)
+        if (refresh) notifyItemInserted(mMessages.size - 1)
+    }
+
+    override fun addAll(messages: List<IMessage>) {
+        mMessages.addAll(messages)
+        notifyItemRangeInserted(mMessages.size, messages.size)
+    }
+
+    override fun addToFront(message: IMessage, refresh: Boolean) {
+        mMessages.add(0, message)
+        if (refresh) notifyItemInserted(0)
+    }
+
+    override fun remove(adapterPos: Int) {
+        mMessages.removeAt(adapterPos)
+        notifyItemRemoved(adapterPos)
+    }
+
+    private fun isHost(currUserId: String, message: IMessage): Boolean {
+        return currUserId == message.getSender()
+    }
+
+    override fun clear() {
+        val count = mMessages.size
+        mMessages.clear()
+        notifyItemRangeRemoved(0, count)
+    }
+
+    override fun setSelecting(isSelecting: Boolean) {
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+        notifyDataSetChanged()
+    }
+
+    override fun setSelecting(isSelecting: Boolean, positionStart: Int, positionLast: Int) {
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+
+        if (positionStart != RecyclerView.NO_POSITION) {
+            val itemCount = positionLast - positionStart + 1
+            notifyItemRangeChanged(positionStart, itemCount)
+        }
+    }
+
+    override fun setSelecting(itemView: View, isSelecting: Boolean) {
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+        mItemListener.onStatesChanged(itemView, selecting)
+        notifyDataSetChanged()
+    }
+
+    override fun setSelecting(itemView: View, isSelecting: Boolean,
+                              positionStart: Int, positionLast: Int) {
+
+        if (selecting == isSelecting) return
+
+        selecting = isSelecting
+        mItemListener.onStatesChanged(itemView, selecting)
+
+        if (positionStart != RecyclerView.NO_POSITION) {
+            val itemCount = positionLast - positionStart + 1
+            notifyItemRangeChanged(positionStart, itemCount)
+        }
+    }
+
+    override fun getSelecting() = selecting
+
+    override fun onItemSelectedChange(position: Int, isSelected: Boolean, message: IMessage?) {
+        if (isSelected) {
+            selectedItems.remove(position)
+        } else {
+            selectedItems.put(position, message)
+        }
+    }
+
+    override fun getSelectedItems(): List<IMessage> {
+        val size = selectedItems.size()
+        val selected = ArrayList<IMessage>(size)
+        for (index in 0 until size) {
+            selected.add(selectedItems.valueAt(index))
+        }
+        return selected
+    }
+
+    override fun isItemSelected(index: Int): Boolean {
+        return selectedItems.contains(index)
+    }
+
+    override fun clearSelectedItems() {
+        selectedItems.clear()
+    }
+
+    override fun getMessage(position: Int): IMessage? {
+        return mMessages.getOrNull(position)
+    }
+
+    override fun getMessage(holder: AbstractViewHolder): IMessage? {
+        return mMessages.getOrNull(holder.layoutPosition)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return mMessages[position].hashCode().toLong()
+    }
+}

@@ -22,58 +22,50 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.messagekit.adapter.holder
 
-import android.graphics.PointF
+import android.app.Activity
 import android.view.View
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
-import com.phantomvk.vkit.adapter.AbstractViewHolder
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.phantomvk.messagekit.model.AudioMessage
 import com.phantomvk.vkit.model.IMessage
+import kotlinx.android.synthetic.main.vkit_layout_msg_audio.view.*
+import kotlinx.android.synthetic.main.vkit_view_msg_audio_progressbar.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-/**
- * Message item listener.
- */
-interface IMessageItemListener {
+class AudioViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * Click on the user avatar.
+     * Play icon.
      */
-    fun onAvatarClick(itemView: View)
-
-    /**
-     * Long click on the user avatar.
-     */
-    fun onAvatarLongClick(itemView: View): Boolean
+    private val playIcon: ImageView = itemView.play
 
     /**
-     * Click on the message content.
+     * Progress bar.
      */
-    fun onContentClick(itemView: View, message: IMessage)
+    private val progressBar: ProgressBar = itemView.progress
 
     /**
-     * Long click on the message content.
+     * Duration.
      */
-    fun onContentLongClick(itemView: View,
-                           point: PointF,
-                           adapter: AbstractMessageAdapter<AbstractViewHolder>,
-                           layoutPosition: Int): Boolean
+    private val duration: TextView = itemView.duration
 
     /**
-     * Double click on the message content.
+     * SimpleDateFormat
      */
-    fun onContentDoubleClick(itemView: View)
+    private val dateFormat: DateFormat = SimpleDateFormat("mm:ss", Locale.ROOT)
 
-    /**
-     * The action of the long click content.
-     */
-    fun onContentAction(itemView: View, layoutPosition: Int)
+    init {
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+    }
 
-    /**
-     * Resend the content.
-     */
-    fun onContentResend(itemView: View)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
 
-    /**
-     * Selection mode changed callback.
-     */
-    fun onStatesChanged(itemView: View, isSelecting: Boolean)
+        val msg = message as AudioMessage
+        duration.text = dateFormat.format(msg.duration)
+    }
 }

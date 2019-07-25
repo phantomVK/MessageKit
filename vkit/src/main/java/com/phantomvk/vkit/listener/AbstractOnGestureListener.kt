@@ -22,19 +22,16 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.vkit.listener
 
-import android.view.View
-import androidx.annotation.LayoutRes
+import android.view.GestureDetector
+import android.view.MotionEvent
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+abstract class AbstractOnGestureListener : GestureDetector.SimpleOnGestureListener() {
+
+    override fun onDown(e: MotionEvent?) = true
+
+    override fun onDoubleTapEvent(e: MotionEvent?) = true
+
+    override fun onSingleTapUp(e: MotionEvent?) = true
+}

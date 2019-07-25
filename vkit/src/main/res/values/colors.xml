@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="vkit_color_host_solid">#AAC9FD</color>
-    <color name="vkit_color_host_stroke">#7D9DD1</color>
-    <color name="vkit_color_guest_solid">#FFFFFF</color>
-    <color name="vkit_color_guest_stroke">#CFCFCF</color>
-</resources>

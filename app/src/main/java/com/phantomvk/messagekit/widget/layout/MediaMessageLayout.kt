@@ -22,19 +22,31 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.messagekit.widget.layout
 
+import android.view.Gravity
 import android.view.View
-import androidx.annotation.LayoutRes
+import android.view.ViewGroup
+import android.widget.ImageView
+import com.phantomvk.messagekit.R
+import com.phantomvk.messagekit.widget.bubbleFrameLayout
+import org.jetbrains.anko.*
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class MediaMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
+        bubbleFrameLayout {
+            imageView {
+                id = R.id.image
+                scaleType = ImageView.ScaleType.CENTER_CROP
+            }
+
+            imageView {
+                id = R.id.play
+                imageResource = R.drawable.vkit_ic_play_media
+                visibility = View.GONE
+            }.lparams(width = dip(45), height = dip(45)) {
+                gravity = Gravity.CENTER
+            }
+        }
+    }
+}

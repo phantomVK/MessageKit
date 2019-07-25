@@ -22,19 +22,35 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.messagekit.widget.layout
 
-import android.view.View
-import androidx.annotation.LayoutRes
+import android.graphics.Color
+import android.view.Gravity
+import android.view.ViewGroup
+import com.phantomvk.messagekit.R
+import org.jetbrains.anko.*
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class NoticeMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
+        frameLayout {
+            lparams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            isClickable = false
+
+            textView {
+                id = R.id.notice
+                autoLinkMask = 0
+                backgroundResource = R.drawable.vkit_shape_msg_notice_bg
+                gravity = Gravity.START or Gravity.CENTER_VERTICAL
+                textColor = Color.parseColor("#ffffff")
+                setTextIsSelectable(false)
+                textSize = 13f //sp
+            }.lparams {
+                gravity = Gravity.CENTER
+                topMargin = dip(6)
+                bottomMargin = dip(6)
+                marginStart = dip(30)
+                marginEnd = dip(30)
+            }
+        }
+    }
+}

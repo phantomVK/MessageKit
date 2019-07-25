@@ -22,19 +22,31 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
+package com.phantomvk.messagekit.widget.layout
 
-import android.view.View
-import androidx.annotation.LayoutRes
+import android.graphics.Color
+import android.text.util.Linkify
+import android.view.Gravity
+import android.view.ViewGroup
+import com.phantomvk.vkit.R
+import org.jetbrains.anko.*
 
-/**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
- *
- */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class TextMessageLayout : AnkoComponent<ViewGroup> {
+    override fun createView(ui: AnkoContext<ViewGroup>) = with(ui) {
+        frameLayout {
+            lparams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+            textView {
+                id = R.id.text
+                autoLinkMask = Linkify.EMAIL_ADDRESSES or Linkify.WEB_URLS
+                gravity = Gravity.CENTER_VERTICAL
+                includeFontPadding = false
+                minimumHeight = dip(40)
+                padding = dip(10)
+                textColor = Color.parseColor("#222222")
+                setTextIsSelectable(false)
+                textSize = 16f //sp
+            }
+        }
+    }
+}

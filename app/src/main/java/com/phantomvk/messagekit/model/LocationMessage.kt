@@ -22,19 +22,31 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
-
-import android.view.View
-import androidx.annotation.LayoutRes
+package com.phantomvk.messagekit.model
 
 /**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ * The message of the location.
  *
+ * @param name The name of the location.
  */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class LocationMessage(var name: String) : Message(MESSAGE_TYPE_LOCATION, name) {
+    /**
+     * The map image of the location, optional.
+     */
+    var image: String? = null
+
+    /**
+     * The address of the location.
+     */
+    var address: String? = null
+
+    /**
+     * Latitude.
+     */
+    var latitude = 0.0
+
+    /**
+     * Longitude.
+     */
+    var longitude = 0.0
+}

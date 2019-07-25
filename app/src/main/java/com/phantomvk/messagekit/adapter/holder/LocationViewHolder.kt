@@ -22,58 +22,37 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.messagekit.adapter.holder
 
-import android.graphics.PointF
+import android.app.Activity
 import android.view.View
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
-import com.phantomvk.vkit.adapter.AbstractViewHolder
+import android.widget.ImageView
+import android.widget.TextView
+import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.messagekit.model.LocationMessage
 
-/**
- * Message item listener.
- */
-interface IMessageItemListener {
+class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * Click on the user avatar.
+     * The name of the location, required.
      */
-    fun onAvatarClick(itemView: View)
+    private val mName: TextView = itemView.findViewById(R.id.name)
 
     /**
-     * Long click on the user avatar.
+     * The address of the location, required.
      */
-    fun onAvatarLongClick(itemView: View): Boolean
+    private val mAddress: TextView = itemView.findViewById(R.id.address)
 
     /**
-     * Click on the message content.
+     * The map image of the location, optional.
      */
-    fun onContentClick(itemView: View, message: IMessage)
+    private val mImage: ImageView = itemView.findViewById(R.id.image)
 
-    /**
-     * Long click on the message content.
-     */
-    fun onContentLongClick(itemView: View,
-                           point: PointF,
-                           adapter: AbstractMessageAdapter<AbstractViewHolder>,
-                           layoutPosition: Int): Boolean
-
-    /**
-     * Double click on the message content.
-     */
-    fun onContentDoubleClick(itemView: View)
-
-    /**
-     * The action of the long click content.
-     */
-    fun onContentAction(itemView: View, layoutPosition: Int)
-
-    /**
-     * Resend the content.
-     */
-    fun onContentResend(itemView: View)
-
-    /**
-     * Selection mode changed callback.
-     */
-    fun onStatesChanged(itemView: View, isSelecting: Boolean)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        val msg = message as LocationMessage
+        mName.text = msg.name
+        mAddress.text = msg.address
+        resLoader.loadImage(activity, message.image ?: "", mImage)
+    }
 }

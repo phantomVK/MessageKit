@@ -22,19 +22,16 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.adapter
-
-import android.view.View
-import androidx.annotation.LayoutRes
+package com.phantomvk.messagekit.model
 
 /**
- * @param layoutId layout resource id.
- * @param holder   ViewHolder constructor.
- * @param maxScrap see: RecyclerView.recycledViewPool.setMaxRecycledViews
- * @param unique   Is a system message if true, no belongs to any one. Will not add to the ViewHolder container.
+ * The message of image.
  *
+ * @param body image name.
  */
-class HolderConfig constructor(@LayoutRes val layoutId: Int,
-                               val holder: (View) -> AbstractViewHolder,
-                               val maxScrap: Int,
-                               val unique: Boolean = false)
+class ImageMessage(body: String) : MediaMessage(MESSAGE_TYPE_IMAGE, body) {
+    /**
+     * Image rotation degree, optional.
+     */
+    var rotation: Int = 0
+}

@@ -26,7 +26,6 @@ package com.phantomvk.vkit.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.phantomvk.vkit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.model.IMessage
 
 abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
@@ -111,7 +110,7 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
     abstract fun getMessage(position: Int): IMessage?
 
     /**
-     * Get message from adapter by ViewHolder.
+     * Get message from adapter by adapter ViewHolder.
      */
-    abstract fun getMessage(holder: BaseViewHolder): IMessage?
+    abstract fun getMessage(holder: AbstractViewHolder): IMessage?
 }

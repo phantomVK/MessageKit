@@ -15,4 +15,13 @@
     <style name="ScrollbarRecyclerView" parent="android:Widget">
         <item name="android:scrollbars">vertical</item>
     </style>
+
+    <!-- Global checkbox style -->
+    <style name="vkit_checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/vkit_selector_checkbox</item>
+    </style>
+
+    <style name="vkit_audio_progress_bar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/vkit_list_progress_bar</item>
+    </style>
 </resources>

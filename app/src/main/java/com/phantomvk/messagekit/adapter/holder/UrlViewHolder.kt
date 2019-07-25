@@ -22,58 +22,46 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.messagekit.adapter.holder
 
-import android.graphics.PointF
+import android.app.Activity
 import android.view.View
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
-import com.phantomvk.vkit.adapter.AbstractViewHolder
+import android.widget.ImageView
+import android.widget.TextView
+import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.messagekit.model.UrlMessage
 
-/**
- * Message item listener.
- */
-interface IMessageItemListener {
+class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * Click on the user avatar.
+     * Website title, required.
      */
-    fun onAvatarClick(itemView: View)
+    private val mTitle: TextView = itemView.findViewById(R.id.title)
 
     /**
-     * Long click on the user avatar.
+     * Website icon, required.
      */
-    fun onAvatarLongClick(itemView: View): Boolean
+    private val mImage: ImageView = itemView.findViewById(R.id.image)
 
     /**
-     * Click on the message content.
+     * Website domain, required.
      */
-    fun onContentClick(itemView: View, message: IMessage)
+    private val mSource: TextView = itemView.findViewById(R.id.source)
 
     /**
-     * Long click on the message content.
+     * Website description, optional.
      */
-    fun onContentLongClick(itemView: View,
-                           point: PointF,
-                           adapter: AbstractMessageAdapter<AbstractViewHolder>,
-                           layoutPosition: Int): Boolean
+    private val mDescription: TextView = itemView.findViewById(R.id.description)
 
     /**
-     * Double click on the message content.
+     * Set text to the view named 'mSource' using msg.domain if msg.source is null.
      */
-    fun onContentDoubleClick(itemView: View)
-
-    /**
-     * The action of the long click content.
-     */
-    fun onContentAction(itemView: View, layoutPosition: Int)
-
-    /**
-     * Resend the content.
-     */
-    fun onContentResend(itemView: View)
-
-    /**
-     * Selection mode changed callback.
-     */
-    fun onStatesChanged(itemView: View, isSelecting: Boolean)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        val msg = message as UrlMessage
+        mTitle.text = msg.title
+        mSource.text = msg.source ?: msg.domain ?: ""
+        mDescription.text = msg.description
+        resLoader.loadImage(activity, msg.image, mImage) // Website icon.
+    }
 }

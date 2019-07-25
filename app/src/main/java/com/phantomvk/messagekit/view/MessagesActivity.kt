@@ -31,11 +31,11 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.messagekit.adapter.MessageAdapter
+import com.phantomvk.messagekit.adapter.MessageHolder
+import com.phantomvk.messagekit.model.*
 import com.phantomvk.messagekit.tools.MessageItemListener
 import com.phantomvk.messagekit.tools.MessageResLoader
-import com.phantomvk.vkit.adapter.MessageAdapter
-import com.phantomvk.vkit.adapter.MessageHolders
-import com.phantomvk.vkit.model.*
 
 class MessagesActivity : AppCompatActivity() {
 
@@ -62,7 +62,7 @@ class MessagesActivity : AppCompatActivity() {
         }
 
         // Reset max scrap.
-        MessageHolders.setMaxScrap(messageView)
+        MessageHolder.setMaxScrap(messageView)
 
         // Add RecyclerView to contentView.
         addContentView(messageView, layoutParams)

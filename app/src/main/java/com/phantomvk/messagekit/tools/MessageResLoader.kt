@@ -35,13 +35,20 @@ import com.phantomvk.vkit.listener.IMessageResLoader
 class MessageResLoader : IMessageResLoader {
 
     override fun loadAvatar(context: Context, image: String?, view: ImageView) {
-        if (image.isNullOrBlank()) {
+        // Free images of people from: https://www.pexels.com/search/people/
+        val url = if (image == "Daniel") {
+            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=-220453.jpg&fm=jpg"
+        } else {
+            "https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?cs=srgb&dl=adult-beach-casual-736716.jpg&fm=jpg"
+        }
+
+        if (url.isBlank()) {
             Glide.with(context)
                 .load(R.drawable.ic_launcher_background)
                 .into(view)
         } else {
             Glide.with(context)
-                .load(image)
+                .load(url)
                 .into(view)
         }
     }

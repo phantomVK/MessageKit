@@ -22,58 +22,50 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.messagekit.adapter.holder
 
-import android.graphics.PointF
+import android.app.Activity
 import android.view.View
-import com.phantomvk.vkit.adapter.AbstractMessageAdapter
-import com.phantomvk.vkit.adapter.AbstractViewHolder
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
+import com.phantomvk.messagekit.R
+import com.phantomvk.messagekit.model.FileMessage
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.util.FileUtil
 
-/**
- * Message item listener.
- */
-interface IMessageItemListener {
+class FileViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
-     * Click on the user avatar.
+     * File type icon, required.
      */
-    fun onAvatarClick(itemView: View)
+    private val mImage: ImageView = itemView.findViewById(R.id.image)
 
     /**
-     * Long click on the user avatar.
+     * File name, required.
      */
-    fun onAvatarLongClick(itemView: View): Boolean
+    private val mName: TextView = itemView.findViewById(R.id.name)
 
     /**
-     * Click on the message content.
+     * File size, required.
      */
-    fun onContentClick(itemView: View, message: IMessage)
+    private val mSize: TextView = itemView.findViewById(R.id.size)
 
     /**
-     * Long click on the message content.
+     * The source of file comes from, optional.
      */
-    fun onContentLongClick(itemView: View,
-                           point: PointF,
-                           adapter: AbstractMessageAdapter<AbstractViewHolder>,
-                           layoutPosition: Int): Boolean
+    private val mSource: TextView = itemView.findViewById(R.id.source)
 
     /**
-     * Double click on the message content.
+     * File download or upload progress bar cover, optional.
      */
-    fun onContentDoubleClick(itemView: View)
+    private val mCover: ProgressBar = itemView.findViewById(R.id.cover)
 
-    /**
-     * The action of the long click content.
-     */
-    fun onContentAction(itemView: View, layoutPosition: Int)
-
-    /**
-     * Resend the content.
-     */
-    fun onContentResend(itemView: View)
-
-    /**
-     * Selection mode changed callback.
-     */
-    fun onStatesChanged(itemView: View, isSelecting: Boolean)
+    override fun onBind(activity: Activity, message: IMessage) {
+        super.onBind(activity, message)
+        val msg = message as FileMessage
+        mName.text = msg.getBody()
+        mSize.text = FileUtil.formatFileSize(msg.size)
+        mSource.text = "Website"
+        resLoader.loadImage(activity, "", mImage)
+    }
 }
