@@ -32,6 +32,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.model.ImageMessage
 import com.phantomvk.messagekit.model.UrlMessage
@@ -41,7 +42,7 @@ import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.util.toast
 
-class MessageItemListener : IMessageItemListener {
+class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItemListener {
 
     override fun onAvatarClick(itemView: View) {
         itemView.context.toast("onAvatarClick")
@@ -65,7 +66,9 @@ class MessageItemListener : IMessageItemListener {
                     .run { itemView.context.startActivity(this) }
             }
 
-            else -> itemView.context.toast("onContentClick, body: ${message.getBody()}")
+            else -> {
+                itemView.context.toast("onContentClick, body: ${message.getBody()}")
+            }
         }
     }
 
@@ -94,6 +97,14 @@ class MessageItemListener : IMessageItemListener {
             when (item.itemId) {
                 R.id.redact -> adapter.remove(layoutPosition)
                 R.id.selection -> adapter.setSelecting(itemView, true)
+                R.id.duplicate -> {
+                    val message = adapter.getMessage(layoutPosition)
+                    message ?: return@setOnMenuItemClickListener false
+                    adapter.add(message, true)
+                    recyclerView.postDelayed({
+                        recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
+                    }, 100)
+                }
             }
             return@setOnMenuItemClickListener true
         }

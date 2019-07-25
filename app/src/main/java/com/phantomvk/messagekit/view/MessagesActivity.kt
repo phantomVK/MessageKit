@@ -44,16 +44,11 @@ class MessagesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Create MessageAdapter.
-        mAdapter = MessageAdapter(this, MessageItemListener(), MessageResLoader())
-        mAdapter.setHasStableIds(true)
-
         val layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
 
         val messageView = RecyclerView(this).apply {
-            adapter = mAdapter
             overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             setHasFixedSize(true)
             setLayoutParams(layoutParams)
@@ -61,10 +56,13 @@ class MessagesActivity : AppCompatActivity() {
             setBackgroundColor(Color.WHITE)
         }
 
-        // Reset max scrap.
-        MessageHolder.setMaxScrap(messageView)
+        val itemListener = MessageItemListener(messageView)
+        val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader())
+        mAdapter = MessageAdapter(this, itemListener, holder)
+        mAdapter.setHasStableIds(true)
 
-        // Add RecyclerView to contentView.
+        messageView.adapter = mAdapter
+        MessageHolder.setMaxScrap(messageView)
         addContentView(messageView, layoutParams)
 
         initData()

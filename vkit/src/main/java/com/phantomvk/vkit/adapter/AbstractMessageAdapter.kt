@@ -30,11 +30,6 @@ import com.phantomvk.vkit.model.IMessage
 
 abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
     /**
-     * Call when activity or fragment pauses, in order to save battery by stopping the playing media.
-     */
-    open fun onPause() {}
-
-    /**
      * Add a new message to the adapter.
      */
     abstract fun add(message: IMessage, refresh: Boolean = false)
@@ -58,6 +53,16 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
      * Clear all messages from the adapter.
      */
     abstract fun clear()
+
+    /**
+     * Get message from adapter by adapter position.
+     */
+    abstract fun getMessage(position: Int): IMessage?
+
+    /**
+     * Get message from adapter by adapter ViewHolder.
+     */
+    abstract fun getMessage(holder: AbstractViewHolder): IMessage?
 
     /**
      * Start or finish the selecting mode.
@@ -103,14 +108,4 @@ abstract class AbstractMessageAdapter<VH : RecyclerView.ViewHolder> : RecyclerVi
      * Clear all selected items.
      */
     abstract fun clearSelectedItems()
-
-    /**
-     * Get message from adapter by adapter position.
-     */
-    abstract fun getMessage(position: Int): IMessage?
-
-    /**
-     * Get message from adapter by adapter ViewHolder.
-     */
-    abstract fun getMessage(holder: AbstractViewHolder): IMessage?
 }

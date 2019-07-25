@@ -34,19 +34,15 @@ import android.view.WindowManager
 import androidx.core.util.contains
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
+import com.phantomvk.vkit.adapter.AbstractMessageHolder
 import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
-import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 
-open class MessageAdapter(private val mActivity: Activity,
-                          private val mItemListener: IMessageItemListener,
-                          resLoader: IMessageResLoader) : AbstractMessageAdapter<AbstractViewHolder>() {
-
-    /**
-     * Message holders to inflate view by message's type.
-     */
-    private val mHolders = MessageHolder(mActivity.layoutInflater, mItemListener, resLoader)
+open class MessageAdapter(private val activity: Activity,
+                          private val itemListener: IMessageItemListener,
+                          private val holders: AbstractMessageHolder<MessageAdapter>)
+    : AbstractMessageAdapter<AbstractViewHolder>() {
 
     /**
      * All received messages.
@@ -56,12 +52,12 @@ open class MessageAdapter(private val mActivity: Activity,
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * mActivity.resources.displayMetrics.density
+    val minSize = 48 * activity.resources.displayMetrics.density
 
     /**
      * Max size for displaying thumbnail.
      */
-    val maxSize = 134 * mActivity.resources.displayMetrics.density
+    val maxSize = 134 * activity.resources.displayMetrics.density
 
     /**
      * Max width pixel for displaying ImageMessage.
@@ -85,7 +81,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
     init {
         val point = Point()
-        (mActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+        (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
 
         // Init only once.
         if (point.x < point.y) { // landscape
@@ -98,7 +94,11 @@ open class MessageAdapter(private val mActivity: Activity,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder {
-        return mHolders.getHolder(parent, viewType, this)
+        return holders.getHolder(parent, viewType, this)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return mMessages[position].hashCode().toLong()
     }
 
     override fun getItemCount(): Int {
@@ -106,12 +106,12 @@ open class MessageAdapter(private val mActivity: Activity,
     }
 
     override fun onBindViewHolder(holder: AbstractViewHolder, position: Int) {
-        mHolders.onBind(mActivity, holder, mMessages[position])
+        holders.onBind(activity, holder, mMessages[position])
     }
 
     override fun getItemViewType(position: Int): Int {
         val message = mMessages[position]
-        return mHolders.getViewType(message, isHost("Austin", message))
+        return holders.getViewType(message, isHost("Austin", message))
     }
 
     override fun add(message: IMessage, refresh: Boolean) {
@@ -141,7 +141,16 @@ open class MessageAdapter(private val mActivity: Activity,
     override fun clear() {
         val count = mMessages.size
         mMessages.clear()
+        mMessages.trimToSize()
         notifyItemRangeRemoved(0, count)
+    }
+
+    override fun getMessage(position: Int): IMessage? {
+        return mMessages.getOrNull(position)
+    }
+
+    override fun getMessage(holder: AbstractViewHolder): IMessage? {
+        return mMessages.getOrNull(holder.layoutPosition)
     }
 
     override fun setSelecting(isSelecting: Boolean) {
@@ -153,7 +162,6 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun setSelecting(isSelecting: Boolean, positionStart: Int, positionLast: Int) {
         if (selecting == isSelecting) return
-
         selecting = isSelecting
 
         if (positionStart != RecyclerView.NO_POSITION) {
@@ -166,7 +174,7 @@ open class MessageAdapter(private val mActivity: Activity,
         if (selecting == isSelecting) return
 
         selecting = isSelecting
-        mItemListener.onStatesChanged(itemView, selecting)
+        itemListener.onStatesChanged(itemView, selecting)
         notifyDataSetChanged()
     }
 
@@ -176,7 +184,7 @@ open class MessageAdapter(private val mActivity: Activity,
         if (selecting == isSelecting) return
 
         selecting = isSelecting
-        mItemListener.onStatesChanged(itemView, selecting)
+        itemListener.onStatesChanged(itemView, selecting)
 
         if (positionStart != RecyclerView.NO_POSITION) {
             val itemCount = positionLast - positionStart + 1
@@ -209,17 +217,5 @@ open class MessageAdapter(private val mActivity: Activity,
 
     override fun clearSelectedItems() {
         selectedItems.clear()
-    }
-
-    override fun getMessage(position: Int): IMessage? {
-        return mMessages.getOrNull(position)
-    }
-
-    override fun getMessage(holder: AbstractViewHolder): IMessage? {
-        return mMessages.getOrNull(holder.layoutPosition)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return mMessages[position].hashCode().toLong()
     }
 }
