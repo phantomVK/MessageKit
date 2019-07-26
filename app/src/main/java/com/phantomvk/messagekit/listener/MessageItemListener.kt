@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.messagekit.tools
+package com.phantomvk.messagekit.listener
 
 import android.app.Activity
 import android.content.Intent
@@ -45,11 +45,11 @@ import com.phantomvk.vkit.util.toast
 class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItemListener {
 
     override fun onAvatarClick(itemView: View) {
-        itemView.context.toast("onAvatarClick")
+        itemView.toast("onAvatarClick")
     }
 
     override fun onAvatarLongClick(itemView: View): Boolean {
-        itemView.context.toast("onAvatarLongClick")
+        itemView.toast("onAvatarLongClick")
         return true
     }
 
@@ -79,6 +79,7 @@ class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItem
 
         val anchor = View(itemView.context)
         anchor.layoutParams = ViewGroup.LayoutParams(0, 0)
+        anchor.setWillNotDraw(true)
         anchor.x = point.x
         anchor.y = point.y
 
@@ -115,15 +116,15 @@ class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItem
     }
 
     override fun onContentDoubleClick(itemView: View) {
-        itemView.context.toast("onDoubleTapEvent")
+        itemView.toast("onDoubleTapEvent")
     }
 
     override fun onContentAction(itemView: View, layoutPosition: Int) {
-        itemView.context.toast("onContentAction")
+        itemView.toast("onContentAction")
     }
 
     override fun onContentResend(itemView: View) {
-        itemView.context.toast("onContentResend")
+        itemView.toast("onContentResend")
     }
 
     override fun onStatesChanged(itemView: View, isSelecting: Boolean) {

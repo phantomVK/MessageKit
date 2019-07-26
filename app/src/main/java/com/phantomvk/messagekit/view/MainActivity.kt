@@ -43,18 +43,17 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
 
         // LayoutParams for button.
-        val layoutParams = FrameLayout.LayoutParams(
+        val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
             FrameLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.gravity = Gravity.CENTER
+        params.gravity = Gravity.CENTER
 
         // Create button.
         val button = Button(this)
         button.text = "Start"
         button.isAllCaps = false
-        button.layoutParams = layoutParams
         button.setOnClickListener { startActivity(Intent(this, MessagesActivity::class.java)) }
-        addContentView(button, layoutParams)
+        addContentView(button, params)
 
         // Set window's background.
         (window.decorView as ViewGroup).setBackgroundColor(Color.WHITE)

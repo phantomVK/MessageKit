@@ -22,8 +22,10 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.messagekit.tools
+package com.phantomvk.messagekit.listener
 
+import android.app.Activity
+import android.graphics.Rect
 import android.view.MotionEvent
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.holder.BaseViewHolder
@@ -34,10 +36,18 @@ class OnGestureListener(private val holder: BaseViewHolder,
                         private val listener: IMessageItemListener) : AbstractOnGestureListener() {
 
     private val location = IntArray(2)
+    private var statusBarHeight = 0
+
+    init {
+        val rect = Rect()
+        val activity = holder.contentView.context as Activity
+        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
+        statusBarHeight = rect.top
+    }
 
     override fun onLongPress(e: MotionEvent?) {
         holder.contentView.getLocationInWindow(location)
-        holder.point.offset(location[0].toFloat(), location[1].toFloat())
+        holder.point.offset(location[0].toFloat(), location[1].toFloat() - statusBarHeight)
 
         listener.onContentLongClick(
             holder.itemView,

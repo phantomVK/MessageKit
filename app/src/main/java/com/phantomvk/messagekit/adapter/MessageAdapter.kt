@@ -25,39 +25,41 @@
 package com.phantomvk.messagekit.adapter
 
 import android.app.Activity
-import android.content.Context
-import android.graphics.Point
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.util.contains
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.adapter.AbstractMessageHolder
 import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
+import com.phantomvk.vkit.listener.OnLifecycleListener
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.util.displayDensity
+import com.phantomvk.vkit.util.displaySize
 
 open class MessageAdapter(private val activity: Activity,
                           private val itemListener: IMessageItemListener,
                           private val holders: AbstractMessageHolder<MessageAdapter>)
-    : AbstractMessageAdapter<AbstractViewHolder>() {
+    : AbstractMessageAdapter<AbstractViewHolder>(), OnLifecycleListener {
 
     /**
      * All received messages.
      */
     private val mMessages = ArrayList<IMessage>()
 
+    private val displayDensity = activity.displayDensity()
+
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * activity.resources.displayMetrics.density
+    val minSize = 48 * displayDensity
 
     /**
      * Max size for displaying thumbnail.
      */
-    val maxSize = 134 * activity.resources.displayMetrics.density
+    val maxSize = 134 * displayDensity
 
     /**
      * Max width pixel for displaying ImageMessage.
@@ -80,8 +82,7 @@ open class MessageAdapter(private val activity: Activity,
     private val selectedItems = SparseArray<IMessage>()
 
     init {
-        val point = Point()
-        (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(point)
+        val point = activity.displaySize()
 
         // Init only once.
         if (point.x < point.y) { // landscape
@@ -217,5 +218,17 @@ open class MessageAdapter(private val activity: Activity,
 
     override fun clearSelectedItems() {
         selectedItems.clear()
+    }
+
+    override fun onResume() {
+    }
+
+    override fun onPause() {
+    }
+
+    override fun onStop() {
+    }
+
+    override fun onDestroy() {
     }
 }

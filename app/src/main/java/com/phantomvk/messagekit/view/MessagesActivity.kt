@@ -34,8 +34,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.MessageHolder
 import com.phantomvk.messagekit.model.*
-import com.phantomvk.messagekit.tools.MessageItemListener
-import com.phantomvk.messagekit.tools.MessageResLoader
+import com.phantomvk.messagekit.listener.MessageItemListener
+import com.phantomvk.messagekit.listener.MessageResLoader
 
 class MessagesActivity : AppCompatActivity() {
 
@@ -192,5 +192,25 @@ class MessagesActivity : AppCompatActivity() {
         val msg2 = NoticeMessage("This is notice")
         mAdapter.add(msg)
         mAdapter.add(msg2)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mAdapter.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mAdapter.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mAdapter.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAdapter.onDestroy()
     }
 }

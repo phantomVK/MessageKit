@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.messagekit.tools
+package com.phantomvk.messagekit.listener
 
 import android.content.Context
 import android.widget.ImageView

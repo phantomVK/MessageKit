@@ -22,10 +22,15 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.util
+package com.phantomvk.vkit.listener
 
-import android.content.Context
-import android.widget.Toast
+interface OnLifecycleListener {
 
-fun Context.dip(value: Float): Float = value * resources.displayMetrics.density
-fun Context.toast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    fun onResume()
+
+    fun onPause()
+
+    fun onStop()
+
+    fun onDestroy()
+}

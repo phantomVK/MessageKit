@@ -38,7 +38,7 @@ import android.widget.TextView
 import androidx.annotation.IntRange
 import androidx.core.view.isVisible
 import com.phantomvk.messagekit.R
-import com.phantomvk.messagekit.tools.OnGestureListener
+import com.phantomvk.messagekit.listener.OnGestureListener
 import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.model.IMessage

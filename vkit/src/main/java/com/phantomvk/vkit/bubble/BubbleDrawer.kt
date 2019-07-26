@@ -29,10 +29,10 @@ import androidx.annotation.ColorInt
 
 class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
                    var arrowWidth: Float = 18F,
-                   val arrowHeight: Float = 36F,
+                   var arrowHeight: Float = 36F,
                    var arrowMarginTop: Float = 12F,
                    var cornerRadius: Float = 30F,
-                   width: Float = 3F,
+                   var strokeOffset: Float = 3F,
                    @ColorInt var strokeColor: Int = 0xFFCFCFCF.toInt()) {
 
     /**
@@ -45,7 +45,7 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
     /**
      * Stroke offset.
      */
-    private var mStrokeOffset = (width / 2)
+    private var mStrokeOffset = (strokeOffset / 2)
 
     /**
      * The height of upper area with no arrow.
@@ -69,7 +69,7 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
 
     init {
         mPaint.color = strokeColor
-        mPaint.strokeWidth = width
+        mPaint.strokeWidth = strokeOffset
         mPaint.style = Paint.Style.STROKE
     }
 
