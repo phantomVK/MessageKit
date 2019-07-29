@@ -55,6 +55,7 @@ inline fun ViewManager.bubbleRelativeLayout(init: (@AnkoViewDslMarker KBubbleRel
     return ankoView({ ctx: Context -> KBubbleRelativeLayout(ctx) }, theme = 0) { init() }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 open class KInterceptedRelativeLayout(ctx: Context) : InterceptedRelativeLayout(ctx) {
 
     inline fun <T : View> T.lparams(
@@ -134,6 +135,7 @@ open class KInterceptedRelativeLayout(ctx: Context) : InterceptedRelativeLayout(
     }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 open class KBubbleFrameLayout(ctx: Context) : BubbleFrameLayout(ctx) {
 
     inline fun <T : View> T.lparams(
@@ -213,6 +215,7 @@ open class KBubbleFrameLayout(ctx: Context) : BubbleFrameLayout(ctx) {
     }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 open class KBubbleLinearLayout(ctx: Context) : BubbleLinearLayout(ctx) {
 
     inline fun <T : View> T.lparams(
@@ -292,6 +295,7 @@ open class KBubbleLinearLayout(ctx: Context) : BubbleLinearLayout(ctx) {
     }
 }
 
+@Suppress("NOTHING_TO_INLINE")
 open class KBubbleRelativeLayout(ctx: Context) : BubbleRelativeLayout(ctx) {
 
     inline fun <T : View> T.lparams(

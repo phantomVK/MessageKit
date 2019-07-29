@@ -30,18 +30,23 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 
-fun View.toast(message: CharSequence) = Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+@Suppress("NOTHING_TO_INLINE")
+inline fun View.toast(message: CharSequence) = Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-fun Context.toast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.toast(message: CharSequence) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-fun Context.displayDensity() = resources.displayMetrics.density
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.displayDensity() = resources.displayMetrics.density
 
-fun Context.dip(value: Float): Float = value * resources.displayMetrics.density
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.dip(value: Float): Float = value * resources.displayMetrics.density
 
 /**
  * Get display size from WindowManager by Point.
  */
-fun Context.displaySize(): Point {
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.displaySize(): Point {
     val p = Point()
     (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(p)
     return p

@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
+        super.onCreate(savedInstanceState)
 
         // LayoutParams for button.
         val params = FrameLayout.LayoutParams(

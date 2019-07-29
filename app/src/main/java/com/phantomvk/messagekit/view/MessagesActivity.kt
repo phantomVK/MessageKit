@@ -33,9 +33,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.MessageHolder
-import com.phantomvk.messagekit.model.*
 import com.phantomvk.messagekit.listener.MessageItemListener
 import com.phantomvk.messagekit.listener.MessageResLoader
+import com.phantomvk.messagekit.model.*
 
 class MessagesActivity : AppCompatActivity() {
 
@@ -48,13 +48,12 @@ class MessagesActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
 
-        val messageView = RecyclerView(this).apply {
-            overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            setHasFixedSize(true)
-            setLayoutParams(layoutParams)
-            setLayoutManager(layoutManager)
-            setBackgroundColor(Color.WHITE)
-        }
+        val messageView = RecyclerView(this)
+        messageView.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+        messageView.layoutParams = layoutParams
+        messageView.layoutManager = layoutManager
+        messageView.setHasFixedSize(true)
+        messageView.setBackgroundColor(Color.WHITE)
 
         val itemListener = MessageItemListener(messageView)
         val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader())

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 
     <style name="AppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
@@ -12,11 +13,6 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="ScrollbarRecyclerView" parent="android:Widget">
-        <item name="android:scrollbars">vertical</item>
-    </style>
-
-    <!-- Global checkbox style -->
     <style name="vkit_checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/vkit_selector_checkbox</item>
     </style>
