@@ -34,7 +34,6 @@ import com.phantomvk.vkit.adapter.AbstractMessageAdapter
 import com.phantomvk.vkit.adapter.AbstractMessageHolder
 import com.phantomvk.vkit.adapter.AbstractViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
-import com.phantomvk.vkit.listener.OnLifecycleListener
 import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.util.displayDensity
 import com.phantomvk.vkit.util.displaySize
@@ -42,7 +41,7 @@ import com.phantomvk.vkit.util.displaySize
 open class MessageAdapter(private val activity: Activity,
                           private val itemListener: IMessageItemListener,
                           private val holders: AbstractMessageHolder<MessageAdapter>)
-    : AbstractMessageAdapter<AbstractViewHolder>(), OnLifecycleListener {
+    : AbstractMessageAdapter<AbstractViewHolder>() {
 
     /**
      * All received messages.
@@ -218,17 +217,5 @@ open class MessageAdapter(private val activity: Activity,
 
     override fun clearSelectedItems() {
         selectedItems.clear()
-    }
-
-    override fun onResume() {
-    }
-
-    override fun onPause() {
-    }
-
-    override fun onStop() {
-    }
-
-    override fun onDestroy() {
     }
 }

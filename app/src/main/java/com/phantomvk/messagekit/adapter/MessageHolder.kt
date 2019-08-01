@@ -74,7 +74,9 @@ class MessageHolder(inflater: LayoutInflater,
     /**
      * Get view holder.
      */
-    override fun getHolder(parent: ViewGroup, viewType: Int, adapter: MessageAdapter): AbstractViewHolder {
+    override fun getHolder(parent: ViewGroup,
+                           viewType: Int,
+                           adapter: MessageAdapter): AbstractViewHolder {
 
         val isHost = viewType > 0
         val absViewType = Math.abs(viewType)

@@ -1,14 +1,16 @@
 # MessageKit for Android
 
-## About
+__README in English is coming soon.__
 
-#### Introduction
+## 关于
+
+#### 简介
 
 __MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何合理设计并开发一个美观、实用的消息界面。如有错误或异常修复，欢迎提交修改。
 
 ![image](images/image.jpg)
 
-#### feature：
+#### 特性：
 
 - 开源库已包含多种常用消息类型的布局，详情请参考下文；
 - 根据图片尺寸默认缩略图视图大小，具体参数可根据实际自行修改；
@@ -29,7 +31,7 @@ __MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何�
 - 若有自定义功能或其他样式，请基于已有代码继续实现。本仓库暂不接受带定制化性质的 Pull Request；
 - 如果有任何疑问请提issue，作者会尽量回答问题并选择性添加到Readme供参阅；
 
-#### Supported types:
+#### 支持类型:
 
 __Max Scrap__ for screen resolution: 1920*1080
 
@@ -44,11 +46,11 @@ __Max Scrap__ for screen resolution: 1920*1080
 |  Audio   |  MESSAGE_TYPE_AUDIO   |   layout_msg_audio  |     14    |
 |   File   |   MESSAGE_TYPE_FILE   |   layout_msg_file   |     11    |
 
-## Usage
+## 使用方式
 
 迁移 __基础源码__ 到您的工程。源码包含 __布局资源__、__字符串资源__、__库定义类__ 和 __gradle依赖__，具体消息(示例)实现类选择性迁移。
 
-#### model：
+#### 数据模型：
 
 以下是供参考的数据模型实现，请实现接口 __IMessage__ 为视图提供数据支持。
 
@@ -102,7 +104,7 @@ public abstract class Message implements IMessage {
 }
 ```
 
-#### view binding：
+#### 视图绑定：
 
 实现 __ViewHolder__，父类可选 __BaseViewHolder__ 或 __AbstractViewHolder__。
 
@@ -221,7 +223,7 @@ open class MessageAdapter(private val mActivity: Activity,
 }
 ```
 
-#### initialization
+#### 初始化
 
 初始化 __AbstractMessageAdapter__ 实现类并设置到 __RecyclerView__：
 
@@ -255,7 +257,7 @@ class MessagesActivity : AppCompatActivity() {
 }
 ```
 
-#### refresh
+#### 刷新数据
 
 完成以上步骤即可刷新数据，默认沿用 __RecyclerView.Adapter.notifyItemInserted__ 等增删改动画。
 

@@ -24,7 +24,13 @@
 
 package com.phantomvk.vkit.listener
 
+/**
+ * Implemented by the subclass of AbstractMessageAdapter, then called by Activity or Fragment.
+ */
 interface OnLifecycleListener {
+    fun onCreate()
+
+    fun onStart()
 
     fun onResume()
 

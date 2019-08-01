@@ -192,24 +192,4 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.add(msg)
         mAdapter.add(msg2)
     }
-
-    override fun onResume() {
-        super.onResume()
-        mAdapter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mAdapter.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mAdapter.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mAdapter.onDestroy()
-    }
 }

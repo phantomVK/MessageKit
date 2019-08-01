@@ -1,37 +1,37 @@
 # MessageKit for Android
 
-__README in English is coming soon.__
+## About
 
-## 关于
+#### Introduction
 
-#### 简介
+[中文README](./README_cn.md)
 
-__MessageKit__ 是用于聊天界面的开源库。通过源码，展示如何合理设计并开发一个美观、实用的消息界面。如有错误或异常修复，欢迎提交修改。
+__MessageKit__ is an open-source repository about chat messages, and it shows how to design and develop an elegant, useful layouts for displaying messages. Pull requests to fix mistakes or improve performance are welcome.
 
 ![image](images/image.jpg)
 
-#### 特性：
+#### feature：
 
-- 开源库已包含多种常用消息类型的布局，详情请参考下文；
-- 根据图片尺寸默认缩略图视图大小，具体参数可根据实际自行修改；
-- 消息气泡样式用代码直接绘制，没有使用 __9-Patch__ 图片，最终安装包体积更小；
-- 实现的消息布局和左右位置关系分离。消息布局编写一次，即适配发送者和接收者；
-- 已定义抽象消息模型 __IMessage__，数据模型和业务解耦；
-- 长按消息的交互蒙层位于消息前景(foreground)，而非消息背景(background)，因此视觉效果更佳；
-- 头像、图片的加载框架与源码解耦，可自行选择框架实现图片加载；
-- 列表已支持多选模式，但需要进一步实现多选后的操作和逻辑；
-- 除了使用 __LayoutInflator__，源码更包含Anko实现的(实验性)布局，能避免xml布局反射导致主线程阻塞；
-- 多种设计模式的应用降低后期工程的维护难度，如：__模板模式__ ；
+- This repository contains layouts of some staple messages, read the form below for more details.
+- Automatically scales the size of thumbnail according to the image, or adjest the scale if needed.
+- The style of message drawn using paint instead of 9-Patch-PNG to achieve smaller apk size.
+- The layout has been abstracted from incoming or outgoing messages.
+- Base message model has been abstacted as __IMessage__ to decouple data model from business. 
+- The mask of the long pressing is on the foreground of the views instead of background for the best visual effects.
+- The loader for loading avatars and images is decoupled, so you can use your favourite framwork.
+- Multiple selection of message items is supported, but needs further develpoment.
+- Except using LayoutInflator, layouts implemented by Anko(Experimental) are included to avoid blocking the main thread when inflating views with reflection.
+- Using design pattern to reduce the complexity maintaining the program.
 
-#### 注意事项：
+#### Precautions
 
-- 聊天消息界面需求变化多端，本工程不具备一般仓库开箱即用的能力。强烈建议开发者把源码集成到目标工程，本源码也不提供Maven依赖；
-- 因不提供线上版本依赖，__错误__ 和 __缺陷修复__ 请关注更新列表和最新源码；
-- 源码集成后还需要各位根据需求继续开发，开发预估时间更长，在 __商业项目__ 中谨慎使用；
-- 若有自定义功能或其他样式，请基于已有代码继续实现。本仓库暂不接受带定制化性质的 Pull Request；
-- 如果有任何疑问请提issue，作者会尽量回答问题并选择性添加到Readme供参阅；
+- The requirements are variable, this repository does not have the capability of out-of-the-box use. The migration of source code you needed to project is highly recommended. Also, no maven dependency is provided.
+- To fix mistakes, please read the update list regularly.
+-  Further development to satisfy reqeriments after migrating code may take a long time, think twice before using this in business project.
+- Please implement features base on the migrated code.
+- Issues are welcome.
 
-#### 支持类型:
+#### Supported types:
 
 __Max Scrap__ for screen resolution: 1920*1080
 
@@ -46,13 +46,13 @@ __Max Scrap__ for screen resolution: 1920*1080
 |  Audio   |  MESSAGE_TYPE_AUDIO   |   layout_msg_audio  |     14    |
 |   File   |   MESSAGE_TYPE_FILE   |   layout_msg_file   |     11    |
 
-## 使用方式
+## Usage
 
-迁移 __基础源码__ 到您的工程。源码包含 __布局资源__、__字符串资源__、__库定义类__ 和 __gradle依赖__，具体消息(示例)实现类选择性迁移。
+Migrate the base source code includes layout resource, string resource, classes and gradle dependencies to your project.
 
-#### 数据模型：
+#### model：
 
-以下是供参考的数据模型实现，请实现接口 __IMessage__ 为视图提供数据支持。
+This shows how the class implemented __IMessage__ provides data.
 
 ```java
 public abstract class Message implements IMessage {
@@ -104,13 +104,13 @@ public abstract class Message implements IMessage {
 }
 ```
 
-#### 视图绑定：
+#### View binding：
 
-实现 __ViewHolder__，父类可选 __BaseViewHolder__ 或 __AbstractViewHolder__。
+Implement your view holder based on __BaseViewHolder__ or __AbstractViewHolder__.
 
 ![classes](images/classes.jpg)
 
-__BaseViewHolder__ 继承 __AbstractViewHolder__，已处理头像加载、名称设置、消息前景背景、监听器绑定操作，使用方法请参考 __LocationViewHolder__。
+__BaseViewHolder__ extends __AbstractViewHolder__, contains the instance of image loader and etc.
 
 ```kotlin
 class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
@@ -139,7 +139,7 @@ class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
 }
 ```
 
-如果需要更简单的逻辑，可使用 __AbstractViewHolder__ 抽象父类，请参考 __NoticeViewHolder__。
+Use __AbstractViewHolder__ as super class for simpler implements, refer to __NoticeViewHolder__ for more detail.
 
 ```kotlin
 class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
@@ -160,7 +160,7 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 }
 ```
 
-设置完成后的视图在 __MessageHolders__ 内注册：
+Register views to MessageHolders.
 
 ```kotlin
 class MessageHolders(private val mInflater: LayoutInflater,
@@ -194,9 +194,9 @@ class MessageHolders(private val mInflater: LayoutInflater,
 }
 ```
 
-#### 列表组件：
+#### RecyclerView：
 
-使用系统组件即可。如果您使用了自定义 __RecyclerView__ ，请适当处理出现的冲突和异常。
+RecyclerView from android or the custom class that conflicts fixed is acceptable.
 
 ```xml
 <androidx.recyclerview.widget.RecyclerView
@@ -211,7 +211,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
 
 #### Adapter
 
-继承并实现抽象父类 __AbstractMessageAdapter<RecyclerView.ViewHolder>__ 的抽象方法。
+Extends and implements the abstact method of __AbstractMessageAdapter<RecyclerView.ViewHolder>__.
 
 ```kotlin
 open class MessageAdapter(private val mActivity: Activity,
@@ -223,13 +223,13 @@ open class MessageAdapter(private val mActivity: Activity,
 }
 ```
 
-#### 初始化
+#### Initialization
 
-初始化 __AbstractMessageAdapter__ 实现类并设置到 __RecyclerView__：
+Instantiate the class which extends __AbstractMessageAdapter__.
 
-- __MessageItemListener__ 是 __IMessageItemListener__ 的实现类，负责处理消息点击、长按等操作；
+- __MessageItemListener__ is the class implemented to process the action to click and long click.
 
-- __MessageResLoader__ 是 __IMessageResLoader__ 的实现类，图片加载类与逻辑分离，负责加载头像、聊天图片。
+- __MessageResLoader__ is the subclass of __IMessageResLoader__ to load images.
 
 ```kotlin
 class MessagesActivity : AppCompatActivity() {
@@ -257,9 +257,9 @@ class MessagesActivity : AppCompatActivity() {
 }
 ```
 
-#### 刷新数据
+#### Refresh
 
-完成以上步骤即可刷新数据，默认沿用 __RecyclerView.Adapter.notifyItemInserted__ 等增删改动画。
+Refresh UI with __Adapter.notifyItemInserted__.
 
 ```kotlin
 val msg = TextMessage("Hello")

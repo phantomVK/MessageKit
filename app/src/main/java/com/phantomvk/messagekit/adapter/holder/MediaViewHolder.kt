@@ -28,10 +28,10 @@ import android.app.Activity
 import android.view.View
 import android.widget.ImageView
 import com.phantomvk.messagekit.adapter.MessageAdapter
-import com.phantomvk.vkit.bubble.Direction
-import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.messagekit.model.MediaMessage
 import com.phantomvk.messagekit.model.Message
+import com.phantomvk.vkit.bubble.Direction
+import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.vkit.widget.IBubbleLayout
 import kotlinx.android.synthetic.main.vkit_layout_msg_media.view.*
 
