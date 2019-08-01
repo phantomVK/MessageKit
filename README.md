@@ -1,10 +1,10 @@
 # MessageKit for Android
 
+[中文README](./README_cn.md)
+
 ## About
 
 #### Introduction
-
-[中文README](./README_cn.md)
 
 __MessageKit__ is an open-source repository about chat messages, and it shows how to design and develop an elegant, useful layouts for displaying messages. Pull requests to fix mistakes or improve performance are welcome.
 

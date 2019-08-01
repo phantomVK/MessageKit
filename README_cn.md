@@ -1,6 +1,6 @@
 # MessageKit for Android
 
-__README in English is coming soon.__
+[README in English](./README.md)
 
 ## 关于
 
