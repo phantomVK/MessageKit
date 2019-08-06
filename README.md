@@ -1,6 +1,6 @@
 # MessageKit for Android
 
-[中文README](./README_cn.md), [Download APK](./apk/MessageKit_v0.1_release.apk)
+[中文README](./README_cn.md), [Download APK](./files/MessageKit_v0.1_release.apk)
 
 ## About
 
