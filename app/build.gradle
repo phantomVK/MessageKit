@@ -1,35 +1,55 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            def propFile = rootProject.file("../config/keystore.properties")
+            def prop = new Properties()
+            def fis = new FileInputStream(propFile)
+            prop.load(fis)
+            fis.close()
+
+            if (!prop.isEmpty()) {
+                keyAlias prop['keyAlias']
+                keyPassword prop['keyPassword']
+                storePassword prop['storePassword']
+                storeFile file(prop['keyStore'])
+            }
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.phantomvk.messagekit"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "0.1"
+        resConfigs "en"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            ndk { abiFilters "armeabi-v7a" }
         }
     }
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def name = "${applicationName}_v${defaultConfig.versionName}_${variant.buildType.name}.apk"
+            output.outputFileName = new File(name)
+        }
+    }
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':vkit')
 
@@ -39,9 +59,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     // Anko
-    implementation "org.jetbrains.anko:anko:${versions.anko}"
     implementation "org.jetbrains.anko:anko-sdk27:${versions.anko}"
-    implementation "org.jetbrains.anko:anko-appcompat-v7:${versions.anko}"
 
     // OkHttp, Okio
     implementation "com.squareup.okio:okio:${versions.okio}"

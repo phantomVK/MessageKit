@@ -1,12 +1,12 @@
 # MessageKit for Android
 
-[中文README](./README_cn.md)
+[中文README](./README_cn.md), [Download APK](./apk/MessageKit_v0.1_release.apk)
 
 ## About
 
 #### Introduction
 
-__MessageKit__ is an open-source repository about chat messages, and it shows how to design and develop an elegant, useful layouts for displaying messages. Pull requests to fix mistakes or improve performance are welcome.
+__MessageKit__ is an open-source repository about chat messages, and it shows how to design and develop an elegant, useful layouts on displaying messages. Pull requests to fix mistakes or improve performance are welcome.
 
 ![image](images/image.jpg)
 
@@ -33,7 +33,7 @@ __MessageKit__ is an open-source repository about chat messages, and it shows ho
 
 #### Supported types:
 
-__Max Scrap__ for screen resolution: 1920*1080
+__Max Scrap__ on screen resolution: 1920*1080
 
 |   Type   |     Message Name      |     Layout Type     | Max Scrap |
 | :------: | :-------------------: | :-----------------: | :-------: |

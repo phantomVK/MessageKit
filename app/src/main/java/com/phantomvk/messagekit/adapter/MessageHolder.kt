@@ -54,7 +54,7 @@ class MessageHolder(inflater: LayoutInflater,
     /**
      * Use LayoutInflater to inflate XML, or Anko to create views.
      */
-    private var xmlStyle = false
+    private var xmlStyle = true
 
     /**
      * Bind view.
