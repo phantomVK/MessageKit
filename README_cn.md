@@ -1,6 +1,6 @@
 # MessageKit for Android
 
-[README in English](./README.md)，[下载APK](./files/MessageKit_v0.1_release.apk)
+[README in English](./README.md)，[下载APK](https://github.com/phantomVK/MessageKit/releases)
 
 ## 关于
 

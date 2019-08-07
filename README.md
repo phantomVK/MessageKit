@@ -1,35 +1,36 @@
 # MessageKit for Android
 
-[中文README](./README_cn.md), [Download APK](./files/MessageKit_v0.1_release.apk)
+[中文README](./README_cn.md), [Download APK](https://github.com/phantomVK/MessageKit/releases)
 
 ## About
 
 #### Introduction
 
-__MessageKit__ is an open-source repository about chat messages, and it shows how to design and develop an elegant, useful layouts on displaying messages. Pull requests to fix mistakes or improve performance are welcome.
+__MessageKit__ is an open-source repository about chat messages, it shows how to design and develop elegant, useful layouts on displaying messages. 
+
+Pull requests to fix mistakes or improve performance are welcome.
 
 ![image](images/image.jpg)
 
 #### feature：
 
-- This repository contains layouts of some staple messages, read the form below for more details.
-- Automatically scales the size of thumbnail according to the image, or adjest the scale if needed.
-- The style of message drawn using paint instead of 9-Patch-PNG to achieve smaller apk size.
+- Repository contains layouts of some staple messages, read the form below for more details.
+- Automatically scales the size of thumbnail according to the loading image.
+- The style of message draws using paint instead of 9-Patch-PNG to achieve smaller apk size.
 - The layout has been abstracted from incoming or outgoing messages.
 - Base message model has been abstacted as __IMessage__ to decouple data model from business. 
-- The mask of the long pressing is on the foreground of the views instead of background for the best visual effects.
-- The loader for loading avatars and images is decoupled, so you can use your favourite framwork.
+- The mask of the long pressing is at the foreground of the views instead of background for the best visual effects.
+- Loader for loading avatars and images is decoupled, so you can use your favourite framwork.
 - Multiple selection of message items is supported, but needs further develpoment.
 - Except using LayoutInflator, layouts implemented by Anko(Experimental) are included to avoid blocking the main thread when inflating views with reflection.
-- Using design pattern to reduce the complexity maintaining the program.
+- Using design patterns to reduce the complexity maintaining the project.
 
 #### Precautions
 
-- The requirements are variable, this repository does not have the capability of out-of-the-box use. The migration of source code you needed to project is highly recommended. Also, no maven dependency is provided.
+- The requirements are variable, this repository does not have the feature of out-of-the-box. The migration of source code to your project is highly recommended. Also, no maven dependency is provided.
 - To fix mistakes, please read the update list regularly.
--  Further development to satisfy reqeriments after migrating code may take a long time, think twice before using this in business project.
+-  Further development to satisfy reqeriments after migrating code may take a long time, think twice before using in business project.
 - Please implement features base on the migrated code.
-- Issues are welcome.
 
 #### Supported types:
 
@@ -48,7 +49,7 @@ __Max Scrap__ on screen resolution: 1920*1080
 
 ## Usage
 
-Migrate the base source code includes layout resource, string resource, classes and gradle dependencies to your project.
+Migrate the base source code to your project, includes layout resource, string resource, classes and gradle dependencies.
 
 #### model：
 
@@ -196,7 +197,7 @@ class MessageHolders(private val mInflater: LayoutInflater,
 
 #### RecyclerView：
 
-RecyclerView from android or the custom class that conflicts fixed is acceptable.
+RecyclerView from android or the custom class that conflicts fixed are both acceptable.
 
 ```xml
 <androidx.recyclerview.widget.RecyclerView
@@ -227,7 +228,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
 Instantiate the class which extends __AbstractMessageAdapter__.
 
-- __MessageItemListener__ is the class implemented to process the action to click and long click.
+- __MessageItemListener__ processes the action to click and long click.
 
 - __MessageResLoader__ is the subclass of __IMessageResLoader__ to load images.
 
