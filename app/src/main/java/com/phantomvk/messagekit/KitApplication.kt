@@ -25,6 +25,7 @@
 package com.phantomvk.messagekit
 
 import android.app.Application
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.MessageHolder
@@ -36,10 +37,12 @@ class KitApplication : Application() {
         super.onCreate()
 
         // Force ClassLoader to load classes in advance, optional.
-        // Samsung Galaxy S4 in release: 92ms.
+        // Samsung Galaxy S4 in release: 88ms.
         Thread {
-            MessageHolder.setMaxScrap(null)
+            val start = System.currentTimeMillis()
+            Glide.with(this)
             MessageAdapter::javaClass.name
+            MessageHolder.setMaxScrap(null)
             AudioMessageLayout::javaClass.name
             FileMessageLayout::javaClass.name
             LocationMessageLayout::javaClass.name
@@ -48,7 +51,7 @@ class KitApplication : Application() {
             TextMessageLayout::javaClass.name
             UrlMessageLayout::javaClass.name
             MessageResLoader::javaClass.name
-            Glide.with(this)
+            Log.v("KitApplication", "onCreate: ${System.currentTimeMillis() - start}ms")
         }.start()
     }
 }

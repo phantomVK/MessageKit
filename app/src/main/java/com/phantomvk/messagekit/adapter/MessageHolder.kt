@@ -197,7 +197,7 @@ class MessageHolder(inflater: LayoutInflater,
         /**
          * Get view type id by message's type string.
          */
-        private val sViewType = HashMap<String, Int>().apply {
+        val sViewType = HashMap<String, Int>().apply {
             put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
             put(Message.MESSAGE_TYPE_URL, HOLDER_URL)
             put(Message.MESSAGE_TYPE_LOCATION, HOLDER_LOCATION)
@@ -213,7 +213,7 @@ class MessageHolder(inflater: LayoutInflater,
          *
          * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
          */
-        private val sContentTypes = SparseArray<HolderConfig>().apply {
+        val sContentTypes = SparseArray<HolderConfig>().apply {
             val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
             val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
             val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)
