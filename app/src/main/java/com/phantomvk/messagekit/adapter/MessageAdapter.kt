@@ -146,11 +146,11 @@ open class MessageAdapter(private val activity: Activity,
     }
 
     override fun getMessage(position: Int): IMessage? {
-        return mMessages.getOrNull(position)
+        return if (position == -1) null else mMessages[position]
     }
 
     override fun getMessage(holder: AbstractViewHolder): IMessage? {
-        return mMessages.getOrNull(holder.layoutPosition)
+        return mMessages[holder.layoutPosition]
     }
 
     override fun setSelecting(isSelecting: Boolean) {
