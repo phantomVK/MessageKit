@@ -161,36 +161,18 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
 }
 ```
 
-Register views to MessageHolders.
+Register views to HolderRegister.
 
 ```kotlin
-class MessageHolders(private val mInflater: LayoutInflater,
-                     private val mItemListener: IMessageItemListener,
-                     private val mResLoader: IMessageResLoader) {
+object HolderRegister {
+    private const val HOLDER_TEXT = 2
+    private val sViewType = HashMap<String, Int>()
+    private val sContentTypes = SparseArray<HolderConfig>()
 
-    // Register your ViewHolder here like this:
-    companion object {
-        private const val HOLDER_TEXT = 2
-
-        /**
-         * Get view type id by message's type string.
-         */
-        private val sViewType = HashMap<String, Int>().apply {
-            put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
-        }
-
-        /**
-         * Content types array.
-         *
-         * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
-         */
-        private val sContentTypes by lazy(LazyThreadSafetyMode.NONE) {
-            val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
-
-            return@lazy SparseArray<HolderConfig>().apply {
-                put(HOLDER_DEFAULT, textConfig)
-            }
-        } 
+    init {
+        sViewType.put(Message.MESSAGE_TYPE_TEXT, HOLDER_TEXT)
+        val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
+        sContentTypes.put(HOLDER_TEXT, textConfig)
     }
 }
 ```

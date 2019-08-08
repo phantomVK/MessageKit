@@ -28,7 +28,7 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
-import com.bumptech.glide.Glide
+import com.phantomvk.messagekit.GlideApp
 import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.listener.IMessageResLoader
 
@@ -42,25 +42,25 @@ class MessageResLoader : IMessageResLoader {
             "https://images.pexels.com/photos/736716/pexels-photo-736716.jpeg?auto=compress&w=350&h=350&fit=crop&fm=jpg"
         }
 
-        Glide.with(context)
+        GlideApp.with(context)
             .load(url)
             .into(view)
     }
 
     override fun loadAvatar(context: Context, @RawRes @DrawableRes resId: Int, view: ImageView) {
-        Glide.with(context)
+        GlideApp.with(context)
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }
 
     override fun loadImage(context: Context, image: String?, view: ImageView) {
-        Glide.with(context)
+        GlideApp.with(context)
             .load(image ?: R.drawable.ic_launcher_background)
             .into(view)
     }
 
     override fun loadImage(context: Context, @RawRes @DrawableRes resId: Int, view: ImageView) {
-        Glide.with(context)
+        GlideApp.with(context)
             .load(R.drawable.ic_launcher_background)
             .into(view)
     }

@@ -31,6 +31,7 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.phantomvk.messagekit.adapter.HolderRegister
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.MessageHolder
 import com.phantomvk.messagekit.listener.MessageItemListener
@@ -61,7 +62,7 @@ class MessagesActivity : AppCompatActivity() {
         mAdapter.setHasStableIds(true)
 
         messageView.adapter = mAdapter
-        MessageHolder.setMaxScrap(messageView)
+        HolderRegister.setMaxScrap(messageView)
         addContentView(messageView, layoutParams)
 
         initData()
