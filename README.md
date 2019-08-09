@@ -12,13 +12,13 @@ Pull requests to fix mistakes or improve performance are welcome.
 
 ![image](images/image.jpg)
 
-#### feature：
+#### Feature
 
 - Repository contains layouts of some staple messages, read the form below for more details.
 - Automatically scales the size of thumbnail according to the loading image.
 - The style of message draws using paint instead of 9-Patch-PNG to achieve smaller apk size.
 - The layout has been abstracted from incoming or outgoing messages.
-- Base message model has been abstacted as __IMessage__ to decouple data model from business. 
+- Base message model has been abstracted as __IMessage__ to decouple data model from business. 
 - The mask of the long pressing is at the foreground of the views instead of background for the best visual effects.
 - Loader for loading avatars and images is decoupled, so you can use your favourite framwork.
 - Multiple selection of message items is supported, but needs further develpoment.
@@ -32,9 +32,9 @@ Pull requests to fix mistakes or improve performance are welcome.
 -  Further development to satisfy reqeriments after migrating code may take a long time, think twice before using in business project.
 - Please implement features base on the migrated code.
 
-#### Supported types:
+#### Supported types
 
-__Max Scrap__ on screen resolution: 1920*1080
+__Max Scrap__ on screen resolution: 1920*1080. The bigger screen, the larger max scrap. 
 
 |   Type   |     Message Name      |     Layout Type     | Max Scrap |
 | :------: | :-------------------: | :-----------------: | :-------: |
@@ -51,7 +51,7 @@ __Max Scrap__ on screen resolution: 1920*1080
 
 Migrate the base source code to your project, includes layout resource, string resource, classes and gradle dependencies.
 
-#### model：
+#### Model
 
 This shows how the class implemented __IMessage__ provides data.
 
@@ -105,7 +105,7 @@ public abstract class Message implements IMessage {
 }
 ```
 
-#### View binding：
+#### View binding
 
 Implement your view holder based on __BaseViewHolder__ or __AbstractViewHolder__.
 
@@ -177,9 +177,9 @@ object HolderRegister {
 }
 ```
 
-#### RecyclerView：
+#### RecyclerView
 
-RecyclerView from android or the custom class that conflicts fixed are both acceptable.
+__RecyclerView__ from android or custom class that conflicts fixed are both acceptable.
 
 ```xml
 <androidx.recyclerview.widget.RecyclerView
@@ -194,7 +194,7 @@ RecyclerView from android or the custom class that conflicts fixed are both acce
 
 #### Adapter
 
-Extends and implements the abstact method of __AbstractMessageAdapter<RecyclerView.ViewHolder>__.
+Extends and implements the abstract method of __AbstractMessageAdapter<RecyclerView.ViewHolder>__.
 
 ```kotlin
 open class MessageAdapter(private val mActivity: Activity,
@@ -210,7 +210,7 @@ open class MessageAdapter(private val mActivity: Activity,
 
 Instantiate the class which extends __AbstractMessageAdapter__.
 
-- __MessageItemListener__ processes the action to click and long click.
+- __MessageItemListener__ processes the action of click and long click.
 
 - __MessageResLoader__ is the subclass of __IMessageResLoader__ to load images.
 
