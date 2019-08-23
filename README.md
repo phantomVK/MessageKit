@@ -16,7 +16,7 @@ Pull requests to fix mistakes or improve performance are welcome.
 
 - Repository contains layouts of some staple messages, read the form below for more details.
 - Automatically scales the size of thumbnail according to the loading image.
-- The style of message draws using paint instead of 9-Patch-PNG to achieve smaller apk size.
+- The style of message draws using paint instead of 9-Patch-PNG to achieve the smaller apk size.
 - The layout has been abstracted from incoming or outgoing messages.
 - Base message model has been abstracted as __IMessage__ to decouple data model from business. 
 - The mask of the long pressing is at the foreground of the views instead of background for the best visual effects.
