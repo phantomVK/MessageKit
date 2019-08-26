@@ -19,8 +19,8 @@ buildscript {
 
             coroutines : '0.20',
 
-            okio       : '2.1.0',
-            okhttp     : "3.12.1",
+            okio       : '2.3.0',
+            okhttp     : '4.1.0',
             retrofit   : '2.4.0',
 
             glide      : '4.9.0',
@@ -35,6 +35,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
