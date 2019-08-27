@@ -7,11 +7,11 @@ apply plugin: 'AndResGuard'
 android {
     signingConfigs {
         release {
-            def propFile = rootProject.file("../config/keystore.properties")
-            if (!propFile.exists()) return
+            def rootProject = rootProject.file("../config/keystore.properties")
+            if (!rootProject.exists()) return
 
             def prop = new Properties()
-            def fis = new FileInputStream(propFile)
+            def fis = new FileInputStream(rootProject)
             prop.load(fis)
             fis.close()
 
@@ -63,7 +63,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.2.0-alpha03'
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta02'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta03'
 
     // Anko
     implementation "org.jetbrains.anko:anko-sdk27:${versions.anko}"
