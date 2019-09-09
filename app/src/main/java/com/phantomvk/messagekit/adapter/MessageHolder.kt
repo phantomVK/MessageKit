@@ -41,6 +41,7 @@ import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 import org.jetbrains.anko.AnkoContext
+import kotlin.math.abs
 
 class MessageHolder(inflater: LayoutInflater,
                     itemListener: IMessageItemListener,
@@ -75,37 +76,25 @@ class MessageHolder(inflater: LayoutInflater,
                            adapter: MessageAdapter): AbstractViewHolder {
 
         val isHost = viewType > 0
-        val absViewType = Math.abs(viewType)
+        val absViewType = abs(viewType)
         val config = HolderRegister.getContentType(absViewType)
-        return getHolder(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
-    }
-
-    /**
-     * Get view holder.
-     */
-    private fun getHolder(parent: ViewGroup,
-                          @LayoutRes layoutResId: Int,
-                          adapter: MessageAdapter,
-                          holder: (View) -> AbstractViewHolder,
-                          viewType: Int,
-                          isHost: Boolean): AbstractViewHolder {
 
         return if (xmlStyle) {
-            xmlStyle(parent, layoutResId, adapter, holder, viewType, isHost)
+            xmlStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
         } else {
-            ankoStyle(parent, layoutResId, adapter, holder, viewType, isHost)
+            ankoStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
         }
     }
 
     /**
      * Inflate layouts using LayoutInflater with xml.
      */
-    private fun xmlStyle(parent: ViewGroup,
-                         @LayoutRes layoutResId: Int,
-                         adapter: MessageAdapter,
-                         holder: (View) -> AbstractViewHolder,
-                         viewType: Int,
-                         isHost: Boolean): AbstractViewHolder {
+    private inline fun xmlStyle(parent: ViewGroup,
+                                @LayoutRes layoutResId: Int,
+                                adapter: MessageAdapter,
+                                holder: (View) -> AbstractViewHolder,
+                                viewType: Int,
+                                isHost: Boolean): AbstractViewHolder {
 
         if (viewType == HOLDER_NOTICE) {
             return holder.invoke(inflater.inflate(layoutResId, parent, false))
@@ -132,12 +121,12 @@ class MessageHolder(inflater: LayoutInflater,
     /**
      * Experimental, create Views using Anko.
      */
-    private fun ankoStyle(parent: ViewGroup,
-                          @LayoutRes layoutResId: Int,
-                          adapter: MessageAdapter,
-                          holder: (View) -> AbstractViewHolder,
-                          viewType: Int,
-                          isHost: Boolean): AbstractViewHolder {
+    private inline fun ankoStyle(parent: ViewGroup,
+                                 @LayoutRes layoutResId: Int,
+                                 adapter: MessageAdapter,
+                                 holder: (View) -> AbstractViewHolder,
+                                 viewType: Int,
+                                 isHost: Boolean): AbstractViewHolder {
 
         // AnkoContext.
         val ankoContext = AnkoContext.create(parent.context, parent)

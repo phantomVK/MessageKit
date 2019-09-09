@@ -78,19 +78,16 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        Thread {
-            for (i in 0..5) {
-                addText()
-                addUrl()
-                addLocation()
-                addFile()
-                addImages()
-                addAudio()
-                notice()
-            }
-
-            runOnUiThread { mAdapter.notifyDataSetChanged() }
-        }.start()
+        for (i in 0..5) {
+            addText()
+            addUrl()
+            addLocation()
+            addFile()
+            addImages()
+            addAudio()
+            notice()
+        }
+        mAdapter.notifyDataSetChanged()
     }
 
     private fun addText() {

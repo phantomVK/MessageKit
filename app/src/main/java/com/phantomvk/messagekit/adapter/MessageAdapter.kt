@@ -111,7 +111,7 @@ open class MessageAdapter(private val activity: Activity,
 
     override fun getItemViewType(position: Int): Int {
         val message = mMessages[position]
-        return holders.getViewType(message, isHost("Austin", message))
+        return holders.getViewType(message, "Austin" == message.getSender())
     }
 
     override fun add(message: IMessage, refresh: Boolean) {
@@ -132,10 +132,6 @@ open class MessageAdapter(private val activity: Activity,
     override fun remove(adapterPos: Int) {
         mMessages.removeAt(adapterPos)
         notifyItemRemoved(adapterPos)
-    }
-
-    private fun isHost(currUserId: String, message: IMessage): Boolean {
-        return currUserId == message.getSender()
     }
 
     override fun clear() {

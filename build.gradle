@@ -19,8 +19,8 @@ buildscript {
 
             coroutines : '0.20',
 
-            okio       : '2.3.0',
-            okhttp     : '4.1.0',
+            okio       : '2.4.0',
+            okhttp     : '4.1.1',
             retrofit   : '2.4.0',
 
             glide      : '4.9.0',
