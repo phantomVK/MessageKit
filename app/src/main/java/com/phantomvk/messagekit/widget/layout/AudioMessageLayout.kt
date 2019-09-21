@@ -63,7 +63,7 @@ class AudioMessageLayout : AnkoComponent<ViewGroup> {
 
             textView {
                 id = R.id.duration
-                textColor = ContextCompat.getColor(context, R.color.vkit_color_host_stroke)
+                textColor = ContextCompat.getColor(context, R.color.colorHostStroke)
                 textSize = 11f //sp
             }.lparams {
                 marginStart = dip(6)

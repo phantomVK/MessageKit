@@ -29,8 +29,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.phantomvk.messagekit.R
-import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.messagekit.model.LocationMessage
+import com.phantomvk.vkit.model.IMessage
 
 class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
@@ -53,6 +53,6 @@ class LocationViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val msg = message as LocationMessage
         mName.text = msg.name
         mAddress.text = msg.address
-        resLoader.loadImage(activity, message.image ?: "", mImage)
+        resLoader.loadImage(activity, message.image, mImage)
     }
 }

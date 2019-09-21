@@ -4,9 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="vkit_color_host_solid">#AAC9FD</color>
-    <color name="vkit_color_host_stroke">#7D9DD1</color>
-    <color name="vkit_color_guest_solid">#FFFFFF</color>
-    <color name="vkit_color_guest_stroke">#CFCFCF</color>
-
+    <color name="colorHostSolid">#AAC9FD</color>
+    <color name="colorHostStroke">#7D9DD1</color>
+    <color name="colorGuestSolid">#FFFFFF</color>
+    <color name="colorGuestStroke">#CFCFCF</color>
 </resources>

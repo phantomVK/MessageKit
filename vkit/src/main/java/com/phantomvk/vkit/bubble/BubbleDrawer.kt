@@ -35,12 +35,7 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
                    var strokeOffset: Float = 3F,
                    @ColorInt var strokeColor: Int = 0xFFCFCFCF.toInt()) {
 
-    /**
-     * Path.
-     */
-    val path = Path()
-
-    private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val path = Path()
 
     /**
      * Stroke offset.
@@ -62,19 +57,14 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
      */
     private val mUpperHeightFA = mUpperHeightNA + arrowHeight
 
-    /**
-     * RectF for reusing.
-     */
-    private var mRectF = RectF()
-
-    init {
-        mPaint.color = strokeColor
-        mPaint.strokeWidth = strokeOffset
-        mPaint.style = Paint.Style.STROKE
+    fun clipPath(canvas: Canvas) {
+        canvas.clipPath(path)
     }
 
     fun draw(canvas: Canvas) {
-        canvas.drawPath(path, mPaint)
+        sPaint.color = strokeColor
+        sPaint.strokeWidth = strokeOffset
+        canvas.drawPath(path, sPaint)
     }
 
     fun resize(w: Float, h: Float) {
@@ -87,23 +77,23 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
         path.lineTo(arrowWidth, cornerRadius)
 
         // Upper left corner and the upper line.
-        mRectF.set(arrowWidth, 0F, arrowWidth + cornerRadius, cornerRadius)
-        path.arcTo(mRectF, 180F, 90F)
+        sRectF.set(arrowWidth, 0F, arrowWidth + cornerRadius, cornerRadius)
+        path.arcTo(sRectF, 180F, 90F)
         path.lineTo(w - cornerRadius, 0F)
 
         // Upper right corner and the right line.
-        mRectF.set(w - cornerRadius, 0F, w, cornerRadius)
-        path.arcTo(mRectF, 270F, 90F)
+        sRectF.set(w - cornerRadius, 0F, w, cornerRadius)
+        path.arcTo(sRectF, 270F, 90F)
         path.lineTo(w, h - cornerRadius)
 
         // Bottom right corner and the bottom line.
-        mRectF.set(w - cornerRadius, h - cornerRadius, w, h)
-        path.arcTo(mRectF, 0F, 90F)
+        sRectF.set(w - cornerRadius, h - cornerRadius, w, h)
+        path.arcTo(sRectF, 0F, 90F)
         path.lineTo((arrowWidth + cornerRadius), h)
 
         // Bottom left corner.
-        mRectF.set(arrowWidth, h - cornerRadius, arrowWidth + cornerRadius, h)
-        path.arcTo(mRectF, 90F, 90F)
+        sRectF.set(arrowWidth, h - cornerRadius, arrowWidth + cornerRadius, h)
+        path.arcTo(sRectF, 90F, 90F)
 
         path.close()
 
@@ -112,6 +102,16 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
             matrix.postScale(-1f, 1f)
             matrix.postTranslate(w, 0f)
             path.transform(matrix)
+        }
+    }
+
+    companion object {
+        private var sRectF = RectF()
+        private val sPaint = Paint()
+
+        init {
+            sPaint.isAntiAlias = true
+            sPaint.style = Paint.Style.STROKE
         }
     }
 }

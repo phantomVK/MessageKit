@@ -30,9 +30,8 @@ import com.bumptech.glide.Glide
 class KitApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        Thread {
-            // The first initialization of Glide takes a long time.
-            Glide.with(this)
-        }.start()
+
+        // The first initialization of Glide takes a long time.
+        Thread { Glide.with(this) }.start()
     }
 }

@@ -28,7 +28,6 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.adapter.HolderRegister.HOLDER_NOTICE
@@ -107,7 +106,7 @@ class MessageHolder(inflater: LayoutInflater,
         }
 
         val frameView = inflater.inflate(frame, parent, false)
-        val container = frameView.findViewById<LinearLayout>(R.id.container)
+        val container = frameView.findViewById<ViewGroup>(R.id.container)
 
         // Inflate the body then add to the container.
         val bodyView = inflater.inflate(layoutResId, container, false)
@@ -153,7 +152,7 @@ class MessageHolder(inflater: LayoutInflater,
 
         bodyView.id = R.id.msg_body
 
-        val container = frame.findViewById<LinearLayout>(R.id.container)
+        val container = frame.findViewById<ViewGroup>(R.id.container)
         container.addView(bodyView, if (isHost) container.childCount else 0)
 
         // Init ViewHolder.

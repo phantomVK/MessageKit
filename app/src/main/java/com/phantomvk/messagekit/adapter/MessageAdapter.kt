@@ -85,11 +85,11 @@ open class MessageAdapter(private val activity: Activity,
 
         // Init only once.
         if (point.x < point.y) { // landscape
-            maxImageWidth = point.x * 0.6F
-            maxImageHeight = point.y * 0.4F
+            maxImageWidth = point.x * 0.48F
+            maxImageHeight = point.y * 0.32F
         } else { // portrait.
-            maxImageWidth = point.x * 0.4F
-            maxImageHeight = point.y * 0.6F
+            maxImageWidth = point.x * 0.32F
+            maxImageHeight = point.y * 0.48F
         }
     }
 

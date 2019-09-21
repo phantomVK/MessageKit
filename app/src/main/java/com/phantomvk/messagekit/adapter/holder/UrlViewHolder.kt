@@ -29,8 +29,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.phantomvk.messagekit.R
-import com.phantomvk.vkit.model.IMessage
 import com.phantomvk.messagekit.model.UrlMessage
+import com.phantomvk.vkit.model.IMessage
 
 class UrlViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
