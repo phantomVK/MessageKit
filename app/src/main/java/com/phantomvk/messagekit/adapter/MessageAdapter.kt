@@ -46,19 +46,17 @@ open class MessageAdapter(private val activity: Activity,
     /**
      * All received messages.
      */
-    private val mMessages = ArrayList<IMessage>()
-
-    private val displayDensity = activity.displayDensity()
+    private val mMessages = ArrayList<IMessage>(16)
 
     /**
      * Min size for displaying thumbnail.
      */
-    val minSize = 48 * displayDensity
+    val minSize = 48 * activity.displayDensity()
 
     /**
      * Max size for displaying thumbnail.
      */
-    val maxSize = 134 * displayDensity
+    val maxSize = 134 * activity.displayDensity()
 
     /**
      * Max width pixel for displaying ImageMessage.

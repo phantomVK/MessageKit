@@ -105,8 +105,11 @@ class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
         }
     }
 
-    companion object {
+    private companion object {
+        @JvmStatic
         private var sRectF = RectF()
+
+        @JvmStatic
         private val sPaint = Paint()
 
         init {

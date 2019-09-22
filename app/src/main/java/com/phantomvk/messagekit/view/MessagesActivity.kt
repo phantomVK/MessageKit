@@ -27,7 +27,6 @@ package com.phantomvk.messagekit.view
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.adapter.HolderRegister
@@ -36,8 +35,10 @@ import com.phantomvk.messagekit.adapter.MessageHolder
 import com.phantomvk.messagekit.listener.MessageItemListener
 import com.phantomvk.messagekit.listener.MessageResLoader
 import com.phantomvk.messagekit.model.*
+import com.phantomvk.slideback.SlideActivity
 
-class MessagesActivity : AppCompatActivity() {
+
+class MessagesActivity : SlideActivity() {
 
     private lateinit var mAdapter: MessageAdapter
 
@@ -73,6 +74,10 @@ class MessagesActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun finishAfterTransition() {
+        slideManager.slideLayout?.slideExit() ?: super.finishAfterTransition()
     }
 
     private fun initData() {

@@ -61,11 +61,6 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
     private var mPathStroke = Path()
 
     /**
-     * RectF for reusing.
-     */
-    private var mRectF = RectF()
-
-    /**
      * Stroke offset.
      */
     private var mStrokeOffset = (strokeWidth / 2)
@@ -136,23 +131,23 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
         mPathFill.lineTo(arrowWidth, cornerRadius)
 
         // Upper left corner and the upper line.
-        mRectF.set(arrowWidth, 0F, arrowWidth + cornerRadius, cornerRadius)
-        mPathFill.arcTo(mRectF, 180F, 90F)
+        sRectF.set(arrowWidth, 0F, arrowWidth + cornerRadius, cornerRadius)
+        mPathFill.arcTo(sRectF, 180F, 90F)
         mPathFill.lineTo(width - cornerRadius, 0F)
 
         // Upper right corner and the right line.
-        mRectF.set(width - cornerRadius, 0F, width, cornerRadius)
-        mPathFill.arcTo(mRectF, 270F, 90F)
+        sRectF.set(width - cornerRadius, 0F, width, cornerRadius)
+        mPathFill.arcTo(sRectF, 270F, 90F)
         mPathFill.lineTo(width, height - cornerRadius)
 
         // Bottom right corner and the bottom line.
-        mRectF.set(width - cornerRadius, height - cornerRadius, width, height)
-        mPathFill.arcTo(mRectF, 0F, 90F)
+        sRectF.set(width - cornerRadius, height - cornerRadius, width, height)
+        mPathFill.arcTo(sRectF, 0F, 90F)
         mPathFill.lineTo((arrowWidth + cornerRadius), height)
 
         // Bottom left corner.
-        mRectF.set(arrowWidth, height - cornerRadius, arrowWidth + cornerRadius, height)
-        mPathFill.arcTo(mRectF, 90F, 90F)
+        sRectF.set(arrowWidth, height - cornerRadius, arrowWidth + cornerRadius, height)
+        mPathFill.arcTo(sRectF, 90F, 90F)
 
         mPathFill.close()
     }
@@ -171,36 +166,36 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
         mPathStroke.lineTo(arrowWidth + strokeOffset, cornerRadius)
 
         // Upper left corner and the upper line.
-        mRectF.set(
+        sRectF.set(
             arrowWidth + strokeOffset,
             strokeOffset,
             arrowWidth + cornerRadius - strokeOffset,
             cornerRadius - strokeOffset)
-        mPathStroke.arcTo(mRectF, 180F, 90F)
+        mPathStroke.arcTo(sRectF, 180F, 90F)
         mPathStroke.lineTo(width - cornerRadius, strokeOffset)
 
         // Upper right corner and the right line.
-        mRectF.set(width - cornerRadius + strokeOffset, strokeOffset,
+        sRectF.set(width - cornerRadius + strokeOffset, strokeOffset,
             width - strokeOffset, cornerRadius - strokeOffset)
-        mPathStroke.arcTo(mRectF, 270F, 90F)
+        mPathStroke.arcTo(sRectF, 270F, 90F)
         mPathStroke.lineTo(width - strokeOffset, height - cornerRadius)
 
         // Bottom right corner and the bottom line.
-        mRectF.set(
+        sRectF.set(
             width - cornerRadius + strokeOffset,
             height - cornerRadius + strokeOffset,
             width - strokeOffset,
             height - strokeOffset)
-        mPathStroke.arcTo(mRectF, 0F, 90F)
+        mPathStroke.arcTo(sRectF, 0F, 90F)
         mPathStroke.lineTo((arrowWidth + cornerRadius), height - strokeOffset)
 
         // Bottom left corner.
-        mRectF.set(
+        sRectF.set(
             arrowWidth + strokeOffset,
             height - cornerRadius + strokeOffset,
             arrowWidth + cornerRadius - strokeOffset,
             height - strokeOffset)
-        mPathStroke.arcTo(mRectF, 90F, 90F)
+        mPathStroke.arcTo(sRectF, 90F, 90F)
 
         mPathStroke.close()
     }
@@ -209,4 +204,9 @@ class BubbleShape(@Direction var arrowDirection: Int = Direction.START,
      * Shallow clone as a new object.
      */
     override fun clone(): BubbleShape = super.clone() as BubbleShape
+
+    private companion object {
+        @JvmStatic
+        private var sRectF = RectF()
+    }
 }
