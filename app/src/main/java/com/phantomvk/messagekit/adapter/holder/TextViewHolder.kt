@@ -25,11 +25,17 @@
 package com.phantomvk.messagekit.adapter.holder
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.drawable.StateListDrawable
 import android.view.View
 import android.widget.TextView
-import com.phantomvk.vkit.R
-import com.phantomvk.messagekit.widget.getStateListDrawable
+import androidx.core.content.ContextCompat
+import com.phantomvk.messagekit.R
+import com.phantomvk.vkit.bubble.BubbleShape
+import com.phantomvk.vkit.bubble.Direction
 import com.phantomvk.vkit.model.IMessage
+import com.phantomvk.vkit.util.dip
+import com.phantomvk.vkit.widget.BubbleStateListDrawable
 
 class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
     /**
@@ -44,5 +50,25 @@ class TextViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     override fun setLayoutBubble() {
         mText.background = getStateListDrawable(itemView.context, isHost)
+    }
+
+    private fun getStateListDrawable(context: Context, isHost: Boolean): StateListDrawable {
+        val colorRes = if (isHost) R.color.colorHostSolid else R.color.colorGuestSolid
+        val color = ContextCompat.getColor(context, colorRes)
+
+        val strokeColorRes = if (isHost) R.color.colorHostStroke else R.color.colorGuestStroke
+        val strokeColor = ContextCompat.getColor(context, strokeColorRes)
+
+        val direction = if (isHost) Direction.END else Direction.START
+
+        val shape = BubbleShape(direction,
+            context.dip(6F),
+            context.dip(12F),
+            context.dip(4F),
+            context.dip(0.5F),
+            context.dip(10F),
+            color, strokeColor)
+
+        return BubbleStateListDrawable(context, shape)
     }
 }

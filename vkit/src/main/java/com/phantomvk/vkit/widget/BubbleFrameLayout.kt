@@ -37,7 +37,8 @@ import com.phantomvk.vkit.bubble.Direction
 open class BubbleFrameLayout
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr), IBubbleLayout {
+                          defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr),
+    IBubbleLayout {
 
     /**
      * Foreground mask.
@@ -98,7 +99,7 @@ open class BubbleFrameLayout
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.clipPath(mDrawer.path)
+        mDrawer.clipPath(canvas)
         super.draw(canvas)
         mDrawer.draw(canvas)
     }

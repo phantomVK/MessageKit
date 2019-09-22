@@ -50,6 +50,7 @@ object HolderRegister {
     /**
      * Get view type id by message's type string.
      */
+    @JvmStatic
     private val sViewType = HashMap<String, Int>()
 
     /**
@@ -57,6 +58,7 @@ object HolderRegister {
      *
      * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
      */
+    @JvmStatic
     private val sContentTypes = SparseArray<HolderConfig>()
 
     init {

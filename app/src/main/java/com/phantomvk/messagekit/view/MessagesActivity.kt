@@ -24,11 +24,9 @@
 
 package com.phantomvk.messagekit.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.messagekit.adapter.HolderRegister
@@ -37,8 +35,10 @@ import com.phantomvk.messagekit.adapter.MessageHolder
 import com.phantomvk.messagekit.listener.MessageItemListener
 import com.phantomvk.messagekit.listener.MessageResLoader
 import com.phantomvk.messagekit.model.*
+import com.phantomvk.slideback.SlideActivity
 
-class MessagesActivity : AppCompatActivity() {
+
+class MessagesActivity : SlideActivity() {
 
     private lateinit var mAdapter: MessageAdapter
 
@@ -46,7 +46,7 @@ class MessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
         layoutManager.isSmoothScrollbarEnabled = true
 
         val messageView = RecyclerView(this)
@@ -54,7 +54,6 @@ class MessagesActivity : AppCompatActivity() {
         messageView.layoutParams = layoutParams
         messageView.layoutManager = layoutManager
         messageView.setHasFixedSize(true)
-        messageView.setBackgroundColor(Color.WHITE)
 
         val itemListener = MessageItemListener(messageView)
         val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader())
@@ -75,6 +74,10 @@ class MessagesActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun finishAfterTransition() {
+        slideManager.slideLayout?.slideExit() ?: super.finishAfterTransition()
     }
 
     private fun initData() {
@@ -159,9 +162,9 @@ class MessagesActivity : AppCompatActivity() {
     private fun addImages() {
         val msg1 = ImageMessage("img_2")
         msg1.setSender("Austin")
-        msg1.width = 1330
-        msg1.height = 2000
-        msg1.url = "http://up.tukuwa.com/pic_source/ec/eb/7d/eceb7d5bdb5ea716be17bc20d15c0275.jpg"
+        msg1.width = 1024
+        msg1.height = 680
+        msg1.url = "http://up.tukuwa.com/pic/70/c6/08/70c608dac3c7f04f40893e2f8b24d0e0.jpg"
         mAdapter.add(msg1)
 
         val msg2 = ImageMessage("img_3")

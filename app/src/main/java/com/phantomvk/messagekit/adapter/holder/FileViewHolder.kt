@@ -27,7 +27,6 @@ package com.phantomvk.messagekit.adapter.holder
 import android.app.Activity
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.model.FileMessage
@@ -50,22 +49,11 @@ class FileViewHolder(itemView: View) : BaseViewHolder(itemView) {
      */
     private val mSize: TextView = itemView.findViewById(R.id.size)
 
-    /**
-     * The source of file comes from, optional.
-     */
-    private val mSource: TextView = itemView.findViewById(R.id.source)
-
-    /**
-     * File download or upload progress bar cover, optional.
-     */
-    private val mCover: ProgressBar = itemView.findViewById(R.id.cover)
-
     override fun onBind(activity: Activity, message: IMessage) {
         super.onBind(activity, message)
         val msg = message as FileMessage
         mName.text = msg.getBody()
         mSize.text = FileUtil.formatFileSize(msg.size)
-        mSource.text = "Website"
-        resLoader.loadImage(activity, "", mImage)
+        resLoader.loadImage(activity, null, mImage)
     }
 }

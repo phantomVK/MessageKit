@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.phantomvk.vkit.widget.BubbleRelativeLayout
+<com.phantomvk.vkit.widget.BubbleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="232dp"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:ignore="SmallSp">
 
     <TextView
@@ -53,4 +54,4 @@
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription"
         tools:src="@android:color/darker_gray"/>
-</com.phantomvk.vkit.widget.BubbleRelativeLayout>
+</com.phantomvk.vkit.widget.BubbleLinearLayout>

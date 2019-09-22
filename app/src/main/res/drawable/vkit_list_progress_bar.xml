@@ -5,7 +5,7 @@
         android:gravity="center_vertical|fill_horizontal">
         <shape android:shape="rectangle">
             <size android:height="2dp"/>
-            <solid android:color="@color/vkit_color_host_stroke"/>
+            <solid android:color="@color/colorHostStroke"/>
         </shape>
     </item>
     <item
