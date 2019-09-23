@@ -34,10 +34,8 @@ import com.phantomvk.vkit.bubble.BubbleDrawer
 import com.phantomvk.vkit.bubble.Direction
 
 open class BubbleLinearLayout
-@JvmOverloads constructor(context: Context,
-                          attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr),
-    IBubbleLayout {
+@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    LinearLayout(context, attrs, defStyleAttr), IBubbleLayout {
 
     /**
      * Foreground mask.

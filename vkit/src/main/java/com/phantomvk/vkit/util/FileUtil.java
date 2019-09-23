@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class FileUtil {
 
     public static String formatFileSize(long size) {
+        if (size < 0) throw new IllegalArgumentException("size must be positive.");
         if (size == 0) return "0B";
 
         double kiloByte = size / 1024f;

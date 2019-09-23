@@ -22,21 +22,27 @@
  * SOFTWARE.
  */
 
-package com.phantomvk.vkit.listener
+package com.phantomvk.vkit.util
 
-/**
- * Implemented by the subclass of AbstractMessageAdapter, then called by Activity or Fragment.
- */
-interface OnLifecycleListener {
-    fun onCreate()
+import android.content.Context
+import android.graphics.Point
+import android.view.View
+import android.view.WindowManager
+import android.widget.Toast
 
-    fun onStart()
+@Suppress("NOTHING_TO_INLINE")
+inline fun View.toast(message: CharSequence) =
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-    fun onResume()
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.displayDensity() = resources.displayMetrics.density
 
-    fun onPause()
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.dip(value: Float): Float = value * resources.displayMetrics.density
 
-    fun onStop()
-
-    fun onDestroy()
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.displaySize(): Point {
+    val p = Point()
+    (getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getSize(p)
+    return p
 }
