@@ -67,7 +67,7 @@ class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItem
             }
 
             else -> {
-                itemView.context.toast("onContentClick, body: ${message.getBody()}")
+                itemView.toast("onContentClick, body: ${message.getBody()}")
             }
         }
     }
