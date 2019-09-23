@@ -46,7 +46,7 @@ class MessagesActivity : SlideActivity() {
         super.onCreate(savedInstanceState)
 
         val layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        val layoutManager = LinearLayoutManager(this)
         layoutManager.isSmoothScrollbarEnabled = true
 
         val messageView = RecyclerView(this)
@@ -56,7 +56,7 @@ class MessagesActivity : SlideActivity() {
         messageView.setHasFixedSize(true)
 
         val itemListener = MessageItemListener(messageView)
-        val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader())
+        val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader)
         mAdapter = MessageAdapter(this, itemListener, holder)
         mAdapter.setHasStableIds(true)
 

@@ -58,7 +58,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Init resources and setup configurations only once when holder is created.
      */
-    abstract fun created()
+    abstract fun onCreate()
 
     /**
      * Bind message to current item.
@@ -77,7 +77,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         this.itemListener = itemListener
         this.resLoader = resLoader
         this.adapter = adapter
-        created()
+        onCreate()
         return this
     }
 }

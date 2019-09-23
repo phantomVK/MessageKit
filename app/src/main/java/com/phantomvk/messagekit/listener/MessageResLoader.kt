@@ -32,7 +32,7 @@ import com.phantomvk.messagekit.GlideApp
 import com.phantomvk.messagekit.R
 import com.phantomvk.vkit.listener.IMessageResLoader
 
-class MessageResLoader : IMessageResLoader {
+object MessageResLoader : IMessageResLoader {
 
     override fun loadAvatar(context: Context, image: String?, view: ImageView) {
         // Free images from: https://www.pexels.com/search/people/

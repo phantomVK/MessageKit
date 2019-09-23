@@ -30,11 +30,17 @@ import org.jetbrains.anko.dip
 
 class BubbleDrawable(context: Context, shape: BubbleShape) : ShapeDrawable(shape) {
     init {
-        val dip6 = context.dip(6)
+        val left: Int
+        val right: Int
         val dip10 = context.dip(10)
 
-        val left = if (shape.arrowDirection == Direction.END) dip10 else dip6 + dip10
-        val right = if (shape.arrowDirection == Direction.END) dip6 + dip10 else dip10
+        if (shape.arrowDirection == Direction.END) {
+            left = dip10
+            right = context.dip(6) + dip10
+        } else {
+            left = context.dip(6) + dip10
+            right = dip10
+        }
 
         setPadding(left, dip10, right, dip10)
     }

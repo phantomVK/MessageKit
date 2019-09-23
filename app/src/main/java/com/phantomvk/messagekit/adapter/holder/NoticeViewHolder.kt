@@ -40,7 +40,7 @@ class NoticeViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Override as an empty implementation.
      */
-    override fun created() {
+    override fun onCreate() {
     }
 
     override fun onBind(activity: Activity, message: IMessage) {

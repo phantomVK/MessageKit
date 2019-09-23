@@ -99,12 +99,9 @@ class MessageItemListener(private val recyclerView: RecyclerView) : IMessageItem
                 R.id.redact -> adapter.remove(layoutPosition)
                 R.id.selection -> adapter.setSelecting(itemView, true)
                 R.id.duplicate -> {
-                    val message = adapter.getMessage(layoutPosition)
-                    message ?: return@setOnMenuItemClickListener false
-                    adapter.add(message, true)
-                    recyclerView.postDelayed({
-                        recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
-                    }, 100)
+                    val msg = adapter.getMessage(layoutPosition)
+                    adapter.add(msg ?: return@setOnMenuItemClickListener false, true)
+                    recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
                 }
             }
             return@setOnMenuItemClickListener true

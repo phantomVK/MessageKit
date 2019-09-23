@@ -26,14 +26,15 @@ package com.phantomvk.messagekit.listener
 
 import android.app.Activity
 import android.graphics.Rect
+import android.view.GestureDetector
 import android.view.MotionEvent
 import com.phantomvk.messagekit.adapter.MessageAdapter
 import com.phantomvk.messagekit.adapter.holder.BaseViewHolder
-import com.phantomvk.vkit.listener.AbstractOnGestureListener
 import com.phantomvk.vkit.listener.IMessageItemListener
 
 class OnGestureListener(private val holder: BaseViewHolder,
-                        private val listener: IMessageItemListener) : AbstractOnGestureListener() {
+                        private val listener: IMessageItemListener) :
+    GestureDetector.SimpleOnGestureListener() {
 
     private val location = IntArray(2)
     private var statusBarHeight = 0
@@ -67,4 +68,10 @@ class OnGestureListener(private val holder: BaseViewHolder,
         listener.onContentClick(holder.itemView, message)
         return true
     }
+
+    override fun onDown(e: MotionEvent?) = true
+
+    override fun onDoubleTapEvent(e: MotionEvent?) = true
+
+    override fun onSingleTapUp(e: MotionEvent?) = true
 }

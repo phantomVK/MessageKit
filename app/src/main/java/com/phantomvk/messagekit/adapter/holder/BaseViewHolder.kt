@@ -105,7 +105,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     /**
      * Do NOT override this method.
      */
-    final override fun created() {
+    final override fun onCreate() {
         setResendListener(mResendView)
         setItemListener(mAvatarView)
         setLayoutBubble()
