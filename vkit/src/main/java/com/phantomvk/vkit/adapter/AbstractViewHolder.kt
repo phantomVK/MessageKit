@@ -38,7 +38,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Tells if I'm the sender of current message.
      */
-    protected var isHost: Boolean = false
+    protected var isHost = false
 
     /**
      * Message item click listener.
@@ -58,7 +58,7 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     /**
      * Init resources and setup configurations only once when holder is created.
      */
-    abstract fun onCreate()
+    protected abstract fun onCreate()
 
     /**
      * Bind message to current item.

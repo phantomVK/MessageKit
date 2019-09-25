@@ -24,6 +24,7 @@
 
 package com.phantomvk.messagekit.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
@@ -36,6 +37,7 @@ import com.phantomvk.messagekit.listener.MessageItemListener
 import com.phantomvk.messagekit.listener.MessageResLoader
 import com.phantomvk.messagekit.model.*
 import com.phantomvk.slideback.SlideActivity
+import org.jetbrains.anko.backgroundColor
 
 
 class MessagesActivity : SlideActivity() {
@@ -54,6 +56,7 @@ class MessagesActivity : SlideActivity() {
         messageView.layoutParams = layoutParams
         messageView.layoutManager = layoutManager
         messageView.setHasFixedSize(true)
+        messageView.backgroundColor = Color.WHITE
 
         val itemListener = MessageItemListener(messageView)
         val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader)

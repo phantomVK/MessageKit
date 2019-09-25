@@ -51,7 +51,7 @@ object HolderRegister {
      * Get view type id by message's type string.
      */
     @JvmStatic
-    private val sViewType = HashMap<String, Int>()
+    private val sViewType = HashMap<String, Int>(8)
 
     /**
      * Content types array.
@@ -59,7 +59,7 @@ object HolderRegister {
      * Use SparseArray<HolderConfig>() instead of HashMap<int, HolderConfig>() to save memory.
      */
     @JvmStatic
-    private val sContentTypes = SparseArray<HolderConfig>()
+    private val sContentTypes = SparseArray<HolderConfig>(9)
 
     init {
         sViewType.apply {
@@ -73,15 +73,15 @@ object HolderRegister {
             put(Message.MESSAGE_TYPE_VIDEO, HOLDER_VIDEO)
         }
 
-        sContentTypes.apply {
-            val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
-            val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
-            val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)
-            val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, 8, true)
-            val fileConfig = HolderConfig(R.layout.vkit_layout_msg_file, ::FileViewHolder, 11)
-            val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder, 14)
-            val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder, 8)
+        val textConfig = HolderConfig(R.layout.vkit_layout_msg_text, ::TextViewHolder, 15)
+        val urlConfig = HolderConfig(R.layout.vkit_layout_msg_url, ::UrlViewHolder, 10)
+        val locationConfig = HolderConfig(R.layout.vkit_layout_msg_location, ::LocationViewHolder, 8)
+        val noticeConfig = HolderConfig(R.layout.vkit_layout_msg_notice, ::NoticeViewHolder, 8, true)
+        val fileConfig = HolderConfig(R.layout.vkit_layout_msg_file, ::FileViewHolder, 11)
+        val audioConfig = HolderConfig(R.layout.vkit_layout_msg_audio, ::AudioViewHolder, 14)
+        val mediaConfig = HolderConfig(R.layout.vkit_layout_msg_media, ::MediaViewHolder, 8)
 
+        sContentTypes.apply {
             put(HOLDER_DEFAULT, textConfig)
             put(HOLDER_TEXT, textConfig)
             put(HOLDER_URL, urlConfig)

@@ -93,16 +93,6 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     val point = PointF()
 
     /**
-     * Current mode of this view holder.
-     */
-    private var holderSelecting = false
-
-    /**
-     * Default message timestamp span in millisecond.
-     */
-    private val msgSpan = 3 * 60 * 1000L // 3min.
-
-    /**
      * Do NOT override this method.
      */
     final override fun onCreate() {
@@ -136,7 +126,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         }
 
         itemView.setOnClickListener {
-            if (!holderSelecting) return@setOnClickListener
+            if (!sHolderSelecting) return@setOnClickListener
             val isSelected = mCheckBox.isChecked
             mCheckBox.isChecked = !isSelected
             adapter.onItemSelectedChange(layoutPosition, isSelected, null)
@@ -144,11 +134,19 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     open fun setLayoutBubble() {
-        val direction = if (isHost) Direction.END else Direction.START
-        (contentView as IBubbleLayout).setBubbleDirection(direction)
+        val paddingLeft: Int
+        val paddingRight: Int
 
-        val paddingLeft = if (isHost) 0 else itemView.context.dip(5)
-        val paddingRight = if (isHost) itemView.context.dip(5) else 0
+        if (isHost) {
+            paddingLeft = 0
+            paddingRight = itemView.context.dip(5)
+            (contentView as IBubbleLayout).setBubbleDirection(Direction.END)
+        } else {
+            paddingLeft = itemView.context.dip(5)
+            paddingRight = 0
+            (contentView as IBubbleLayout).setBubbleDirection(Direction.START)
+        }
+
         contentView.setPadding(paddingLeft, 0, paddingRight, 0)
     }
 
@@ -182,7 +180,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      */
     private fun setSelecting(adapterSelecting: Boolean) {
         (itemView as InterceptedRelativeLayout).intercepted = adapterSelecting
-        holderSelecting = adapterSelecting
+        sHolderSelecting = adapterSelecting
         mCheckBox.isVisible = adapterSelecting
         if (adapterSelecting) {
             mCheckBox.isChecked = adapter.isItemSelected(layoutPosition)
@@ -203,8 +201,8 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
      * Set text to date view. Timestamps used below are millisecond and must not be negative.
      *
      * View visible:
-     *     1. Current message timestamp is #msgSpan larger than the previous;
-     *     2. The message is the last one, also has been sent more then #msgSpan;
+     *     1. Current message timestamp is #MSG_SPAN larger than the previous;
+     *     2. The message is the last one, also has been sent more then #MSG_SPAN;
      *     3. The message has been redacted, just shows the timestamp of redaction.
      *
      * View gone:
@@ -223,13 +221,11 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         val msgTs = message.getTimestamp()
         val preTs = adapter.getMessage(layoutPosition - 1)?.getTimestamp() ?: 0
         val sysTs = System.currentTimeMillis()
-        val redacted = false
 
         if (msgTs == 0L) {
-            view.visibility = View.GONE
-        } else if ((msgTs - preTs > msgSpan)
-            || (layoutPosition == adapter.itemCount - 1 && sysTs - msgTs > msgSpan)
-            || redacted) {
+            view.isVisible = false
+        } else if ((msgTs - preTs > MSG_SPAN)
+            || (layoutPosition == adapter.itemCount - 1 && sysTs - msgTs > MSG_SPAN)) {
             view.isVisible = true
             view.text = getDateText(itemView.context, msgTs, sysTs)
         } else {
@@ -237,9 +233,10 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         }
     }
 
-    private fun getDateText(context: Context, ts: Long, sysTs: Long): String {
-        calendar.timeInMillis = ts
-        val interval = sysTs - calendar.timeInMillis
+    @Suppress("NOTHING_TO_INLINE")
+    private inline fun getDateText(context: Context, ts: Long, sysTs: Long): String {
+        sCalendar.timeInMillis = ts
+        val interval = sysTs - sCalendar.timeInMillis
 
         return when {
             DateUtils.DAY_IN_MILLIS > interval -> {
@@ -270,17 +267,28 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         }
     }
 
-    companion object {
+    private companion object {
         /**
          * Instance used by all ViewHolders in order to reduce memory usage.
          *
          * Warning: Used in UiThread only.
          */
-        private val calendar = GregorianCalendar().apply {
+        @JvmStatic
+        private val sCalendar = GregorianCalendar().apply {
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
+
+        /**
+         * Default message timestamp span in millisecond.
+         */
+        private const val MSG_SPAN = 3 * 60 * 1000L // 3min.
+
+        /**
+         * Current mode of this view holder.
+         */
+        private var sHolderSelecting = false
     }
 }
