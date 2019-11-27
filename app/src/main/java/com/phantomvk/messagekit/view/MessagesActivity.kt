@@ -103,7 +103,8 @@ class MessagesActivity : SlideActivity() {
         val msg1 = UrlMessage("Google", "https://www.google.com")
         msg1.setSender("Austin")
         msg1.domain = "https://www.google.com"
-        msg1.image = "http://img1.imgtn.bdimg.com/it/u=3690048061,2739563546&fm=214&gp=0.jpg"
+        msg1.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_" +
+                "Logo.svg/200px-Google_%22G%22_Logo.svg.png"
         msg1.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
@@ -113,7 +114,8 @@ class MessagesActivity : SlideActivity() {
         val msg2 = UrlMessage("Google", "https://www.google.com")
         msg2.setSender("Daniel")
         msg2.domain = "https://www.google.com"
-        msg2.image = "http://img1.imgtn.bdimg.com/it/u=3690048061,2739563546&fm=214&gp=0.jpg"
+        msg2.image = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_" +
+                "Logo.svg/200px-Google_%22G%22_Logo.svg.png"
         msg2.description = "Google LLC is an American multinational technology company " +
                 "that specializes in Internet-related services and products, which include " +
                 "online advertising technologies, search engine, cloud computing, software, " +
