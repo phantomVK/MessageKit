@@ -76,10 +76,6 @@ class MessagesActivity : SlideActivity() {
         }
     }
 
-    override fun finishAfterTransition() {
-        slideManager.slideLayout?.slideExit() ?: super.finishAfterTransition()
-    }
-
     private fun initData() {
         for (i in 0..5) {
             addText()
