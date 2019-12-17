@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    implementation 'com.phantomvk.slideback:slideback:0.3.4'
+    implementation 'com.phantomvk.slideback:slideback:0.3.6'
 
     // Anko
     implementation "org.jetbrains.anko:anko-sdk27:${versions.anko}"
