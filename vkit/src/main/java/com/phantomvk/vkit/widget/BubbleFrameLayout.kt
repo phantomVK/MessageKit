@@ -46,7 +46,7 @@ open class BubbleFrameLayout
     /**
      * Bubble drawer.
      */
-    private val mDrawer = BubbleDrawer()
+    private val mDrawer = BubbleDrawer(context)
 
     /**
      * Record if the user is touching the layout.

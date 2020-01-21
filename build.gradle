@@ -20,10 +20,10 @@ buildscript {
             coroutines : '0.20',
 
             okio       : '2.4.3',
-            okhttp     : '4.2.2',
+            okhttp     : '4.3.1',
             retrofit   : '2.4.0',
 
-            glide      : '4.10.0',
+            glide      : '4.11.0',
             anko       : '0.10.8',
             eventbus   : '3.1.1',
             gson       : '2.8.5'

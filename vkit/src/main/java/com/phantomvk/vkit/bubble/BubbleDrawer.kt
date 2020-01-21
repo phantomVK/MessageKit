@@ -24,15 +24,18 @@
 
 package com.phantomvk.vkit.bubble
 
+import android.content.Context
 import android.graphics.*
 import androidx.annotation.ColorInt
+import com.phantomvk.vkit.util.dip
 
-class BubbleDrawer(@Direction var arrowDirection: Int = Direction.START,
-                   var arrowWidth: Float = 18F,
-                   var arrowHeight: Float = 36F,
-                   var arrowMarginTop: Float = 12F,
-                   var cornerRadius: Float = 30F,
-                   var strokeOffset: Float = 3F,
+class BubbleDrawer(var context: Context,
+                   @Direction var arrowDirection: Int = Direction.START,
+                   var arrowWidth: Float = context.dip(6F),
+                   var arrowHeight: Float = context.dip(12F),
+                   var arrowMarginTop: Float = context.dip(4F),
+                   var cornerRadius: Float = context.dip(10F),
+                   var strokeOffset: Float = context.dip(1F),
                    @ColorInt var strokeColor: Int = 0xFFCFCFCF.toInt()) {
 
     private val path = Path()
