@@ -24,6 +24,8 @@
 
 package com.phantomvk.messagekit.view
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -59,7 +61,8 @@ class MessagesActivity : SlideActivity() {
         messageView.backgroundColor = Color.WHITE
 
         val itemListener = MessageItemListener(messageView)
-        val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader)
+        val style = intent.getIntExtra("S", 1)
+        val holder = MessageHolder(layoutInflater, itemListener, MessageResLoader, style)
         mAdapter = MessageAdapter(this, itemListener, holder)
         mAdapter.setHasStableIds(true)
 
@@ -133,20 +136,20 @@ class MessagesActivity : SlideActivity() {
         msg1.setSender("Austin")
         msg1.address = "Wangjing, Chaoyang District, Beijing City, China"
         msg1.image =
-            "http://restapi.amap.com/v3/staticmap" +
-                    "?location=116.481485,39.990464" +
-                    "&zoom=12&size=696*270" +
-                    "&key=6912dce4d721f10e97753912cdb9e885"
+                "http://restapi.amap.com/v3/staticmap" +
+                        "?location=116.481485,39.990464" +
+                        "&zoom=12&size=696*270" +
+                        "&key=6912dce4d721f10e97753912cdb9e885"
         mAdapter.add(msg1)
 
         val msg2 = LocationMessage("Beijing, China")
         msg2.setSender("Daniel")
         msg2.address = "Wangjing, Chaoyang District, Beijing City"
         msg2.image =
-            "http://restapi.amap.com/v3/staticmap" +
-                    "?location=116.481485,39.990464" +
-                    "&zoom=12&size=696*270" +
-                    "&key=6912dce4d721f10e97753912cdb9e885"
+                "http://restapi.amap.com/v3/staticmap" +
+                        "?location=116.481485,39.990464" +
+                        "&zoom=12&size=696*270" +
+                        "&key=6912dce4d721f10e97753912cdb9e885"
         mAdapter.add(msg2)
     }
 
@@ -195,5 +198,17 @@ class MessagesActivity : SlideActivity() {
         val msg2 = NoticeMessage("This is notice")
         mAdapter.add(msg)
         mAdapter.add(msg2)
+    }
+
+    companion object {
+        const val STYLE_LAYOUT_INFLATER = 0
+        const val STYLE_ANKO = 1
+        const val STYLE_JET_PACK = 2
+
+        fun startActivity(activity: Activity, style: Int) {
+            Intent(activity, MessagesActivity::class.java)
+                .putExtra("S", style)
+                .run { activity.startActivity(this) }
+        }
     }
 }

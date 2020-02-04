@@ -31,6 +31,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.phantomvk.messagekit.R
 import com.phantomvk.messagekit.adapter.HolderRegister.HOLDER_NOTICE
+import com.phantomvk.messagekit.view.MessagesActivity.Companion.STYLE_ANKO
+import com.phantomvk.messagekit.view.MessagesActivity.Companion.STYLE_LAYOUT_INFLATER
 import com.phantomvk.messagekit.widget.MessageFrameIncoming
 import com.phantomvk.messagekit.widget.MessageFrameOutgoing
 import com.phantomvk.messagekit.widget.layout.*
@@ -44,13 +46,9 @@ import kotlin.math.abs
 
 class MessageHolder(inflater: LayoutInflater,
                     itemListener: IMessageItemListener,
-                    resLoader: IMessageResLoader)
+                    resLoader: IMessageResLoader,
+                    private val style: Int)
     : AbstractMessageHolder<MessageAdapter>(inflater, itemListener, resLoader) {
-
-    /**
-     * Use LayoutInflater to inflate XML, or Anko to create views.
-     */
-    private var xmlStyle = true
 
     /**
      * Bind view.
@@ -78,10 +76,10 @@ class MessageHolder(inflater: LayoutInflater,
         val absViewType = abs(viewType)
         val config = HolderRegister.getContentType(absViewType)
 
-        return if (xmlStyle) {
-            xmlStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
-        } else {
-            ankoStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
+        return when (style) {
+            STYLE_LAYOUT_INFLATER -> xmlStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
+            STYLE_ANKO -> ankoStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
+            else -> ankoStyle(parent, config.layoutId, adapter, config.holder, absViewType, isHost)
         }
     }
 
@@ -157,5 +155,11 @@ class MessageHolder(inflater: LayoutInflater,
 
         // Init ViewHolder.
         return holder.invoke(frame).init(isHost, adapter, itemListener, resLoader)
+    }
+
+    /**
+     * TODO: Experimental, create Views using JetPack.
+     */
+    private fun jetPackStyle() {
     }
 }

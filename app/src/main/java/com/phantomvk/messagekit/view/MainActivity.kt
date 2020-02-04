@@ -24,28 +24,47 @@
 
 package com.phantomvk.messagekit.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import org.jetbrains.anko.startActivity
+import com.phantomvk.messagekit.view.MessagesActivity.Companion.STYLE_ANKO
+import com.phantomvk.messagekit.view.MessagesActivity.Companion.STYLE_JET_PACK
+import com.phantomvk.messagekit.view.MessagesActivity.Companion.STYLE_LAYOUT_INFLATER
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val params = FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        params.gravity = Gravity.CENTER
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
 
-        // Create button.
         val button = Button(this)
-        button.text = "Start"
+        button.text = "LayoutInflater"
         button.isAllCaps = false
-        button.setOnClickListener { startActivity<MessagesActivity>() }
+        button.setOnClickListener { MessagesActivity.startActivity(this, STYLE_LAYOUT_INFLATER) }
+        layout.addView(button)
 
-        addContentView(button, params)
+        val button2 = Button(this)
+        button2.text = "Anko"
+        button2.isAllCaps = false
+        button2.setOnClickListener { MessagesActivity.startActivity(this, STYLE_ANKO) }
+        layout.addView(button2)
+
+        val button3 = Button(this)
+        button3.text = "JetPack"
+        button3.isAllCaps = false
+        button3.setOnClickListener { MessagesActivity.startActivity(this, STYLE_JET_PACK) }
+        layout.addView(button3)
+
+        val params = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        params.gravity = Gravity.CENTER
+        addContentView(layout, params)
     }
 }
