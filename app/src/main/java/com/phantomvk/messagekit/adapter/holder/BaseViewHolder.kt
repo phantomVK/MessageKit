@@ -233,38 +233,41 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
         }
     }
 
-    @Suppress("NOTHING_TO_INLINE")
-    private inline fun getDateText(context: Context, ts: Long, sysTs: Long): String {
+    private fun getDateText(context: Context, ts: Long, sysTs: Long): String {
         sCalendar.timeInMillis = ts
         val interval = sysTs - sCalendar.timeInMillis
 
         return when {
             DateUtils.DAY_IN_MILLIS > interval -> {
-                DateUtils.formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
+                formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
             }
 
             DateUtils.DAY_IN_MILLIS * 2 > interval -> {
                 val yesterday = DateUtils.getRelativeTimeSpanString(ts, sysTs,
-                    DateUtils.DAY_IN_MILLIS,
-                    DateUtils.FORMAT_SHOW_DATE).toString()
+                        DateUtils.DAY_IN_MILLIS,
+                        DateUtils.FORMAT_SHOW_DATE).toString()
 
-                yesterday + DateUtils.formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
+                yesterday + formatDateTime(context, ts, DateUtils.FORMAT_SHOW_TIME)
             }
 
             DateUtils.WEEK_IN_MILLIS > interval -> {
-                DateUtils.formatDateTime(context, ts,
-                    DateUtils.FORMAT_SHOW_TIME
-                            or DateUtils.FORMAT_SHOW_WEEKDAY
-                            or DateUtils.FORMAT_ABBREV_ALL)
+                formatDateTime(context, ts,
+                        DateUtils.FORMAT_SHOW_TIME
+                                or DateUtils.FORMAT_SHOW_WEEKDAY
+                                or DateUtils.FORMAT_ABBREV_ALL)
             }
 
             else -> {
-                DateUtils.formatDateTime(context, ts,
-                    DateUtils.FORMAT_SHOW_TIME
-                            or DateUtils.FORMAT_SHOW_DATE
-                            or DateUtils.FORMAT_SHOW_YEAR)
+                formatDateTime(context, ts,
+                        DateUtils.FORMAT_SHOW_TIME
+                                or DateUtils.FORMAT_SHOW_DATE
+                                or DateUtils.FORMAT_SHOW_YEAR)
             }
         }
+    }
+
+    private fun formatDateTime(context: Context, ts: Long, flag: Int): String {
+        return DateUtils.formatDateRange(context, getFormatter(), ts, ts, flag).toString()
     }
 
     private companion object {

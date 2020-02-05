@@ -30,11 +30,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
+import java.util.*
 
 /**
  * The abstract ViewHolder for messages to implement.
  */
 abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    /**
+     * Formatter
+     */
+    private lateinit var formatter: Formatter
+
     /**
      * Tells if I'm the sender of current message.
      */
@@ -66,17 +73,27 @@ abstract class AbstractViewHolder(itemView: View) : RecyclerView.ViewHolder(item
     abstract fun onBind(activity: Activity, message: IMessage)
 
     /**
+     * Get the formatter with StringBuilder cleared.
+     */
+    protected fun getFormatter(): Formatter {
+        (formatter.out() as StringBuilder).clear()
+        return formatter
+    }
+
+    /**
      * Init params.
      */
     open fun init(isHost: Boolean,
                   adapter: AbstractMessageAdapter<AbstractViewHolder>,
                   itemListener: IMessageItemListener,
-                  resLoader: IMessageResLoader): AbstractViewHolder {
+                  resLoader: IMessageResLoader,
+                  formatter: Formatter): AbstractViewHolder {
 
         this.isHost = isHost
         this.itemListener = itemListener
         this.resLoader = resLoader
         this.adapter = adapter
+        this.formatter = formatter
         onCreate()
         return this
     }

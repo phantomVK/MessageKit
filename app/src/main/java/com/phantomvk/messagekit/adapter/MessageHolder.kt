@@ -42,6 +42,7 @@ import com.phantomvk.vkit.listener.IMessageItemListener
 import com.phantomvk.vkit.listener.IMessageResLoader
 import com.phantomvk.vkit.model.IMessage
 import org.jetbrains.anko.AnkoContext
+import java.util.*
 import kotlin.math.abs
 
 class MessageHolder(inflater: LayoutInflater,
@@ -49,6 +50,11 @@ class MessageHolder(inflater: LayoutInflater,
                     resLoader: IMessageResLoader,
                     private val style: Int)
     : AbstractMessageHolder<MessageAdapter>(inflater, itemListener, resLoader) {
+
+    /**
+     * Formatter
+     */
+    private val formatter = Formatter(StringBuilder(20), Locale.getDefault())
 
     /**
      * Bind view.
@@ -112,7 +118,7 @@ class MessageHolder(inflater: LayoutInflater,
         container.addView(bodyView, if (isHost) container.childCount else 0)
 
         // Init ViewHolder.
-        return holder.invoke(frameView).init(isHost, adapter, itemListener, resLoader)
+        return holder.invoke(frameView).init(isHost, adapter, itemListener, resLoader, formatter)
     }
 
     /**
@@ -154,7 +160,7 @@ class MessageHolder(inflater: LayoutInflater,
         container.addView(bodyView, if (isHost) container.childCount else 0)
 
         // Init ViewHolder.
-        return holder.invoke(frame).init(isHost, adapter, itemListener, resLoader)
+        return holder.invoke(frame).init(isHost, adapter, itemListener, resLoader, formatter)
     }
 
     /**
