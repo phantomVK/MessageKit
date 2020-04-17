@@ -33,8 +33,8 @@ import com.phantomvk.messagekit.adapter.holder.BaseViewHolder
 import com.phantomvk.vkit.listener.IMessageItemListener
 
 class OnGestureListener(private val holder: BaseViewHolder,
-                        private val listener: IMessageItemListener) :
-    GestureDetector.SimpleOnGestureListener() {
+                        private val listener: IMessageItemListener)
+    : GestureDetector.SimpleOnGestureListener() {
 
     private val location = IntArray(2)
     private var statusBarHeight = 0

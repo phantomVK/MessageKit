@@ -188,7 +188,7 @@ open class BaseViewHolder(itemView: View) : AbstractViewHolder(itemView) {
     }
 
     /**
-     * -1: Resendable.
+     * -1: Resend-able.
      *  0: Sent.
      *  1: Sending.
      */
