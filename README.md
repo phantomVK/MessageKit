@@ -23,13 +23,13 @@ Pull requests to fix mistakes or improve performance are welcome.
 - Loader for loading avatars and images is decoupled, so you can use your favourite framwork.
 - Multiple selection of message items is supported, but needs further develpoment.
 - Except using LayoutInflator, layouts implemented by Anko(Experimental) are included to avoid blocking the main thread when inflating views with reflection.
-- Using design patterns to reduce the complexity maintaining the project.
+- Using design patterns to reduce the complexity when maintaining the project.
 
 #### Precautions
 
 - The requirements are variable, this repository does not have the feature of out-of-the-box. The migration of source code to your project is highly recommended. Also, no maven dependency is provided.
 - To fix mistakes, please read the update list regularly.
--  Further development to satisfy reqeriments after migrating code may take a long time, think twice before using in business project.
+- Further development to satisfy reqeriments after migrating code may take a long time, think twice before using in business project.
 - Please implement features base on the migrated code.
 
 #### Supported types

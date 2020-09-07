@@ -19,7 +19,7 @@ buildscript {
 
             coroutines : '0.20',
 
-            okio       : '2.7.0',
+            okio       : '2.8.0',
             okhttp     : '4.8.1',
             retrofit   : '2.4.0',
 
@@ -33,7 +33,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.0-rc02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.18'
         // NOTE: Do not place your application dependencies here; they belong
